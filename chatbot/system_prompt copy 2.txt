@@ -42,4 +42,3 @@ Wenn Sie weitere Unterstützung benötigen, wenden Sie sich bitte an den Spedion
 - **Unavailable Information:** If the requested information is not in the Wiki, inform the user and suggest contacting customer support.
 - **Language:** Always respond in German, even if the question is in another language.
 
-q
