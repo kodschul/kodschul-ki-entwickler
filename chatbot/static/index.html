@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Spedion Support Chatbot</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        #chat { max-width: 600px; margin: auto; }
+        .msg { margin: 1em 0; }
+        .user { color: #00529B; }
+        .bot { color: #4F8A10; }
+        #answer { white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <div id="chat">
+        <h2>Spedion Support Chatbot</h2>
+        <div id="messages"></div>
+        <form id="chatForm">
+            <input type="text" id="message" placeholder="Ihre Frage..." required style="width:80%;">
+            <button type="submit">Senden</button>
+        </form>
+    </div>
+    <script>
+        const form = document.getElementById('chatForm');
+        const messagesDiv = document.getElementById('messages');
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const userMsg = document.getElementById('message').value;
+            messagesDiv.innerHTML += `<div class="msg user"><b>Sie:</b> ${userMsg}</div>`;
+            document.getElementById('message').value = '';
+            const res = await fetch('/chat', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({message: userMsg})
+            });
+            const data = await res.json();
+            if (data.answer) {
+                messagesDiv.innerHTML += `<div class="msg bot"><b>Bot:</b> ${data.answer}</div>`;
+            } else {
+                messagesDiv.innerHTML += `<div class="msg bot"><b>Bot:</b> Fehler: ${data.error}</div>`;
+            }
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        };
+    </script>
+</body>
+</html>
