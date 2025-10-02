@@ -1,0 +1,5 @@
+# Lab 5.3 – Zukunftstrends: Der KI‑gesteuerte Dev‑Prozess
+
+Der Einsatz von LLMs wird sich künftig stark in Entwicklungsprozesse integrieren.  Die Slides zeigen Visionen wie **automatisierte Pull‑Requests**, **automatisch erstellte Issues** und **Commit‑Nachrichten**.  Ein LLM erkennt z. B. nach dem Abschluss eines Feature‑Branches die vorgenommenen Änderungen, formuliert einen PR‑Titel, eine Beschreibung der implementierten Funktionen und fügt Hinweise für Reviewer hinzu.  Ebenso können Fehlerberichte aus Logs extrahiert, als GitHub‑Issues erstellt und anschließend behoben werden.  Commit‑Nachrichten werden durch das Modell aus Diffs generiert, was zu konsistenteren und aussagekräftigeren Revisionsverläufen führt.
+
+Diese Automatisierungen lassen sich mit Agenten in CI/CD‑Pipelines verbinden.  Beispiel: Ein GitHub‑Action ruft den diff eines Commits ab, sendet ihn an das LLM und schreibt die Antwort als Commit‑Message oder PR‑Beschreibung zurück.  Der Entwickler überprüft nur noch das Resultat.

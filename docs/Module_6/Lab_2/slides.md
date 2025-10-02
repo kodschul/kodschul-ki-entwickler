@@ -1,0 +1,5 @@
+# Lab 6.2 – Urheberrecht & Verantwortung bei KI‑Code
+
+Bei der Nutzung von KI‑Systemen stellen sich rechtliche Fragen: Wem gehört der von der AI generierte Code?  In vielen Ländern ist derzeit anerkannt, dass reine AI‑Outputs ohne menschlichen Beitrag nicht dem Urheberrecht unterliegen, da eine menschliche Autor:in erforderlich ist.  Daher haftet die Organisation, die den Code verwendet, für dessen Inhalte.  Generative Modelle reproduzieren Muster aus ihren Trainingsdaten und können dabei ungewollt Lizenzpflichten verletzen【162658884983038†L86-L112】.  Es ist daher wichtig, Lizenz‑ und Nutzungsbedingungen der Modelle zu kennen und eigene Beiträge zu dokumentieren.
+
+Außerdem müssen Datenschutz‑ und Compliance‑Regeln eingehalten werden.  Die Slides empfehlen **Privacy by Design**: Keine echten personenbezogenen Daten in Prompts oder Trainingsdaten, Verwendung von Platzhaltern, Anonymisierung oder synthetischen Daten, und der Einsatz lokaler Modelle, wenn Daten das Unternehmen nicht verlassen dürfen.
