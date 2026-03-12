@@ -1,0 +1,16 @@
+[2026-03-10 09:14:29] INFO  InventoryManager gestartet
+[2026-03-10 09:14:30] INFO  23 Produkte aus Datenbank geladen
+[2026-03-10 09:14:31] INFO  Beginne täglichen Stock-Report
+[2026-03-10 09:14:32] ERROR ReportGenerator crashed
+TypeError: Cannot read properties of undefined (reading 'toFixed')
+    at ReportGenerator.formatLine (src/ReportGenerator.ts:47)
+    at Array.map (<anonymous>)
+    at ReportGenerator.generateStockReport (src/ReportGenerator.ts:31)
+    at InventoryManager.exportReport (src/InventoryManager.ts:89)
+    at Object.<anonymous> (src/index.ts:14)
+    at Module._compile (node:internal/modules/cjs/loader:1364:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1422:10)
+    at Module.load (node:internal/modules/cjs/loader:1203:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1019:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:128:12)
+[2026-03-10 09:14:32] FATAL Prozess beendet mit Exit-Code 1

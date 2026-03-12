@@ -1,0 +1,51 @@
+id,name,stock,minStock,maxStock,unit
+PROD-001,Schrauben M5x20,500,50,2000,STK
+PROD-002,Schrauben M6x30,300,50,1500,STK
+PROD-003,Muttern M5,800,100,3000,STK
+PROD-004,Unterlegscheiben 5mm,1200,200,5000,STK
+PROD-005,Dübel 8mm,400,80,2000,STK
+PROD-006,Holzleim 500ml,25,5,100,FL
+PROD-007,Schleifpapier K80,60,10,200,BOG
+PROD-008,Schleifpapier K120,45,10,200,BOG
+PROD-009,Schleifpapier K180,30,10,200,BOG
+PROD-010,Bohrer 3mm HSS,15,3,50,STK
+PROD-011,Bohrer 5mm HSS,12,3,50,STK
+PROD-012,Bohrer 8mm HSS,8,2,30,STK
+PROD-013,Sägeblatt 180mm,6,2,20,STK
+PROD-014,Sägeblatt 210mm,4,2,20,STK
+PROD-015,Winkelschleifer 125mm,3,1,10,STK
+PROD-016,Schutzbrille klar,20,5,50,STK
+PROD-017,Schutzhandschuhe Gr. L,30,10,100,PR
+PROD-018,Atemschutzmaske FFP2,100,20,500,STK
+PROD-019,Gehörschutz 30dB,25,5,80,STK
+PROD-020,Erste-Hilfe-Kasten,2,1,5,STK
+PROD-021, Isolierband rot,40,5,200,ROL
+PROD-022,Isolierband schwarz,55,5,200,ROL
+PROD-023,Kabelbinder 200mm,600,100,2000,STK
+PROD-024,Kabelkanal 2m,18,4,60,STK
+PROD-025,Steckdosenleiste 5-fach,10,2,40,STK
+PROD-026,Verlängerungskabel 5m,7,2,25,STK
+PROD-027,LED Birne E27 9W,50,10,300,STK
+PROD-028,LED Birne E14 6W,35,10,200,STK
+PROD-029,Sicherung 16A,0,10,200,STK
+PROD-030,Sicherung 10A,0,10,200,STK
+PROD-031,Malerrolle 18cm,15,3,60,STK
+PROD-032,Pinsel Set 5-tlg,8,2,30,SET
+PROD-033,Malerkrepp 50m,12,3,50,ROL
+PROD-034,Wandfarbe Weiß 10L,6,2,20,EIM
+PROD-035,Grundierung 5L,4,1,15,EIM
+PROD-036,Spachtel 8cm,20,4,80,STK
+PROD-037,Fugenmasse weiß,15,3,60,KAR
+PROD-038,Silikon transparent,22,5,100,KAR
+PROD-039,Acryl weiß,18,4,80,KAR
+PROD-040,Montageschaum 750ml,9,2,40,DS
+PROD-041,Wasserwaage 60cm,5,1,15,STK
+PROD-042,Zollstock 2m,12,3,40,STK
+PROD-043,Hammer 500g,6,1,20,STK
+PROD-044,Schraubendreher Set,4,1,15,SET
+PROD-045,Zange Kombi,7,2,25,STK
+PROD-046,Säge Handsäge,3,1,10,STK
+PROD-047,Akkuschrauber 18V,,2,20,STK
+PROD-048,Stichsäge 500W,2,1,8,STK
+PROD-049,Schlagbohrmaschine,1,1,5,STK
+PROD-050,Werkzeugkoffer leer,4,1,15,STK
