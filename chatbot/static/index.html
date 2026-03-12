@@ -1,47 +1,203 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spedion Support Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: Arial, sans-serif; margin: 2em; }
-        #chat { max-width: 600px; margin: auto; }
-        .msg { margin: 1em 0; }
-        .user { color: #00529B; }
-        .bot { color: #4F8A10; }
-        #answer { white-space: pre-wrap; }
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+        body {
+            font-family: 'VT323', monospace;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-enter {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes blink {
+
+            0%,
+            50% {
+                opacity: 1;
+            }
+
+            51%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .cursor {
+            animation: blink 1s infinite;
+        }
+
+        .scanline {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scanline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom,
+                    transparent 50%,
+                    rgba(0, 255, 0, 0.05) 51%,
+                    transparent 52%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .glow {
+            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
+        }
     </style>
 </head>
-<body>
-    <div id="chat">
-        <h2>Spedion Support Chatbot</h2>
-        <div id="messages"></div>
-        <form id="chatForm">
-            <input type="text" id="message" placeholder="Ihre Frage..." required style="width:80%;">
-            <button type="submit">Senden</button>
-        </form>
+
+<body class="bg-black min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl">
+        <!-- Header -->
+        <div class="bg-black border-4 border-green-500 rounded-t-lg p-8 text-green-500 glow">
+            <h1 class="text-5xl font-bold tracking-wider">SPEDION SUPPORT SYSTEM</h1>
+            <p class="text-green-400 mt-2 text-2xl">>>> TERMINAL v1.0 - 1985 <<<< /p>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="bg-black border-4 border-t-0 border-green-500 rounded-b-lg overflow-hidden scanline">
+            <!-- Messages Area -->
+            <div id="messages" class="h-[500px] overflow-y-auto p-6 space-y-4 bg-black">
+                <div class="text-center text-green-500 text-2xl py-8 glow">
+                    <pre class="text-green-500">
+   _____  _____  _______ ______  _____ _____ _   _
+  / ____|/ ____|__|__   |  ____|/ ____|_   _| \ | |
+ | (___ | |   | |   | | | |__  | |      | | |  \| |
+  \___ \| |   | |   | | |  __| | |      | | | . ` |
+  ____) | |___| |   | | | |____| |____ _| |_| |\  |
+ |_____/ \____|_|   |_| |______|\_____|_____|_| \_|
+                    </pre>
+                    <p class="mt-4">&gt;&gt;&gt; SYSTEM READY. ENTER QUERY...</p>
+                    <span class="cursor">_</span>
+                </div>
+            </div>
+
+            <!-- Input Form -->
+            <form id="chatForm" class="border-t-4 border-green-500 p-6 bg-black">
+                <div class="flex gap-3 items-center">
+                    <span class="text-green-500 text-3xl glow">&gt;</span>
+                    <input type="text" id="message" placeholder="ENTER COMMAND..." required
+                        class="flex-1 px-4 py-3 bg-black border-2 border-green-500 text-green-500 text-2xl focus:border-green-400 focus:outline-none placeholder-green-700 glow"
+                        style="font-family: 'VT323', monospace;">
+                    <button type="submit"
+                        class="px-8 py-3 bg-green-500 hover:bg-green-400 text-black font-bold text-2xl border-2 border-green-500 transition-all duration-200 transform hover:scale-105 active:scale-95">
+                        EXEC
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
+
     <script>
         const form = document.getElementById('chatForm');
         const messagesDiv = document.getElementById('messages');
+        const messageInput = document.getElementById('message');
+
         form.onsubmit = async (e) => {
             e.preventDefault();
-            const userMsg = document.getElementById('message').value;
-            messagesDiv.innerHTML += `<div class="msg user"><b>Sie:</b> ${userMsg}</div>`;
-            document.getElementById('message').value = '';
-            const res = await fetch('/chat', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({message: userMsg})
-            });
-            const data = await res.json();
-            if (data.answer) {
-                messagesDiv.innerHTML += `<div class="msg bot"><b>Bot:</b> ${data.answer}</div>`;
-            } else {
-                messagesDiv.innerHTML += `<div class="msg bot"><b>Bot:</b> Fehler: ${data.error}</div>`;
+            const userMsg = messageInput.value.trim();
+            if (!userMsg) return;
+
+            // Clear placeholder
+            if (messagesDiv.querySelector('.text-center')) {
+                messagesDiv.innerHTML = '';
             }
+
+            // User message
+            messagesDiv.innerHTML += `
+                <div class="flex justify-start message-enter">
+                    <div class="max-w-[80%] border-2 border-green-500 text-green-500 px-6 py-4 bg-black glow">
+                        <p class="font-bold text-xl mb-2">&gt;&gt;&gt; USER INPUT:</p>
+                        <p class="text-green-400 text-2xl leading-relaxed">${userMsg}</p>
+                    </div>
+                </div>
+            `;
+
+            messageInput.value = '';
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            // Loading indicator
+            const loadingId = 'loading-' + Date.now();
+            messagesDiv.innerHTML += `
+                <div id="${loadingId}" class="flex justify-start message-enter">
+                    <div class="max-w-[80%] border-2 border-green-500 text-green-500 px-6 py-4 bg-black glow">
+                        <p class="font-bold text-xl mb-2">&gt;&gt;&gt; SYSTEM PROCESSING...</p>
+                        <div class="flex gap-2 text-3xl">
+                            <span class="animate-pulse">█</span>
+                            <span class="animate-pulse" style="animation-delay: 0.2s">█</span>
+                            <span class="animate-pulse" style="animation-delay: 0.4s">█</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            try {
+                const res = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: userMsg })
+                });
+                const data = await res.json();
+
+                // Remove loading indicator
+                document.getElementById(loadingId)?.remove();
+
+                // Bot response
+                const botMessage = data.answer || `ERROR: ${data.error}`;
+                const borderColor = data.answer ? 'border-green-500' : 'border-red-500';
+                const textColor = data.answer ? 'text-green-400' : 'text-red-500';
+
+                messagesDiv.innerHTML += `
+                    <div class="flex justify-start message-enter">
+                        <div class="max-w-[80%] border-2 ${borderColor} ${textColor} px-6 py-4 bg-black glow">
+                            <p class="font-bold text-xl mb-2">&gt;&gt;&gt; SYSTEM RESPONSE:</p>
+                            <p class="text-2xl leading-relaxed whitespace-pre-wrap">${botMessage}</p>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById(loadingId)?.remove();
+                messagesDiv.innerHTML += `
+                    <div class="flex justify-start message-enter">
+                        <div class="max-w-[80%] border-2 border-red-500 text-red-500 px-6 py-4 bg-black glow">
+                            <p class="font-bold text-xl mb-2">&gt;&gt;&gt; FATAL ERROR:</p>
+                            <p class="text-2xl leading-relaxed">CONNECTION FAILED. RETRY OPERATION.</p>
+                        </div>
+                    </div>
+                `;
+            }
+
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         };
     </script>
 </body>
+
 </html>
