@@ -6,7 +6,7 @@ on:
   #   branches: [main]
   # push:
   #   branches: [main]
-  workflow_dispatch:   # manual trigger — leave this enabled for the workshop
+  workflow_dispatch: # manual trigger — leave this enabled for the workshop
 
 jobs:
   ai-review:
