@@ -1,0 +1,44 @@
+name: AI Security Review
+
+on:
+  # TODO: Uncomment and configure the trigger(s) you want
+  # pull_request:
+  #   branches: [main]
+  # push:
+  #   branches: [main]
+  workflow_dispatch:   # manual trigger — leave this enabled for the workshop
+
+jobs:
+  ai-review:
+    runs-on: ubuntu-latest
+
+    steps:
+      # TODO: Step 1 — Check out the repository
+      # - name: Checkout
+      #   uses: actions/checkout@v4
+
+      # TODO: Step 2 — Set up Python
+      # - name: Set up Python
+      #   uses: actions/setup-python@v5
+      #   with:
+      #     python-version: "3.12"
+
+      # TODO: Step 3 — Install dependencies
+      # - name: Install dependencies
+      #   run: pip install -r requirements.txt
+
+      # TODO: Step 4 — Run the review agent
+      # - name: Run AI review
+      #   env:
+      #     ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      #   run: python review_agent.py db.py
+
+      # TODO: Step 5 — Upload review-output.json as a workflow artifact
+      # - name: Upload review output
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: review-output
+      #     path: review-output.json
+
+      - name: Placeholder (remove when steps above are filled in)
+        run: echo "Workflow skeleton — complete the TODO steps above."

@@ -1,0 +1,19 @@
+{
+  // ─── GitHub Copilot – Claude Model Configuration ───────────────────────────
+  //
+  // Sets the default model used in Copilot Chat for this workspace.
+  //
+  // Claude model options (Anthropic via GitHub Copilot):
+  //   "claude-sonnet-4-5"   → Claude Sonnet 4.5  (latest, fast + smart)  ← recommended
+  //   "claude-3-7-sonnet"   → Claude 3.7 Sonnet  (extended thinking support)
+  //   "claude-3-5-sonnet"   → Claude 3.5 Sonnet  (stable, widely used)
+  //   "claude-opus-4"       → Claude Opus 4      (most powerful, slower)
+  //
+  // Other available models:
+  //   "gpt-4o"              → GPT-4o             (OpenAI)
+  //   "gpt-4.1"             → GPT-4.1            (OpenAI)
+  //   "o3"                  → o3                 (OpenAI reasoning model)
+  //   "gemini-2.0-flash"    → Gemini 2.0 Flash   (Google)
+  //
+  "github.copilot.chat.defaultModel": "claude-sonnet-4-5"
+}

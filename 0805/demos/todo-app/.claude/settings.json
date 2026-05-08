@@ -1,0 +1,224 @@
+{
+  // ════════════════════════════════════════════════════════════════════════════
+  // .claude/settings.json  –  Project settings (committed to git)
+  // .claude/settings.local.json  –  Local overrides   (gitignored, personal)
+  // ~/.claude/settings.json      –  Global user settings
+  //
+  // Precedence (highest → lowest):
+  //   settings.local.json  >  settings.json  >  ~/.claude/settings.json
+  // ════════════════════════════════════════════════════════════════════════════
+
+  // ── Model ──────────────────────────────────────────────────────────────────
+  // Which Claude model to use for this project.
+  //
+  // Anthropic models:
+  //   "claude-sonnet-4-5"              → Sonnet 4.5   (latest, fast + smart)
+  //   "claude-3-7-sonnet-20250219"     → Sonnet 3.7   (extended thinking)
+  //   "claude-3-5-sonnet-20241022"     → Sonnet 3.5   (stable classic)
+  //   "claude-opus-4-5"                → Opus 4.5     (most powerful)
+  //   "claude-haiku-3-5"               → Haiku 3.5    (fastest / cheapest)
+  //
+  // Alias shortcuts accepted by Claude Code:
+  //   "sonnet"   "opus"   "haiku"
+  "model": "claude-sonnet-4-5",
+
+  // ── Output / Verbosity ─────────────────────────────────────────────────────
+  // Controls what Claude prints while it works.
+  //   "auto"    → smart default
+  //   "verbose" → show all tool calls and reasoning
+  //   "silent"  → suppress all non-result output (useful in CI)
+  "output": "auto",
+
+  // ── Permissions ────────────────────────────────────────────────────────────
+  // Fine-grained allow / deny lists for tools and file paths.
+  // Patterns are glob-style. "allow" entries override "deny" entries.
+  "permissions": {
+    "allow": [
+      "Bash(git:*)", // allow any git sub-command
+      "Bash(python:*)", // allow running python
+      "Bash(pip:*)", // allow pip
+      "Read(**)", // allow reading any file
+      "Write(src/**)", // allow writing inside src/
+      "Write(templates/**)" // allow editing templates
+    ],
+    "deny": [
+      "Bash(rm -rf *)", // never allow recursive deletes
+      "Write(.env*)", // never overwrite .env files
+      "Bash(curl:*)", // block outbound HTTP via curl
+      "WebFetch(*)" // block all web fetches (remove to allow)
+    ]
+  },
+
+  // ── Sandbox ────────────────────────────────────────────────────────────────
+  // Runs Bash tool calls inside an isolated sandbox (macOS seatbelt / Linux).
+  "sandbox": {
+    "enabled": false, // set true to enforce isolation
+    "autoAllowBashIfSandboxed": false // if true, auto-approves bash inside sandbox
+  },
+
+  // ── Hooks ──────────────────────────────────────────────────────────────────
+  // Shell commands that run at lifecycle events.
+  // Each hook entry: { "matcher": "<tool-or-glob>", "hooks": [{ "type": "command", "command": "..." }] }
+  //
+  // Lifecycle events:
+  //   PreToolUse   – before Claude calls a tool (can block with exit code 2)
+  //   PostToolUse  – after a tool call completes
+  //   Notification – when Claude sends a notification (e.g. needs permission)
+  //   Stop         – when Claude finishes a turn
+  //   PreCompact   – before context compaction
+  "hooks": {
+    "PreToolUse": [
+      {
+        // Log every tool call to a file for auditing
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date)] PreToolUse: $CLAUDE_TOOL_NAME\" >> .claude/audit.log"
+          }
+        ]
+      },
+      {
+        // Block any Bash command that tries to push to remote without confirmation
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/pre-bash.sh"
+          }
+        ]
+      },
+      {
+        // Python hook – full JSON access to tool input, complex validation logic.
+        // Any executable works: python3, node, ruby, etc.
+        // The script receives all CLAUDE_TOOL_* env vars as JSON.
+        // exit 0 = allow | exit 1 = block (stdout shown to Claude) | exit 2 = silent block
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .claude/hooks/pre_tool_validator.py"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        // Auto-format Python files after every Write tool call
+        "matcher": "Write(**.py)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "which ruff &>/dev/null && ruff format \"$CLAUDE_TOOL_INPUT_FILE_PATH\" 2>/dev/null || true"
+          }
+        ]
+      },
+      {
+        // .md file as a hook PROMPT:
+        // Hooks can print anything to stdout — Claude receives it as injected context.
+        // This pattern lets you write prompt instructions in a readable .md file
+        // and inject them at the right lifecycle moment via `cat`.
+        // Because `cat` exits 0, Claude is NOT blocked — the text is just added as context.
+        "matcher": "Write(**.py)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat .claude/hooks/prompts/post-write-review.md"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        // Play a sound / send macOS notification when Claude finishes
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude finished\" with title \"Claude Code\"' 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        // Print all notifications to stderr so they appear in the terminal
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[NOTIFICATION] $CLAUDE_NOTIFICATION_MESSAGE\" >&2"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        // Save a snapshot of the conversation before compaction
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date)] Context compaction triggered\" >> .claude/audit.log"
+          }
+        ]
+      }
+    ]
+  },
+
+  // ── MCP Servers ────────────────────────────────────────────────────────────
+  // Model Context Protocol servers extend Claude with extra tools/resources.
+  // Add servers here; Claude Code will start them automatically.
+  //
+  // Transport types:
+  //   "stdio"  – subprocess communicating over stdin/stdout (most common)
+  //   "sse"    – Server-Sent Events over HTTP
+  "mcpServers": {
+    // ── Example: filesystem server (read/write local files via MCP) ──────────
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "env": {}
+    },
+
+    // ── Example: GitHub MCP server ───────────────────────────────────────────
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}" // use env var, never hardcode!
+      }
+    },
+
+    // ── Example: SQLite database server ─────────────────────────────────────
+    "sqlite": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["mcp-server-sqlite", "--db-path", "todos.db"],
+      "env": {}
+    },
+
+    // ── Example: SSE-based remote MCP server ─────────────────────────────────
+    "remote-server": {
+      "type": "sse",
+      "url": "https://mcp.example.com/sse",
+      "headers": {
+        "Authorization": "Bearer ${MCP_API_KEY}"
+      }
+    }
+  },
+
+  // ── Misc ───────────────────────────────────────────────────────────────────
+  // Whether to check for Claude Code updates automatically
+  "autoUpdates": true,
+
+  // Preferred notification channel when Claude needs your attention
+  // Options: "terminal_bell" | "iterm2" | "desktop" | "none"
+  "preferredNotifChannel": "terminal_bell",
+
+  // Terminal theme
+  // Options: "dark" | "light" | "auto"
+  "theme": "auto"
+}

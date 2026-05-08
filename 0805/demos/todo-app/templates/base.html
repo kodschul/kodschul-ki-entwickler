@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todo App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen text-gray-800">
+  <header class="bg-white border-b border-gray-200 shadow-sm">
+    <div class="max-w-2xl mx-auto px-4 py-4 flex items-center gap-3">
+      <span class="text-2xl">✅</span>
+      <h1 class="text-xl font-bold tracking-tight">My Todo App</h1>
+    </div>
+  </header>
+
+  <main class="max-w-2xl mx-auto px-4 py-8">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

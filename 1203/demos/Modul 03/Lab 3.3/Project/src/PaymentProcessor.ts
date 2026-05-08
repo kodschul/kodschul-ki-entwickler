@@ -18,6 +18,7 @@ export class PaymentProcessor {
   // CODE SMELL: Methode macht Validierung, Rabatt, Provider-Routing UND Logging
   processPayment(req: PaymentRequest): PaymentResult {
     // Validierung
+    // SUGGESTION: Move validation logic to a dedicated method (e.g., validateRequest) to avoid duplication and improve maintainability.
     if (!req.id || !req.customerId) {
       throw new Error('Ungültige Anfrage');
     }
@@ -29,9 +30,11 @@ export class PaymentProcessor {
     }
 
     let amt = req.amount; // CODE SMELL: kryptischer Name
+    // SUGGESTION: Use descriptive variable names, e.g., 'amount' instead of 'amt'.
 
     // CODE SMELL: Duplikate Rabattlogik – fast identisch zu calculateDiscountForInvoice
     let d = 0; // CODE SMELL: kryptischer Name
+    // SUGGESTION: Use descriptive variable names, e.g., 'discount' instead of 'd'.
     if (req.customerTier === 'SILVER') {
       d = amt * 0.05; // MAGIC NUMBER
     } else if (req.customerTier === 'GOLD') {
@@ -39,6 +42,8 @@ export class PaymentProcessor {
     } else if (req.customerTier === 'PLATINUM') {
       d = amt * 0.15; // MAGIC NUMBER
     }
+    // SUGGESTION: Extract discount calculation logic to a separate method to avoid duplication and improve testability.
+    // SUGGESTION: Replace magic numbers with named constants (e.g., DISCOUNT_SILVER).
 
     if (req.couponCode === 'SAVE10') {
       d += amt * 0.10; // MAGIC NUMBER
@@ -47,13 +52,17 @@ export class PaymentProcessor {
     } else if (req.couponCode === 'FREESHIP') {
       d += 4.99; // MAGIC NUMBER
     }
+    // SUGGESTION: Extract coupon logic to a separate method and use named constants for coupon values.
 
     amt = amt - d;
+    // SUGGESTION: Consider edge case where discount exceeds amount, resulting in negative processed amount.
 
     // CODE SMELL: Switch-Statement das OCP verletzt – neuer Provider = Änderung hier
+    // SUGGESTION: Use provider strategy pattern to avoid violating Open/Closed Principle and simplify adding new providers.
     let fee = 0;
     let txId = '';
     let status: PaymentStatus = 'COMPLETED';
+    // SUGGESTION: Use descriptive variable names, e.g., 'transactionId' instead of 'txId'.
 
     switch (req.provider) {
       case 'CREDIT_CARD':
@@ -101,6 +110,8 @@ export class PaymentProcessor {
       default:
         throw new Error(`Unbekannter Provider: ${req.provider}`);
     }
+    // SUGGESTION: Replace magic numbers for fees and minimums with named constants for clarity and maintainability.
+    // SUGGESTION: Consider extracting provider-specific logic to separate classes or functions.
 
     const result: PaymentResult = {
       transactionId: txId,
@@ -109,10 +120,12 @@ export class PaymentProcessor {
       fee,
       timestamp: new Date(),
     };
+    // SUGGESTION: Consider edge case where processedAmount or fee is NaN or negative due to calculation errors.
 
     this.transactions.set(txId, result);
     console.log(`Zahlung abgeschlossen: ${txId}, Status: ${status}`);
     return result;
+    // SUGGESTION: Logging should be handled by a dedicated logger service, not inline with business logic.
   }
 
   // CODE SMELL: Diese Methode ist 65 Zeilen lang und macht Rabatt, Tax, Invoice

@@ -1,0 +1,468 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e5]:
+        - link "Kodschul" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - img "Kodschul" [ref=e8]
+        - navigation [ref=e973]:
+          - list [ref=e974]:
+            - listitem [ref=e975]:
+              - link "Seminars" [ref=e976] [cursor=pointer]:
+                - /url: /en/seminars
+                - generic [ref=e977]: Seminars
+                - img [ref=e978]
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                      - generic: IT TRAINING
+                    - list:
+                      - listitem:
+                        - link "Typescript Typescript":
+                          - /url: /seminar/typescript-5-tage-komplettkurs
+                          - generic:
+                            - img "Typescript"
+                          - generic "Typescript"
+                          - img
+                      - listitem:
+                        - link "Rust Rust":
+                          - /url: /seminar/rust
+                          - generic:
+                            - img "Rust"
+                          - generic "Rust"
+                          - img
+                      - listitem:
+                        - link "React Native React Native":
+                          - /url: /seminar/react-native
+                          - generic:
+                            - img "React Native"
+                          - generic "React Native"
+                          - img
+                      - listitem:
+                        - link "React React":
+                          - /url: /seminar/react
+                          - generic:
+                            - img "React"
+                          - generic "React"
+                          - img
+                      - listitem:
+                        - link "GitLab GitLab":
+                          - /url: /seminar/gitlab
+                          - generic:
+                            - img "GitLab"
+                          - generic "GitLab"
+                          - img
+                      - listitem:
+                        - link "MongoDB MongoDB":
+                          - /url: /seminar/mongodb
+                          - generic:
+                            - img "MongoDB"
+                          - generic "MongoDB"
+                          - img
+                      - listitem:
+                        - link "Flutter Flutter":
+                          - /url: /seminar/flutter
+                          - generic:
+                            - img "Flutter"
+                          - generic "Flutter"
+                          - img
+                      - listitem:
+                        - link "Docker & Kubernetes Docker & Kubernetes":
+                          - /url: /seminar/docker-kubernetes
+                          - generic:
+                            - img "Docker & Kubernetes"
+                          - generic "Docker & Kubernetes"
+                          - img
+                      - listitem:
+                        - link "C# & .NET C# & .NET":
+                          - /url: /seminar/csharp-dotnet
+                          - generic:
+                            - img "C# & .NET"
+                          - generic "C# & .NET"
+                          - img
+                      - listitem:
+                        - link "Microsoft Azure Microsoft Azure":
+                          - /url: /seminar/microsoft-azure
+                          - generic:
+                            - img "Microsoft Azure"
+                          - generic "Microsoft Azure"
+                          - img
+                      - listitem:
+                        - link "Kubernetes Kubernetes":
+                          - /url: /seminar/kubernetes
+                          - generic:
+                            - img "Kubernetes"
+                          - generic "Kubernetes"
+                          - img
+                      - listitem:
+                        - link "JavaScript JavaScript":
+                          - /url: /seminar/javascript
+                          - generic:
+                            - img "JavaScript"
+                          - generic "JavaScript"
+                          - img
+                      - listitem:
+                        - link "DevOps & CI/CD DevOps & CI/CD":
+                          - /url: /seminar/devops-ci-cd
+                          - generic:
+                            - img "DevOps & CI/CD"
+                          - generic "DevOps & CI/CD"
+                          - img
+                      - listitem:
+                        - link "React Native & Flutter React Native & Flutter":
+                          - /url: /seminar/reactjs-grundkurs
+                          - generic:
+                            - img "React Native & Flutter"
+                          - generic "React Native & Flutter"
+                          - img
+                      - listitem:
+                        - link "JavaScript & TypeScript JavaScript & TypeScript":
+                          - /url: /seminar/javascript-fortgeschrittenenkurs
+                          - generic:
+                            - img "JavaScript & TypeScript"
+                          - generic "JavaScript & TypeScript"
+                          - img
+                  - generic:
+                    - img "divider"
+                  - generic:
+                    - generic:
+                      - img
+                      - generic: AI TRAINING
+                    - list:
+                      - listitem:
+                        - link "ChatGPT ChatGPT":
+                          - /url: /seminar/chatgpt
+                          - generic:
+                            - img "ChatGPT"
+                          - generic "ChatGPT"
+                          - img
+                      - listitem:
+                        - link "Python Python":
+                          - /url: /seminar/python
+                          - generic:
+                            - img "Python"
+                          - generic "Python"
+                          - img
+                      - listitem:
+                        - link "Prompt Engineering Prompt Engineering":
+                          - /url: /seminar/prompt-engineering
+                          - generic:
+                            - img "Prompt Engineering"
+                          - generic "Prompt Engineering"
+                          - img
+                      - listitem:
+                        - link "Data Science & Big Data Data Science & Big Data":
+                          - /url: /seminar/data-science-big-data
+                          - generic:
+                            - img "Data Science & Big Data"
+                          - generic "Data Science & Big Data"
+                          - img
+                      - listitem:
+                        - link "Datenschutz & AI Compliance Datenschutz & AI Compliance":
+                          - /url: /seminar/datenschutz-ai-compliance
+                          - generic:
+                            - img "Datenschutz & AI Compliance"
+                          - generic "Datenschutz & AI Compliance"
+                          - img
+                      - listitem:
+                        - link "N8N KI-Agenten N8N KI-Agenten":
+                          - /url: /seminar/n8n-ki-agenten
+                          - generic:
+                            - img "N8N KI-Agenten"
+                          - generic "N8N KI-Agenten"
+                          - img
+                      - listitem:
+                        - link "KI-Agenten KI-Agenten":
+                          - /url: /seminar/ki-agenten
+                          - generic:
+                            - img "KI-Agenten"
+                          - generic "KI-Agenten"
+                          - img
+                      - listitem:
+                        - link "KI in Softwareentwicklung KI in Softwareentwicklung":
+                          - /url: /seminar/ki-in-softwareentwicklung
+                          - generic:
+                            - img "KI in Softwareentwicklung"
+                          - generic "KI in Softwareentwicklung"
+                          - img
+                      - listitem:
+                        - link "KI im Büroalltag KI im Büroalltag":
+                          - /url: /seminar/ki-im-bueroalltag
+                          - generic:
+                            - img "KI im Büroalltag"
+                          - generic "KI im Büroalltag"
+                          - img
+                      - listitem:
+                        - link "Lokale LLMs Lokale LLMs":
+                          - /url: /seminar/lokale-llms
+                          - generic:
+                            - img "Lokale LLMs"
+                          - generic "Lokale LLMs"
+                          - img
+                      - listitem:
+                        - link "KI Tools für Unternehmen KI Tools für Unternehmen":
+                          - /url: /seminar/ki-tools-unternehmen
+                          - generic:
+                            - img "KI Tools für Unternehmen"
+                          - generic "KI Tools für Unternehmen"
+                          - img
+                      - listitem:
+                        - link "KI für E-Mail, Meetings & Protokolle KI für E-Mail, Meetings & Protokolle":
+                          - /url: /seminar/ki-email-meeting-protokolle
+                          - generic:
+                            - img "KI für E-Mail, Meetings & Protokolle"
+                          - generic "KI für E-Mail, Meetings & Protokolle"
+                          - img
+                    - generic:
+                      - link "All Topics":
+                        - /url: /seminars
+            - listitem [ref=e980]:
+              - link "References" [ref=e981] [cursor=pointer]:
+                - /url: /references
+            - listitem [ref=e982]:
+              - link "Jobs" [ref=e983] [cursor=pointer]:
+                - /url: /jobs
+            - listitem [ref=e984]:
+              - link "About us" [ref=e985] [cursor=pointer]:
+                - /url: /about
+        - generic [ref=e986]:
+          - link "Contact" [active] [ref=e987] [cursor=pointer]:
+            - /url: /contact
+          - button "English" [ref=e991] [cursor=pointer]:
+            - img [ref=e993]
+            - generic [ref=e998]: English
+            - img [ref=e999]
+    - main [ref=e15]:
+      - generic [ref=e1001]:
+        - generic [ref=e1002]:
+          - img "Decorative Element" [ref=e1004]
+          - img "Decorative Element" [ref=e1006]
+          - generic [ref=e1009]:
+            - heading "Contact Us" [level=1] [ref=e1010]
+            - paragraph [ref=e1011]: Our team is available to you - Tell us what you need and we will get back to you as soon as possible!
+        - generic [ref=e1014]:
+          - generic [ref=e1015]:
+            - heading "Wir sind jederzeit für dich erreichbar – persönlich, schnell und zuverlässig." [level=2] [ref=e1016]
+            - generic [ref=e1018]:
+              - img "Joelle Keim" [ref=e1020]
+              - generic [ref=e1022]:
+                - paragraph [ref=e1023]: online
+                - paragraph [ref=e1024]: Joelle Keim
+                - paragraph [ref=e1025]: Key Account Manager
+            - generic [ref=e1026]:
+              - generic [ref=e1027]:
+                - img [ref=e1029]
+                - generic [ref=e1031]:
+                  - generic [ref=e1032]: Phone Number (24/7)
+                  - generic [ref=e1033]: +49 157 30 70 99 27
+              - generic [ref=e1034]:
+                - img [ref=e1036]
+                - generic [ref=e1038]:
+                  - generic [ref=e1039]: Email Address
+                  - generic [ref=e1040]: info@kodschul.com
+              - generic [ref=e1041]:
+                - img [ref=e1043]
+                - generic [ref=e1046]:
+                  - generic [ref=e1047]: Our Location
+                  - generic [ref=e1048]: Stuttgart, Baden-Württemberg
+          - generic [ref=e1049]:
+            - heading "Send us a Message" [level=3] [ref=e1051]
+            - generic [ref=e1053]:
+              - generic [ref=e1054]:
+                - generic [ref=e1055]:
+                  - generic [ref=e1056]: First Name*
+                  - textbox "First Name" [ref=e1057]
+                - generic [ref=e1058]:
+                  - generic [ref=e1059]: Last Name*
+                  - textbox "Last Name" [ref=e1060]
+              - generic [ref=e1061]:
+                - generic [ref=e1062]:
+                  - generic [ref=e1063]: Email*
+                  - textbox "Email" [ref=e1064]
+                - generic [ref=e1065]:
+                  - generic [ref=e1066]: Phone Number*
+                  - textbox "Phone Number" [ref=e1067]
+              - generic [ref=e1068]:
+                - generic [ref=e1069]: Company Name*
+                - textbox "Company Name" [ref=e1070]
+              - generic [ref=e1071]:
+                - generic [ref=e1072]: Message*
+                - textbox "Message" [ref=e1073]
+              - button "Submit" [ref=e1075] [cursor=pointer]
+        - iframe [ref=e1079]:
+          
+        - generic [ref=e1081]:
+          - generic [ref=e1082]:
+            - generic [ref=e1085]: OUR FREQUENT QUESTIONS
+            - heading "Frequently Asked Questions" [level=2] [ref=e1086]
+          - generic [ref=e1088]:
+            - generic [ref=e1089]:
+              - button "Who is this course designed for? +" [ref=e1090] [cursor=pointer]:
+                - paragraph [ref=e1091]: Who is this course designed for?
+                - generic [ref=e1092]: +
+              - generic [ref=e1093]: Our courses are designed for all types of individuals. Just get in touch with us, and we will provide you with a tailored solution.
+            - generic [ref=e1094]:
+              - button "How can I enroll in the course? +" [ref=e1095] [cursor=pointer]:
+                - paragraph [ref=e1096]: How can I enroll in the course?
+                - generic [ref=e1097]: +
+              - generic [ref=e1098]: To enroll, simply call us or send us an email. We'll guide you through the registration process and answer any questions you may have.
+            - generic [ref=e1099]:
+              - button "What is the cost of the course? +" [ref=e1100] [cursor=pointer]:
+                - paragraph [ref=e1101]: What is the cost of the course?
+                - generic [ref=e1102]: +
+              - generic [ref=e1103]: Course fees are listed on our website, but we believe prices shouldn't prevent anyone from learning. Our mission is to teach as many developers as possible, so please give us a call to discuss pricing options.
+            - generic [ref=e1104]:
+              - button "Do I need prior knowledge of the course topic? +" [ref=e1105] [cursor=pointer]:
+                - paragraph [ref=e1106]: Do I need prior knowledge of the course topic?
+                - generic [ref=e1107]: +
+              - generic [ref=e1108]: No prior knowledge of the specific topic is required. The course is designed to accommodate beginners as well as those with some experience. It will cover the fundamentals and provide practical insights.
+            - generic [ref=e1109]:
+              - button "Will I be able to apply what I learn in this course? +" [ref=e1110] [cursor=pointer]:
+                - paragraph [ref=e1111]: Will I be able to apply what I learn in this course?
+                - generic [ref=e1112]: +
+              - generic [ref=e1113]: Yes, by the end of the course, you will have the skills and knowledge needed to apply what you've learned effectively. The course includes hands-on exercises and practical examples to ensure you can put your learning into practice.
+            - generic [ref=e1114]:
+              - button "What software or tools do I need for the course? +" [ref=e1115] [cursor=pointer]:
+                - paragraph [ref=e1116]: What software or tools do I need for the course?
+                - generic [ref=e1117]: +
+              - generic [ref=e1118]: The course may require specific software or tools. Detailed requirements will be provided at the start of the course, along with instructions for installation and setup.
+    - contentinfo [ref=e768]:
+      - generic [ref=e770]:
+        - generic [ref=e771]:
+          - link "Kodschul" [ref=e772] [cursor=pointer]:
+            - /url: /
+            - img "Kodschul" [ref=e773]
+          - paragraph [ref=e774]: Kodschul offers practical IT and AI training that equips companies, students and professionals for the digital future. Over 3000+ participants in 2 years have benefited from our hands-on seminars and experienced experts.
+          - link "Learn More About Us" [ref=e775] [cursor=pointer]:
+            - /url: /about
+        - generic [ref=e776]:
+          - heading "Seminars" [level=3] [ref=e777]
+          - list [ref=e778]:
+            - listitem [ref=e860]:
+              - link "Python" [ref=e861] [cursor=pointer]:
+                - /url: /seminar/python
+                - generic [ref=e862]: Python
+                - img [ref=e863]
+            - listitem [ref=e865]:
+              - link "Docker & Kubernetes" [ref=e866] [cursor=pointer]:
+                - /url: /seminar/docker-kubernetes
+                - generic [ref=e867]: Docker & Kubernetes
+                - img [ref=e868]
+            - listitem [ref=e870]:
+              - link "GitLab" [ref=e871] [cursor=pointer]:
+                - /url: /seminar/gitlab
+                - generic [ref=e872]: GitLab
+                - img [ref=e873]
+            - listitem [ref=e875]:
+              - link "Flutter" [ref=e876] [cursor=pointer]:
+                - /url: /seminar/flutter
+                - generic [ref=e877]: Flutter
+                - img [ref=e878]
+            - listitem [ref=e880]:
+              - link "MongoDB" [ref=e881] [cursor=pointer]:
+                - /url: /seminar/mongodb
+                - generic [ref=e882]: MongoDB
+                - img [ref=e883]
+            - listitem [ref=e885]:
+              - link "React" [ref=e886] [cursor=pointer]:
+                - /url: /seminar/react
+                - generic [ref=e887]: React
+                - img [ref=e888]
+            - listitem [ref=e890]:
+              - link "Rust" [ref=e891] [cursor=pointer]:
+                - /url: /seminar/rust
+                - generic [ref=e892]: Rust
+                - img [ref=e893]
+            - listitem [ref=e895]:
+              - link "Typescript" [ref=e896] [cursor=pointer]:
+                - /url: /seminar/typescript-5-tage-komplettkurs
+                - generic [ref=e897]: Typescript
+                - img [ref=e898]
+        - generic [ref=e780]:
+          - heading "Links" [level=3] [ref=e781]
+          - list [ref=e782]:
+            - listitem [ref=e783]:
+              - link "Seminars" [ref=e784] [cursor=pointer]:
+                - /url: /seminars
+                - generic [ref=e785]: Seminars
+                - img [ref=e786]
+            - listitem [ref=e788]:
+              - link "References" [ref=e789] [cursor=pointer]:
+                - /url: /references
+                - generic [ref=e790]: References
+                - img [ref=e791]
+            - listitem [ref=e793]:
+              - link "Jobs" [ref=e794] [cursor=pointer]:
+                - /url: /jobs
+                - generic [ref=e795]: Jobs
+                - img [ref=e796]
+            - listitem [ref=e798]:
+              - link "Blog" [ref=e799] [cursor=pointer]:
+                - /url: /blog
+                - generic [ref=e800]: Blog
+                - img [ref=e801]
+            - listitem [ref=e803]:
+              - link "About us" [ref=e804] [cursor=pointer]:
+                - /url: /about
+                - generic [ref=e805]: About us
+                - img [ref=e806]
+            - listitem [ref=e808]:
+              - link "Student" [ref=e809] [cursor=pointer]:
+                - /url: /students
+                - generic [ref=e810]: Student
+                - img [ref=e811]
+        - generic [ref=e813]:
+          - heading "Legal" [level=3] [ref=e814]
+          - list [ref=e815]:
+            - listitem [ref=e816]:
+              - link "Imprint" [ref=e817] [cursor=pointer]:
+                - /url: /imprint
+                - generic [ref=e818]: Imprint
+            - listitem [ref=e819]:
+              - link "Privacy Policy" [ref=e820] [cursor=pointer]:
+                - /url: /privacy
+                - generic [ref=e821]: Privacy Policy
+            - listitem [ref=e822]:
+              - button "Cookie Settings" [ref=e823] [cursor=pointer]
+          - generic [ref=e824]:
+            - generic [ref=e825]:
+              - img [ref=e827]
+              - link "+49 157 30 70 99 27" [ref=e829] [cursor=pointer]:
+                - /url: tel:+4915730709927
+            - generic [ref=e830]:
+              - img [ref=e832]
+              - link "info@kodschul.com" [ref=e834] [cursor=pointer]:
+                - /url: mailto:info@kodschul.com
+      - generic [ref=e839]:
+        - paragraph [ref=e840]: 2025 Kodschul.com - Alle Rechte vorbehalten.
+        - generic [ref=e841]:
+          - link "LinkedIn" [ref=e842] [cursor=pointer]:
+            - /url: https://linkedin.com/in/franznkemaka
+          - link "Github" [ref=e843] [cursor=pointer]:
+            - /url: https://github.com/kodschul
+    - generic [ref=e846]:
+      - generic [ref=e847]:
+        - heading "Cookie Settings" [level=2] [ref=e848]
+        - paragraph [ref=e849]: We use cookies to improve your experience and analyze website traffic.
+      - generic [ref=e850]:
+        - generic [ref=e851]:
+          - heading "Cookie Policy" [level=3] [ref=e852]
+          - button "Customize" [ref=e853] [cursor=pointer]
+        - paragraph [ref=e854]:
+          - text: This website uses cookies to ensure you get the best experience on our website. By clicking 'Accept', you consent to the use of all cookies.
+          - link "Learn more" [ref=e855] [cursor=pointer]:
+            - /url: /cookie
+        - generic [ref=e856]:
+          - button "Decline Non-Essential" [ref=e857] [cursor=pointer]
+          - button "Accept All" [ref=e858] [cursor=pointer]
+  - alert [ref=e859]: We are always ready to help you and answer your questions
+  - button "Accessibility Icon ✓" [ref=e901]:
+    - img "Accessibility Icon" [ref=e902]
+    - text: ✓
+  - generic:
+    - strong: Barriere Hilfe
+    - text: Klicken Sie, um die Werkzeuge zu öffnen.
+  - generic: Click to read
+  - img

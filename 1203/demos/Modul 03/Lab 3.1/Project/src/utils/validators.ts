@@ -1,4 +1,4 @@
-import { Customer } from '../models/Customer';
+import { Customer } from "../models/Customer";
 
 // TODO: Alle Validierungsfunktionen müssen hier implementiert werden.
 // Nutze den KI-Assistenten, um die Funktionen basierend auf den JSDoc-Beschreibungen zu generieren.
@@ -9,9 +9,28 @@ import { Customer } from '../models/Customer';
  * @param email - Die zu prüfende E-Mail-Adresse
  * @returns true, wenn die E-Mail gültig ist
  */
-export function isValidEmail(email: string): boolean {
-  // TODO
-  return false;
+export function is_Email(email: string): boolean {
+  if (!email.includes("@")) {
+    return false;
+  }
+
+  if (email.startsWith("@") || email.endsWith("@")) {
+    return false;
+  }
+
+  if (!email.includes(".")) {
+    return false;
+  }
+  const domainPart = email.split("@")[1];
+  if (!domainPart.includes(".")) {
+    return false;
+  }
+  const tld = domainPart.split(".").pop();
+  if (tld.length < 2) {
+    return false;
+  }
+
+  return true;
 }
 
 /**
@@ -21,9 +40,9 @@ export function isValidEmail(email: string): boolean {
  * @param id - Die zu prüfende Bestell-ID
  * @returns true, wenn das Format korrekt ist
  */
-export function isValidOrderId(id: string): boolean {
-  // TODO
-  return false;
+export function is_OrderId(id: string): boolean {
+  const orderIdPattern = /^ORD-\d{6}$/;
+  return orderIdPattern.test(id);
 }
 
 /**
@@ -32,19 +51,20 @@ export function isValidOrderId(id: string): boolean {
  * @param quantity - Die zu prüfende Menge
  * @returns true, wenn die Menge gültig ist
  */
-export function isValidProductQuantity(quantity: number): boolean {
-  // TODO
-  return false;
+export function is_ProductQuantity(quantity: number): boolean {
+  return Number.isInteger(quantity) && quantity > 0 && quantity <= 9999;
 }
 
 /**
  * Prüft, ob ein Kundenobjekt die minimum erforderlichen Felder enthält.
  * firstName, lastName und email müssen vorhanden und nicht leer sein.
- * Die E-Mail muss außerdem das gültige Format haben (nutze isValidEmail).
+ * Die E-Mail muss außerdem das gültige Format haben (nutze is_Email).
  * @param customer - Das zu prüfende Kundenobjekt
  * @returns true, wenn der Kunde valide ist
  */
-export function isValidCustomer(customer: Customer): boolean {
-  // TODO
-  return false;
+export function is_OkCustomer(customer: Customer): boolean {
+  if (!customer.firstName || !customer.lastName || !customer.email) {
+    return false;
+  }
+  return is_Email(customer.email);
 }

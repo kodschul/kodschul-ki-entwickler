@@ -1,4 +1,5 @@
 import unittest
+
 from regex_checker import is_valid_email
 
 
@@ -7,6 +8,12 @@ class TestIsValidEmailValid(unittest.TestCase):
 
     def test_simple(self):
         self.assertTrue(is_valid_email("alice@example.com"))
+
+    def test_uppercase(self):
+        self.assertTrue(is_valid_email("ALICE@EXAMPLE.COM"))
+
+        with self.subTest("Mixed case"):
+            self.assertTrue(is_valid_email("Alice@Example.Com"))
 
     def test_subdomain(self):
         self.assertTrue(is_valid_email("alice@mail.example.com"))

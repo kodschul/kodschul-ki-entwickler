@@ -1,0 +1,45 @@
+[    3098ms] [LOG] === LANGUAGE SELECTOR DEBUG === @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[    3099ms] [LOG] Current locale from useLocale(): en @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[    3099ms] [LOG] Default locale: de @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[    3099ms] [LOG] Current pathname: / @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[    3099ms] [LOG] Params from useParams(): {locale: en} @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[    3101ms] [LOG] Translation for nav.seminars: Seminars @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[    3116ms] [LOG] Translation for locale-switcher.locale: English @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[    3116ms] [LOG] Available locales: [en, de] @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[    3118ms] [LOG] === HEADER DEBUG === @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[    3118ms] [LOG] Locale from useLocale(): en @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[    3118ms] [LOG] Params: {locale: en} @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[    3119ms] [LOG] Translation for nav.seminars: Seminars @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[    3119ms] [LOG] Translation for nav.references: References @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[    3119ms] [LOG] Fetching topics from: /api/topics?locale=en&limit=10&sort=name&depth=2 @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[    3562ms] [LOG] Received topics data: {docs: Array(10), totalDocs: 27, limit: 10, totalPages: 3, page: 1} @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[    3562ms] [LOG] Filtered valid topics: 10 @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   24592ms] [LOG] === LANGUAGE SELECTOR DEBUG === @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   24593ms] [LOG] Current locale from useLocale(): en @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   24593ms] [LOG] Default locale: de @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   24593ms] [LOG] Current pathname: / @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   24593ms] [LOG] Params from useParams(): {locale: en} @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   24594ms] [LOG] Translation for nav.seminars: Seminars @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   24594ms] [LOG] Translation for locale-switcher.locale: English @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   24594ms] [LOG] Available locales: [en, de] @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40219ms] [LOG] === LANGUAGE SELECTOR DEBUG === @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40220ms] [LOG] Current locale from useLocale(): en @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40220ms] [LOG] Default locale: de @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40220ms] [LOG] Current pathname: /contact @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40220ms] [LOG] Params from useParams(): {locale: en} @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40220ms] [LOG] Translation for nav.seminars: Seminars @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40221ms] [LOG] Translation for locale-switcher.locale: English @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40221ms] [LOG] Available locales: [en, de] @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40221ms] [LOG] === LANGUAGE SELECTOR DEBUG === @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40222ms] [LOG] Current locale from useLocale(): en @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40222ms] [LOG] Default locale: de @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40223ms] [LOG] Current pathname: /contact @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40223ms] [LOG] Params from useParams(): {locale: en} @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40223ms] [LOG] Translation for nav.seminars: Seminars @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40223ms] [LOG] Translation for locale-switcher.locale: English @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40224ms] [LOG] Available locales: [en, de] @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40224ms] [LOG] === HEADER DEBUG === @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40224ms] [LOG] Locale from useLocale(): en @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40224ms] [LOG] Params: {locale: en} @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40225ms] [LOG] Translation for nav.seminars: Seminars @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0
+[   40225ms] [LOG] Translation for nav.references: References @ https://www.kodschul.com/_next/static/chunks/3746-18e0ce7216eaa543.js:0

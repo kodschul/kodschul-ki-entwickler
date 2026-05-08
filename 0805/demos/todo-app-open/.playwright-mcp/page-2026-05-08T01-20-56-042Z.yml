@@ -1,0 +1,720 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e5]:
+        - link "Kodschul" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - img "Kodschul" [ref=e8]
+        - button "Toggle menu" [expanded] [active] [ref=e10] [cursor=pointer]
+    - generic [ref=e904]:
+      - generic [ref=e905]:
+        - link "Kodschul" [ref=e906] [cursor=pointer]:
+          - /url: /
+          - img "Kodschul" [ref=e907]
+        - button "Close menu" [ref=e908] [cursor=pointer]:
+          - img [ref=e909]
+      - generic [ref=e911]:
+        - generic [ref=e913]:
+          - generic [ref=e914]: Language
+          - button "English" [ref=e917] [cursor=pointer]:
+            - img [ref=e919]
+            - generic [ref=e924]: English
+            - img [ref=e925]
+        - navigation [ref=e927]:
+          - list [ref=e928]:
+            - listitem [ref=e929]:
+              - link "Seminars" [ref=e930] [cursor=pointer]:
+                - /url: /seminars
+                - img [ref=e932]
+                - generic [ref=e934]: Seminars
+            - listitem [ref=e935]:
+              - link "References" [ref=e936] [cursor=pointer]:
+                - /url: /references
+                - img [ref=e938]
+                - generic [ref=e940]: References
+            - listitem [ref=e941]:
+              - link "Jobs" [ref=e942] [cursor=pointer]:
+                - /url: /jobs
+                - img [ref=e944]
+                - generic [ref=e946]: Jobs
+            - listitem [ref=e947]:
+              - link "Blog" [ref=e948] [cursor=pointer]:
+                - /url: /blog
+                - img [ref=e950]
+                - generic [ref=e952]: Blog
+            - listitem [ref=e953]:
+              - link "About us" [ref=e954] [cursor=pointer]:
+                - /url: /about
+                - img [ref=e956]
+                - generic [ref=e958]: About us
+          - link "Contact" [ref=e960] [cursor=pointer]:
+            - /url: /contact
+            - img [ref=e961]
+            - text: Contact
+        - generic [ref=e964]:
+          - link "Imprint" [ref=e965] [cursor=pointer]:
+            - /url: /imprint
+            - img [ref=e966]
+            - generic [ref=e968]: Imprint
+          - link "Privacy Policy" [ref=e969] [cursor=pointer]:
+            - /url: /privacy
+            - img [ref=e970]
+            - generic [ref=e972]: Privacy Policy
+    - main [ref=e15]:
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - img "Background Frame" [ref=e19]
+          - img "Decorative Element" [ref=e21]
+          - generic [ref=e22]:
+            - generic [ref=e23]:
+              - generic [ref=e24]:
+                - heading "Increase productivity with our hands-on IT seminars & AI training courses IT & AI" [level=1] [ref=e25]
+                - paragraph [ref=e26]: Practice-oriented training to master IT & AI - whether beginner or advanced, we accompany you on your path to success!
+                - link "Find your Training" [ref=e28] [cursor=pointer]:
+                  - /url: /seminars
+                  - button "Find your Training" [ref=e29]
+              - img "Professional Training Session" [ref=e32]
+            - generic [ref=e35]:
+              - paragraph [ref=e36]: Trusted by
+              - generic [ref=e37]:
+                - img "Polizei" [ref=e40]
+                - img "Bundeswehr" [ref=e43]
+                - img "Mercedes Benz" [ref=e46]
+                - img "DB Bahn" [ref=e49]
+                - img "T-Systems" [ref=e52]
+                - img "Siemens" [ref=e55]
+                - img "DKB" [ref=e58]
+        - generic [ref=e60]:
+          - generic [ref=e61]:
+            - generic [ref=e62]: WE SHAPE THE DIGITAL FUTURE
+            - heading "From AI Application to IT Transformation" [level=1] [ref=e63]
+            - paragraph [ref=e64]: "Our practical training accompanies you from the first deployment to sustainable transformation: Apply AI, develop AI, and transform IT."
+            - generic [ref=e65]:
+              - generic [ref=e66]:
+                - generic [ref=e67]: "4.7"
+                - generic [ref=e68]:
+                  - img [ref=e69]
+                  - img [ref=e71]
+                  - img [ref=e73]
+                  - img [ref=e75]
+                  - img [ref=e77]
+              - generic [ref=e80]: 3000+ participants in 200+ training sessions
+              - generic [ref=e82]:
+                - generic [ref=e83]:
+                  - img [ref=e84]
+                  - generic [ref=e86]: Practice-oriented
+                - generic [ref=e87]:
+                  - img [ref=e88]
+                  - generic [ref=e90]: Learn by Doing
+                - generic [ref=e91]:
+                  - img [ref=e92]
+                  - generic [ref=e94]: 70% Practice, 30% Theory
+          - generic [ref=e95]:
+            - generic [ref=e96]:
+              - generic [ref=e97]:
+                - generic [ref=e98]:
+                  - img [ref=e100]
+                  - heading "APPLY AI" [level=3] [ref=e102]
+                - img "APPLY AI" [ref=e104]
+              - generic [ref=e105]:
+                - paragraph [ref=e106]: Use Copilot & Microsoft 365 productively, structure prompts cleanly, and deploy agents in everyday work.
+                - generic [ref=e107]:
+                  - link "KI im Büroalltag KI im Büroalltag" [ref=e108] [cursor=pointer]:
+                    - /url: /seminar/ki-im-bueroalltag
+                    - generic [ref=e109]:
+                      - generic [ref=e110]:
+                        - img "KI im Büroalltag" [ref=e112]
+                        - generic [ref=e113]: KI im Büroalltag
+                      - img [ref=e114]
+                  - link "Prompt Engineering Prompt Engineering" [ref=e117] [cursor=pointer]:
+                    - /url: /seminar/prompt-engineering
+                    - generic [ref=e118]:
+                      - generic [ref=e119]:
+                        - img "Prompt Engineering" [ref=e121]
+                        - generic [ref=e122]: Prompt Engineering
+                      - img [ref=e123]
+                  - link "Datenschutz & AI Compliance Datenschutz & AI Compliance" [ref=e126] [cursor=pointer]:
+                    - /url: /seminar/datenschutz-ai-compliance
+                    - generic [ref=e127]:
+                      - generic [ref=e128]:
+                        - img "Datenschutz & AI Compliance" [ref=e130]
+                        - generic [ref=e131]: Datenschutz & AI Compliance
+                      - img [ref=e132]
+                  - link "KI für E-Mail, Meetings & Protokolle KI für E-Mail, Meetings & Protokolle" [ref=e135] [cursor=pointer]:
+                    - /url: /seminar/ki-email-meeting-protokolle
+                    - generic [ref=e136]:
+                      - generic [ref=e137]:
+                        - img "KI für E-Mail, Meetings & Protokolle" [ref=e139]
+                        - generic [ref=e140]: KI für E-Mail, Meetings & Protokolle
+                      - img [ref=e141]
+                  - link "Data Science & Big Data Data Science & Big Data" [ref=e144] [cursor=pointer]:
+                    - /url: /seminar/data-science-big-data
+                    - generic [ref=e145]:
+                      - generic [ref=e146]:
+                        - img "Data Science & Big Data" [ref=e148]
+                        - generic [ref=e149]: Data Science & Big Data
+                      - img [ref=e150]
+                  - link "KI Tools für Unternehmen KI Tools für Unternehmen" [ref=e153] [cursor=pointer]:
+                    - /url: /seminar/ki-tools-unternehmen
+                    - generic [ref=e154]:
+                      - generic [ref=e155]:
+                        - img "KI Tools für Unternehmen" [ref=e157]
+                        - generic [ref=e158]: KI Tools für Unternehmen
+                      - img [ref=e159]
+            - generic [ref=e162]:
+              - generic [ref=e163]:
+                - generic [ref=e164]:
+                  - img [ref=e166]
+                  - heading "DEVELOP AI" [level=3] [ref=e169]
+                - img "DEVELOP AI" [ref=e171]
+              - generic [ref=e172]:
+                - paragraph [ref=e173]: Build your own AI workflows & agents – from prototype to clean integration into your systems.
+                - generic [ref=e174]:
+                  - link "KI-Agenten KI-Agenten" [ref=e175] [cursor=pointer]:
+                    - /url: /seminar/ki-agenten
+                    - generic [ref=e176]:
+                      - generic [ref=e177]:
+                        - img "KI-Agenten" [ref=e179]
+                        - generic [ref=e180]: KI-Agenten
+                      - img [ref=e181]
+                  - link "KI in Softwareentwicklung KI in Softwareentwicklung" [ref=e184] [cursor=pointer]:
+                    - /url: /seminar/ki-in-softwareentwicklung
+                    - generic [ref=e185]:
+                      - generic [ref=e186]:
+                        - img "KI in Softwareentwicklung" [ref=e188]
+                        - generic [ref=e189]: KI in Softwareentwicklung
+                      - img [ref=e190]
+                  - link "Python Python" [ref=e193] [cursor=pointer]:
+                    - /url: /seminar/python
+                    - generic [ref=e194]:
+                      - generic [ref=e195]:
+                        - img "Python" [ref=e197]
+                        - generic [ref=e198]: Python
+                      - img [ref=e199]
+                  - link "N8N KI-Agenten N8N KI-Agenten" [ref=e202] [cursor=pointer]:
+                    - /url: /seminar/n8n-ki-agenten
+                    - generic [ref=e203]:
+                      - generic [ref=e204]:
+                        - img "N8N KI-Agenten" [ref=e206]
+                        - generic [ref=e207]: N8N KI-Agenten
+                      - img [ref=e208]
+                  - link "ChatGPT ChatGPT" [ref=e211] [cursor=pointer]:
+                    - /url: /seminar/chatgpt
+                    - generic [ref=e212]:
+                      - generic [ref=e213]:
+                        - img "ChatGPT" [ref=e215]
+                        - generic [ref=e216]: ChatGPT
+                      - img [ref=e217]
+                  - link "Lokale LLMs Lokale LLMs" [ref=e220] [cursor=pointer]:
+                    - /url: /seminar/lokale-llms
+                    - generic [ref=e221]:
+                      - generic [ref=e222]:
+                        - img "Lokale LLMs" [ref=e224]
+                        - generic [ref=e225]: Lokale LLMs
+                      - img [ref=e226]
+            - generic [ref=e229]:
+              - generic [ref=e230]:
+                - generic [ref=e231]:
+                  - img [ref=e233]
+                  - heading "TRANSFORM IT" [level=3] [ref=e237]
+                - img "TRANSFORM IT" [ref=e239]
+              - generic [ref=e240]:
+                - paragraph [ref=e241]: "Modern Stacks & Ops: Containers, Cloud & clean deployments – keeping systems maintainable and scalable."
+                - generic [ref=e242]:
+                  - link "Rust Rust" [ref=e243] [cursor=pointer]:
+                    - /url: /seminar/rust
+                    - generic [ref=e244]:
+                      - generic [ref=e245]:
+                        - img "Rust" [ref=e247]
+                        - generic [ref=e248]: Rust
+                      - img [ref=e249]
+                  - link "Docker & Kubernetes Docker & Kubernetes" [ref=e252] [cursor=pointer]:
+                    - /url: /seminar/docker-kubernetes
+                    - generic [ref=e253]:
+                      - generic [ref=e254]:
+                        - img "Docker & Kubernetes" [ref=e256]
+                        - generic [ref=e257]: Docker & Kubernetes
+                      - img [ref=e258]
+                  - link "JavaScript & TypeScript JavaScript & TypeScript" [ref=e261] [cursor=pointer]:
+                    - /url: /seminar/javascript-typescript
+                    - generic [ref=e262]:
+                      - generic [ref=e263]:
+                        - img "JavaScript & TypeScript" [ref=e265]
+                        - generic [ref=e266]: JavaScript & TypeScript
+                      - img [ref=e267]
+                  - link "React React" [ref=e270] [cursor=pointer]:
+                    - /url: /seminar/react
+                    - generic [ref=e271]:
+                      - generic [ref=e272]:
+                        - img "React" [ref=e274]
+                        - generic [ref=e275]: React
+                      - img [ref=e276]
+                  - link "React Native & Flutter React Native & Flutter" [ref=e279] [cursor=pointer]:
+                    - /url: /seminar/react-native-flutter
+                    - generic [ref=e280]:
+                      - generic [ref=e281]:
+                        - img "React Native & Flutter" [ref=e283]
+                        - generic [ref=e284]: React Native & Flutter
+                      - img [ref=e285]
+                  - link "DevOps & CI/CD DevOps & CI/CD" [ref=e288] [cursor=pointer]:
+                    - /url: /seminar/devops-ci-cd
+                    - generic [ref=e289]:
+                      - generic [ref=e290]:
+                        - img "DevOps & CI/CD" [ref=e292]
+                        - generic [ref=e293]: DevOps & CI/CD
+                      - img [ref=e294]
+          - link "View all topics" [ref=e298] [cursor=pointer]:
+            - /url: /seminars
+            - button "View all topics" [ref=e299]
+        - generic [ref=e302]:
+          - generic [ref=e303]:
+            - img "Moderne Tech-Stack lernen" [ref=e305]
+            - generic [ref=e307]:
+              - heading "Moderne Tech-Stack lernen" [level=3] [ref=e308]
+              - paragraph [ref=e309]: Unsere IT-Seminare bieten praxisorientiertes Lernen von Experten aus der Praxis mit den neuesten Technologien wie Docker, Kubernetes und React.js. Sie erlernen IT-Konzepte und Tools direkt durch Anwendung und Übungen, um sofort wertvolle Fähigkeiten zu entwickeln, die in der realen Welt anwendbar sind
+              - generic [ref=e310]:
+                - generic [ref=e311]:
+                  - img [ref=e314]
+                  - paragraph [ref=e316]: 100% Hands-on, keine Theorie!
+                - generic [ref=e317]:
+                  - img [ref=e320]
+                  - paragraph [ref=e322]: The State of the Art, modernste Technologie
+                - generic [ref=e323]:
+                  - img [ref=e326]
+                  - paragraph [ref=e328]: Tipps aus 30+ Jahren Erfahrung
+          - generic [ref=e329]:
+            - img "KI lernen und anwenden - Learn by Doing!" [ref=e331]
+            - generic [ref=e333]:
+              - heading "KI lernen und anwenden - Learn by Doing!" [level=3] [ref=e334]
+              - paragraph [ref=e335]: Unsere IT-Seminare bieten praxisorientiertes Lernen von Experten aus der Praxis mit den neuesten Technologien wie Docker, Kubernetes und React.js. Sie erlernen IT-Konzepte und Tools direkt durch Anwendung und Übungen, um sofort wertvolle Fähigkeiten zu entwickeln, die in der realen Welt anwendbar sind
+              - generic [ref=e336]:
+                - generic [ref=e337]:
+                  - img [ref=e340]
+                  - paragraph [ref=e342]: Direkt anwendbare KI-Technologien
+                - generic [ref=e343]:
+                  - img [ref=e346]
+                  - paragraph [ref=e348]: Einblicke in reale KI-Projekte
+                - generic [ref=e349]:
+                  - img [ref=e352]
+                  - paragraph [ref=e354]: Eigene KI-Systeme entwickeln und einsetzen
+        - generic [ref=e357]:
+          - generic [ref=e358]:
+            - heading "Our Practice-Oriented Training for Your Success" [level=2] [ref=e359]
+            - paragraph [ref=e360]: We offer individually tailored training sessions that are directly aligned with your specific requirements and goals.
+            - generic [ref=e361]:
+              - generic [ref=e362]:
+                - img [ref=e364]
+                - generic [ref=e366]: Max. 8-12 Participants
+              - generic [ref=e367]:
+                - img [ref=e369]
+                - generic [ref=e371]: 70% Practice, 30% Theory!
+              - generic [ref=e372]:
+                - img [ref=e374]
+                - generic [ref=e376]: 2-3 Days Hands-on Workshop
+              - generic [ref=e377]:
+                - img [ref=e379]
+                - generic [ref=e381]: 20+ Experts Available on Call
+          - img "Learn and Apply AI Training" [ref=e384]
+        - generic [ref=e386]:
+          - generic [ref=e387]:
+            - heading "Customized Training" [level=2] [ref=e388]
+            - paragraph [ref=e389]: Tailored seminars for companies and students that prepare for the future and take you to the next level.
+          - generic [ref=e390]:
+            - generic [ref=e391]:
+              - img "For Companies" [ref=e394]
+              - generic [ref=e395]:
+                - generic [ref=e396]:
+                  - heading "For Companies" [level=3] [ref=e397]
+                  - paragraph [ref=e398]: Every company is unique. That's why we offer trainings tailored to your company's needs, maximizing value and equipping your teams with the latest technologies.
+                - link "Contact Us for Business Training" [ref=e399] [cursor=pointer]:
+                  - /url: /contact
+            - generic [ref=e400]:
+              - img "Individual Training" [ref=e403]
+              - generic [ref=e404]:
+                - generic [ref=e405]:
+                  - heading "Individual Training" [level=3] [ref=e406]
+                  - paragraph [ref=e407]: We evaluate your current level in a short call and develop a customized training package precisely aligned with your goals, perfectly tailored to your needs.
+                - link "Get Your Personal Training" [ref=e408] [cursor=pointer]:
+                  - /url: /contact
+        - generic [ref=e409]:
+          - generic [ref=e412]:
+            - img "Quote" [ref=e414]
+            - generic [ref=e415]:
+              - img "Thomas H." [ref=e417]
+              - generic [ref=e418]: Die Schulung war sehr gut, sowohl didaktisch als auch vom Inhalt her, der Dozent hat es super präsentiert.
+              - generic [ref=e419]:
+                - img [ref=e420]
+                - img [ref=e422]
+                - img [ref=e424]
+                - img [ref=e426]
+                - img [ref=e428]
+              - generic [ref=e430]:
+                - heading "Thomas H." [level=4] [ref=e431]
+                - paragraph [ref=e432]: Präsidium Technik, Logistik, Service der Polizei
+          - generic [ref=e435]:
+            - img "Company 1" [ref=e437]
+            - img "Company 2" [ref=e439]
+            - img "Company 3" [ref=e441]
+            - img "Company 4" [ref=e443]
+            - img "Company 5" [ref=e445]
+            - img "Company 6" [ref=e447]
+            - img "Company 7" [ref=e449]
+            - img "Company 8" [ref=e451]
+            - img "Company 9" [ref=e453]
+        - generic [ref=e455]:
+          - generic [ref=e457]:
+            - generic [ref=e458]: LEARN FROM EXPERTS
+            - heading "Kodschul Trainers & Team" [level=2] [ref=e459]
+          - generic [ref=e462]:
+            - paragraph [ref=e464]: Learn from experts - experienced professionals with practical know-how
+            - generic [ref=e465]:
+              - generic [ref=e466]:
+                - img [ref=e468]
+                - paragraph [ref=e471]: Experienced trainers with practical technical experience
+              - generic [ref=e472]:
+                - img [ref=e474]
+                - paragraph [ref=e477]: Over 3000 professionals trained in two years
+              - generic [ref=e478]:
+                - img [ref=e480]
+                - paragraph [ref=e483]: Practical expertise and deep industry knowledge
+              - generic [ref=e484]:
+                - img [ref=e486]
+                - paragraph [ref=e489]: Effective learning with real applications
+              - generic [ref=e490]:
+                - img [ref=e492]
+                - paragraph [ref=e495]: Completed 300+ projects together
+          - generic [ref=e497]:
+            - generic [ref=e498]:
+              - img "Franz Nkemaka" [ref=e500]
+              - heading "Franz Nkemaka" [level=3] [ref=e501]
+              - paragraph [ref=e502]: Expert for IT & AI, Trainer, CEO
+            - generic [ref=e503]:
+              - img "Raffael H." [ref=e505]
+              - heading "Raffael H." [level=3] [ref=e506]
+              - paragraph [ref=e507]: Expert for IT & AI, Trainer
+            - generic [ref=e508]:
+              - img "Patrik Garten" [ref=e510]
+              - heading "Patrik Garten" [level=3] [ref=e511]
+              - paragraph [ref=e512]: Expert for IT & AI, Trainer
+            - generic [ref=e513]:
+              - img "Erik H." [ref=e515]
+              - heading "Erik H." [level=3] [ref=e516]
+              - paragraph [ref=e517]: Expert for IT & AI, Trainer
+            - generic [ref=e518]:
+              - img "Pascal Hinze" [ref=e520]
+              - heading "Pascal Hinze" [level=3] [ref=e521]
+              - paragraph [ref=e522]: Expert for IT & AI, Trainer
+            - generic [ref=e523]:
+              - generic [ref=e524]:
+                - generic [ref=e525]: "+11"
+                - generic [ref=e526]: Trainers
+              - heading "." [level=3] [ref=e527]
+              - paragraph [ref=e528]: .
+          - generic [ref=e530]:
+            - generic [ref=e531]:
+              - img "Joelle Keim" [ref=e533]
+              - heading "Joelle Keim" [level=4] [ref=e534]
+              - paragraph [ref=e535]: Key Account Manager
+            - generic [ref=e536]:
+              - img "Selina Schmid" [ref=e538]
+              - heading "Selina Schmid" [level=4] [ref=e539]
+              - paragraph [ref=e540]: Seminar Manager
+            - generic [ref=e541]:
+              - img "Elisa Saleh" [ref=e543]
+              - heading "Elisa Saleh" [level=4] [ref=e544]
+              - paragraph [ref=e545]: Back Office
+            - generic [ref=e546]:
+              - img "Lars Gerigk" [ref=e548]
+              - heading "Lars Gerigk" [level=4] [ref=e549]
+              - paragraph [ref=e550]: Portfolio Manager
+            - generic [ref=e551]:
+              - img "Axel Kamga" [ref=e553]
+              - heading "Axel Kamga" [level=4] [ref=e554]
+              - paragraph [ref=e555]: Trainer & Sales
+            - generic [ref=e556]:
+              - img "Sebastian Carnal" [ref=e558]
+              - heading "Sebastian Carnal" [level=4] [ref=e559]
+              - paragraph [ref=e560]: HR & People
+        - generic [ref=e563]:
+          - generic [ref=e564]:
+            - generic [ref=e565]: TOGETHER TO THE GOAL!
+            - heading "Success Story" [level=2] [ref=e566]
+            - paragraph [ref=e567]: At Kodschul.com, we offer high-quality training that truly makes a difference. With over 100 completed training sessions – from lectures with 70+ participants to hands-on training with 2-3 participants – we have successfully advanced numerous participants.
+          - generic [ref=e568]:
+            - generic [ref=e569]:
+              - generic [ref=e571]:
+                - img "IT in Finances" [ref=e573]
+                - generic [ref=e574]:
+                  - generic [ref=e575]: COBOL bei DPS Engineering in Frankfurt
+                  - heading "IT in Finances" [level=3] [ref=e576]
+                  - paragraph [ref=e580]: Bei unserem COBOL-Seminar bei DPS – IT for Finance, Retail and Public Sector begleiten wir über 10 Business Analysts, die praxisnah lernen, wie Banktransaktionen, Belegerstellung und Kartenprüfungen wirklich funktionieren.
+              - generic [ref=e582]:
+                - img "KI Schulung" [ref=e584]
+                - generic [ref=e585]:
+                  - generic [ref=e586]: KI für Software Entwickler bei Spedion GmbH
+                  - heading "KI Schulung" [level=3] [ref=e587]
+                  - paragraph [ref=e591]: Bei unserem KI-Coding-Seminar bei SPEDION GmbH zeigen wir Entwickler:innen, wie sie KI-Tools wie GitHub Copilot produktiv, sicher und compliant einsetzen. Von der Anpassung der KI-Codegenerierung bis zur Einhaltung interner Richtlinien – wir verbinden 10 Jahre Entwicklungserfahrung mit modernster KI-Praxis.
+              - generic [ref=e593]:
+                - img "ESE Kongress" [ref=e595]
+                - generic [ref=e596]:
+                  - generic [ref=e597]: KONGRESS TECH TALK
+                  - heading "ESE Kongress" [level=3] [ref=e598]
+                  - paragraph [ref=e602]: Beim Embedded Systems Kongress hielten wir einen 6-stündigen Vortrag über Rust als Alternative zu C++ in Embedded Systems. Vor 70+ Experten großer Unternehmen wie E+H, Festo und weiteren in Sindelfingen präsentierten wir die Vorteile von Rust in der Embedded-Entwicklung.
+              - generic [ref=e604]:
+                - img "Polizei BW - Kubernetes" [ref=e606]
+                - generic [ref=e607]:
+                  - generic [ref=e608]: CLOUD COMPUTING
+                  - heading "Polizei BW - Kubernetes" [level=3] [ref=e609]
+                  - paragraph [ref=e613]: Für die Polizei BW haben wir eine Schulung zu Kubernetes durchgeführt, wie Kubernetes eingesetzt werden kann, um die Verfügbarkeit der Anwendungen sicherzustellen und wie Containertechnologien effektiv genutzt werden.
+              - generic [ref=e615]:
+                - img "Dana Stupar" [ref=e617]
+                - generic [ref=e618]:
+                  - generic [ref=e619]: it
+                  - heading "Dana Stupar" [level=3] [ref=e620]
+                  - paragraph [ref=e624]: Der Angular-Kurs mit Franz Nkemaka hat super viel Spaß gemacht – danke für deine Geduld, deinen Humor und die vielen praxisnahen Beispiele. Man merkt wirklich, dass du nicht nur fachlich top in Angular bist, sondern auch als Mensch und Trainer einfach klasse bist 🙌. Danke, Franz, dass du diese Woche die Begeisterung für Angular in uns geweckt hast :) Ich hatte eine tolle Zeit!
+              - generic [ref=e626]:
+                - img "KI für Produktentwickler - Neutrik" [ref=e628]
+                - generic [ref=e629]:
+                  - generic [ref=e630]: KI SCHULUNG
+                  - heading "KI für Produktentwickler - Neutrik" [level=3] [ref=e631]
+                  - paragraph [ref=e635]: Neutrik Group ist ein großer Hersteller von Steckverbinder für Veranstaltungstechnik. Im Zuge der Innovation haben wir gemeinsam mit ChatGPT untersucht, wie wir KI einsetzen können, um neue Produkte zu entwickeln und die Produktion zu optimieren.
+              - generic [ref=e637]:
+                - img "Bundesrechnenzentrum Österreich - React.js - Wien" [ref=e639]
+                - generic [ref=e640]:
+                  - generic [ref=e641]: WEB ENWICKLUNG
+                  - heading "Bundesrechnenzentrum Österreich - React.js - Wien" [level=3] [ref=e642]
+                  - paragraph [ref=e646]: React.js verändert das Frontend, weshalb wir beim Bundesrechenzentrum diese State-of-the-Art-Web-Technologie geschult haben, um zu zeigen, wie sie helfen kann, die Plattform der Behörde effizienter und benutzerfreundlicher zu gestalten.
+              - generic [ref=e648]:
+                - img "TPI Summit" [ref=e650]
+                - generic [ref=e651]:
+                  - generic [ref=e652]: KI VORTRAG
+                  - heading "TPI Summit" [level=3] [ref=e653]
+                  - paragraph [ref=e657]: Beim T.P.I. Summit in der Fliederhalle, Leinfelden hielten wir einen Vortrag über den Einsatz von KI im Bauingenieurwesen. Vor über 50 Teilnehmern, darunter Geschäftsführungen, Ingenieure und Planer, diskutierten wir praxisnahe KI-Anwendungen zur Effizienzsteigerung im Bauwesen. Die Session stieß auf großes Interesse und positive Rückmeldungen.
+            - button "Previous slide" [ref=e659] [cursor=pointer]:
+              - img [ref=e660]
+            - button "Next slide" [ref=e663] [cursor=pointer]:
+              - img [ref=e664]
+          - button "View all available seminars" [ref=e667] [cursor=pointer]
+        - generic [ref=e668]:
+          - generic [ref=e669]:
+            - generic [ref=e670]:
+              - heading "Wie geht es weiter?" [level=2] [ref=e671]
+              - paragraph [ref=e672]: In drei einfachen Schritten zur perfekten IT-Seminaren und KI-Schulungen.
+            - generic [ref=e673]:
+              - generic [ref=e674]:
+                - img "Contact us" [ref=e676]
+                - heading "Contact us" [level=3] [ref=e677]
+                - list [ref=e678]:
+                  - listitem [ref=e679]:
+                    - generic [ref=e680]: •
+                    - generic [ref=e681]: Simply give us a quick call or leave an email
+                  - listitem [ref=e682]:
+                    - generic [ref=e683]: •
+                    - generic [ref=e684]: Our team will take care of you immediately
+                  - listitem [ref=e685]:
+                    - generic [ref=e686]: •
+                    - generic [ref=e687]: You'll receive a lightning-fast response within 2 hours!
+              - generic [ref=e688]:
+                - img "Schedule appointment" [ref=e690]
+                - heading "Schedule appointment" [level=3] [ref=e691]
+                - list [ref=e692]:
+                  - listitem [ref=e693]:
+                    - generic [ref=e694]: •
+                    - generic [ref=e695]: Quick consultation with our experts within 24 hours!
+                  - listitem [ref=e696]:
+                    - generic [ref=e697]: •
+                    - generic [ref=e698]: We'll develop a customized concept for you
+                  - listitem [ref=e699]:
+                    - generic [ref=e700]: •
+                    - generic [ref=e701]: You'll then receive a non-binding offer
+              - generic [ref=e702]:
+                - img "Conduct training" [ref=e704]
+                - heading "Conduct training" [level=3] [ref=e705]
+                - list [ref=e706]:
+                  - listitem [ref=e707]:
+                    - generic [ref=e708]: •
+                    - generic [ref=e709]: Hands-on training conducted by our experts
+                  - listitem [ref=e710]:
+                    - generic [ref=e711]: •
+                    - generic [ref=e712]: Participants benefit from real-world application examples
+          - img "Decoration" [ref=e714]
+        - generic [ref=e717]:
+          - generic [ref=e718]:
+            - generic [ref=e719]: Nehmen Sie Kontakt auf
+            - heading "Lassen Sie uns über Ihr nächstes Training sprechen." [level=2] [ref=e720]
+            - paragraph [ref=e721]: Unser Team steht Ihnen rund um die Uhr zur Verfügung und freut sich auf Ihre Anfrage. Einfach anrufen oder eine Nachricht hinterlassen – wir kümmern uns schnellstmöglich um Ihre Anfrage, ob es um eine Schulung, einen Vortrag oder eine Präsentation geht. Jetzt loslegen!
+            - generic [ref=e722]:
+              - generic [ref=e723]:
+                - img "Joelle Keim" [ref=e726]
+                - generic [ref=e728]:
+                  - heading "Joelle Keim" [level=3] [ref=e729]
+                  - paragraph [ref=e730]: Key Account Manager
+              - generic [ref=e731]:
+                - link "Call Joelle Keim" [ref=e732] [cursor=pointer]:
+                  - /url: tel:+4915730709927
+                  - img [ref=e734]
+                  - generic [ref=e736]: +49 157 30 70 99 27
+                - link "Email Joelle Keim" [ref=e737] [cursor=pointer]:
+                  - /url: mailto:info@kodschul.com
+                  - img [ref=e739]
+                  - generic [ref=e741]: info@kodschul.com
+          - generic [ref=e744]:
+            - generic [ref=e745]:
+              - generic [ref=e746]:
+                - generic [ref=e747]: Vorname*
+                - textbox "Vorname*" [ref=e748]
+              - generic [ref=e749]:
+                - generic [ref=e750]: Nachname*
+                - textbox "Nachname*" [ref=e751]
+            - generic [ref=e752]:
+              - generic [ref=e753]:
+                - generic [ref=e754]: E-Mail*
+                - textbox "E-Mail*" [ref=e755]
+              - generic [ref=e756]:
+                - generic [ref=e757]: Telefonnummer*
+                - textbox "Telefonnummer*" [ref=e758]
+            - generic [ref=e759]:
+              - generic [ref=e760]: Unternehmensname*
+              - textbox "Unternehmensname*" [ref=e761]
+            - generic [ref=e762]:
+              - generic [ref=e763]: Nachricht*
+              - textbox "Nachricht*" [ref=e764]
+            - button "Submit" [ref=e765] [cursor=pointer]
+    - contentinfo [ref=e768]:
+      - generic [ref=e770]:
+        - generic [ref=e771]:
+          - link "Kodschul" [ref=e772] [cursor=pointer]:
+            - /url: /
+            - img "Kodschul" [ref=e773]
+          - paragraph [ref=e774]: Kodschul offers practical IT and AI training that equips companies, students and professionals for the digital future. Over 3000+ participants in 2 years have benefited from our hands-on seminars and experienced experts.
+          - link "Learn More About Us" [ref=e775] [cursor=pointer]:
+            - /url: /about
+        - generic [ref=e776]:
+          - heading "Seminars" [level=3] [ref=e777]
+          - list [ref=e778]:
+            - listitem [ref=e860]:
+              - link "Python" [ref=e861] [cursor=pointer]:
+                - /url: /seminar/python
+                - generic [ref=e862]: Python
+                - img [ref=e863]
+            - listitem [ref=e865]:
+              - link "Docker & Kubernetes" [ref=e866] [cursor=pointer]:
+                - /url: /seminar/docker-kubernetes
+                - generic [ref=e867]: Docker & Kubernetes
+                - img [ref=e868]
+            - listitem [ref=e870]:
+              - link "GitLab" [ref=e871] [cursor=pointer]:
+                - /url: /seminar/gitlab
+                - generic [ref=e872]: GitLab
+                - img [ref=e873]
+            - listitem [ref=e875]:
+              - link "Flutter" [ref=e876] [cursor=pointer]:
+                - /url: /seminar/flutter
+                - generic [ref=e877]: Flutter
+                - img [ref=e878]
+            - listitem [ref=e880]:
+              - link "MongoDB" [ref=e881] [cursor=pointer]:
+                - /url: /seminar/mongodb
+                - generic [ref=e882]: MongoDB
+                - img [ref=e883]
+            - listitem [ref=e885]:
+              - link "React" [ref=e886] [cursor=pointer]:
+                - /url: /seminar/react
+                - generic [ref=e887]: React
+                - img [ref=e888]
+            - listitem [ref=e890]:
+              - link "Rust" [ref=e891] [cursor=pointer]:
+                - /url: /seminar/rust
+                - generic [ref=e892]: Rust
+                - img [ref=e893]
+            - listitem [ref=e895]:
+              - link "Typescript" [ref=e896] [cursor=pointer]:
+                - /url: /seminar/typescript-5-tage-komplettkurs
+                - generic [ref=e897]: Typescript
+                - img [ref=e898]
+        - generic [ref=e780]:
+          - heading "Links" [level=3] [ref=e781]
+          - list [ref=e782]:
+            - listitem [ref=e783]:
+              - link "Seminars" [ref=e784] [cursor=pointer]:
+                - /url: /seminars
+                - generic [ref=e785]: Seminars
+                - img [ref=e786]
+            - listitem [ref=e788]:
+              - link "References" [ref=e789] [cursor=pointer]:
+                - /url: /references
+                - generic [ref=e790]: References
+                - img [ref=e791]
+            - listitem [ref=e793]:
+              - link "Jobs" [ref=e794] [cursor=pointer]:
+                - /url: /jobs
+                - generic [ref=e795]: Jobs
+                - img [ref=e796]
+            - listitem [ref=e798]:
+              - link "Blog" [ref=e799] [cursor=pointer]:
+                - /url: /blog
+                - generic [ref=e800]: Blog
+                - img [ref=e801]
+            - listitem [ref=e803]:
+              - link "About us" [ref=e804] [cursor=pointer]:
+                - /url: /about
+                - generic [ref=e805]: About us
+                - img [ref=e806]
+            - listitem [ref=e808]:
+              - link "Student" [ref=e809] [cursor=pointer]:
+                - /url: /students
+                - generic [ref=e810]: Student
+                - img [ref=e811]
+        - generic [ref=e813]:
+          - heading "Legal" [level=3] [ref=e814]
+          - list [ref=e815]:
+            - listitem [ref=e816]:
+              - link "Imprint" [ref=e817] [cursor=pointer]:
+                - /url: /imprint
+                - generic [ref=e818]: Imprint
+            - listitem [ref=e819]:
+              - link "Privacy Policy" [ref=e820] [cursor=pointer]:
+                - /url: /privacy
+                - generic [ref=e821]: Privacy Policy
+            - listitem [ref=e822]:
+              - button "Cookie Settings" [ref=e823] [cursor=pointer]
+          - generic [ref=e824]:
+            - generic [ref=e825]:
+              - img [ref=e827]
+              - link "+49 157 30 70 99 27" [ref=e829] [cursor=pointer]:
+                - /url: tel:+4915730709927
+            - generic [ref=e830]:
+              - img [ref=e832]
+              - link "info@kodschul.com" [ref=e834] [cursor=pointer]:
+                - /url: mailto:info@kodschul.com
+      - generic [ref=e839]:
+        - paragraph [ref=e840]: 2025 Kodschul.com - Alle Rechte vorbehalten.
+        - generic [ref=e841]:
+          - link "LinkedIn" [ref=e842] [cursor=pointer]:
+            - /url: https://linkedin.com/in/franznkemaka
+          - link "Github" [ref=e843] [cursor=pointer]:
+            - /url: https://github.com/kodschul
+    - generic [ref=e846]:
+      - generic [ref=e847]:
+        - heading "Cookie Settings" [level=2] [ref=e848]
+        - paragraph [ref=e849]: We use cookies to improve your experience and analyze website traffic.
+      - generic [ref=e850]:
+        - generic [ref=e851]:
+          - heading "Cookie Policy" [level=3] [ref=e852]
+          - button "Customize" [ref=e853] [cursor=pointer]
+        - paragraph [ref=e854]:
+          - text: This website uses cookies to ensure you get the best experience on our website. By clicking 'Accept', you consent to the use of all cookies.
+          - link "Learn more" [ref=e855] [cursor=pointer]:
+            - /url: /cookie
+        - generic [ref=e856]:
+          - button "Decline Non-Essential" [ref=e857] [cursor=pointer]
+          - button "Accept All" [ref=e858] [cursor=pointer]
+  - alert [ref=e859]
+  - button "Accessibility Icon ✓" [ref=e901]:
+    - img "Accessibility Icon" [ref=e902]
+    - text: ✓
+  - generic:
+    - strong: Barriere Hilfe
+    - text: Klicken Sie, um die Werkzeuge zu öffnen.
+  - generic: Click to read
+  - img

@@ -1,0 +1,628 @@
+openapi: 3.0.3
+info:
+  title: UserApp API
+  description: REST API für Benutzerverwaltung mit Authentifizierung, Profilverwaltung und Admin-Funktionen.
+  version: 1.0.0
+  contact:
+    name: UserApp Team
+
+servers:
+  - url: https://api.userapp.example.com/api
+    description: Production
+  - url: http://localhost:3000/api
+    description: Local Development
+
+tags:
+  - name: Auth
+    description: Authentifizierung und Passwortverwaltung
+  - name: User
+    description: Profil des eingeloggten Nutzers
+  - name: Admin
+    description: Administrative Benutzerverwaltung (nur ADMIN)
+
+# ─────────────────────────────────────────────
+# Security Schemes
+# ─────────────────────────────────────────────
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  # ─────────────────────────────────────────────
+  # Reusable Schemas
+  # ─────────────────────────────────────────────
+  schemas:
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+        firstName:
+          type: string
+          example: "Max"
+        lastName:
+          type: string
+          example: "Mustermann"
+        email:
+          type: string
+          format: email
+          example: "max.mustermann@example.com"
+        role:
+          $ref: "#/components/schemas/Role"
+        active:
+          type: boolean
+          example: true
+        createdAt:
+          type: string
+          format: date-time
+          example: "2026-03-13T10:00:00Z"
+
+    Role:
+      type: string
+      enum: [USER, ADMIN]
+      example: USER
+
+    ErrorResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 400
+        error:
+          type: string
+          example: "Bad Request"
+        message:
+          type: string
+          example: "Beschreibung des Fehlers"
+
+    PaginationMeta:
+      type: object
+      properties:
+        page:
+          type: integer
+          example: 1
+        size:
+          type: integer
+          example: 20
+        total:
+          type: integer
+          example: 150
+        totalPages:
+          type: integer
+          example: 8
+
+  # ─────────────────────────────────────────────
+  # Reusable Responses
+  # ─────────────────────────────────────────────
+  responses:
+    Unauthorized:
+      description: Ungültige oder fehlende Anmeldedaten
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            statusCode: 401
+            error: Unauthorized
+            message: "Ungültige E-Mail-Adresse oder Passwort."
+
+    Forbidden:
+      description: Zugriff verweigert
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            statusCode: 403
+            error: Forbidden
+            message: "Keine Berechtigung für diese Aktion."
+
+    NotFound:
+      description: Ressource nicht gefunden
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            statusCode: 404
+            error: Not Found
+            message: "Benutzer nicht gefunden."
+
+    UnprocessableEntity:
+      description: Validierungsfehler
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            statusCode: 422
+            error: Unprocessable Entity
+            message: "Das Passwort erfüllt nicht die Mindestanforderungen."
+
+# ─────────────────────────────────────────────
+# Paths
+# ─────────────────────────────────────────────
+paths:
+  # ── 1. Registrierung ──────────────────────
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: Neues Konto registrieren
+      description: Erstellt ein neues Benutzerkonto. Das Passwort wird mit bcrypt (≥12 Runden) gehasht. Nach der Registrierung wird eine Verifizierungs-E-Mail versendet (TTL 24 h).
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [firstName, lastName, email, password]
+              properties:
+                firstName:
+                  type: string
+                  maxLength: 50
+                  example: "Max"
+                lastName:
+                  type: string
+                  maxLength: 50
+                  example: "Mustermann"
+                email:
+                  type: string
+                  format: email
+                  example: "max.mustermann@example.com"
+                password:
+                  type: string
+                  minLength: 8
+                  description: "Mind. 8 Zeichen, inkl. Großbuchstabe, Zahl und Sonderzeichen"
+                  example: "Sicher!123"
+      responses:
+        "201":
+          description: Konto erfolgreich erstellt
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  email:
+                    type: string
+                    format: email
+                  role:
+                    $ref: "#/components/schemas/Role"
+        "400":
+          description: Pflichtfelder fehlen
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: E-Mail-Adresse bereits vergeben
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                statusCode: 409
+                error: Conflict
+                message: "Diese E-Mail-Adresse ist bereits registriert."
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+
+  # ── 2. Login ──────────────────────────────
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Anmelden
+      description: Authentifiziert einen Nutzer und gibt Access- und Refresh-Token zurück. Bei 5 Fehlversuchen pro IP wird der Zugang für 10 Minuten gesperrt.
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "max.mustermann@example.com"
+                password:
+                  type: string
+                  example: "Sicher!123"
+      responses:
+        "200":
+          description: Erfolgreich angemeldet
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    description: "JWT (TTL: 15 Minuten)"
+                    example: "eyJhbGciOiJSUzI1NiJ9..."
+                  refreshToken:
+                    type: string
+                    description: "Opaque Token (TTL: 7 Tage)"
+                    example: "dGhpcyBpcyBhIHJlZnJlc2g..."
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
+  # ── 5b. Passwort vergessen ─────────────────
+  /auth/forgot-password:
+    post:
+      tags: [Auth]
+      summary: Passwort-Reset anfordern
+      description: Sendet einen Reset-Link an die angegebene E-Mail (TTL 1 h). Gibt immer 202 zurück, unabhängig davon ob die E-Mail registriert ist (verhindert User Enumeration).
+      operationId: forgotPassword
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "max.mustermann@example.com"
+      responses:
+        "202":
+          description: Anfrage entgegengenommen (E-Mail wird ggf. versendet)
+
+  # ── 6. Passwort zurücksetzen ───────────────
+  /auth/reset-password:
+    post:
+      tags: [Auth]
+      summary: Passwort zurücksetzen
+      description: Setzt das Passwort mit dem Single-Use-Token aus dem Reset-Link zurück.
+      operationId: resetPassword
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token, newPassword, confirmPassword]
+              properties:
+                token:
+                  type: string
+                  description: "Kryptographisch sicherer Reset-Token aus dem E-Mail-Link"
+                  example: "a3f9b2c1..."
+                newPassword:
+                  type: string
+                  minLength: 8
+                  example: "NeuesSicher!456"
+                confirmPassword:
+                  type: string
+                  example: "NeuesSicher!456"
+      responses:
+        "204":
+          description: Passwort erfolgreich zurückgesetzt
+        "400":
+          description: Token ungültig oder abgelaufen
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+
+  # ── 3. Profil anzeigen ────────────────────
+  /users/me:
+    get:
+      tags: [User]
+      summary: Eigenes Profil abrufen
+      description: Gibt die Profildaten des aktuell authentifizierten Nutzers zurück. Passwort-Hash wird nicht zurückgegeben.
+      operationId: getMyProfile
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Profil erfolgreich abgerufen
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+    # ── 4. Profil bearbeiten ─────────────────
+    patch:
+      tags: [User]
+      summary: Eigenes Profil bearbeiten
+      description: Aktualisiert Vorname, Nachname oder E-Mail. Bei E-Mail-Änderung wird eine erneute Verifizierung ausgelöst.
+      operationId: updateMyProfile
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              minProperties: 1
+              properties:
+                firstName:
+                  type: string
+                  maxLength: 50
+                  example: "Maximilian"
+                lastName:
+                  type: string
+                  maxLength: 50
+                  example: "Mustermann"
+                email:
+                  type: string
+                  format: email
+                  example: "neu@example.com"
+      responses:
+        "200":
+          description: Profil erfolgreich aktualisiert
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          description: E-Mail-Adresse bereits vergeben
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+
+  # ── 5. Passwort ändern ────────────────────
+  /users/me/password:
+    put:
+      tags: [User]
+      summary: Passwort ändern
+      description: Ändert das Passwort des eingeloggten Nutzers. Alle aktiven Refresh-Tokens werden nach erfolgreicher Änderung invalidiert.
+      operationId: changePassword
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [currentPassword, newPassword, confirmPassword]
+              properties:
+                currentPassword:
+                  type: string
+                  example: "AltesPasswort!1"
+                newPassword:
+                  type: string
+                  minLength: 8
+                  example: "NeuesPasswort!2"
+                confirmPassword:
+                  type: string
+                  example: "NeuesPasswort!2"
+      responses:
+        "204":
+          description: Passwort erfolgreich geändert
+        "401":
+          description: Aktuelles Passwort falsch
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+
+  # ── 7. Benutzerliste ──────────────────────
+  /admin/users:
+    get:
+      tags: [Admin]
+      summary: Alle Benutzer abrufen
+      description: Gibt eine paginierte Liste aller Benutzer zurück. Nur für Administratoren zugänglich.
+      operationId: listUsers
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+          description: Seitennummer
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 20
+            minimum: 1
+            maximum: 100
+          description: Einträge pro Seite
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: Suche in Name und E-Mail
+        - name: role
+          in: query
+          schema:
+            $ref: "#/components/schemas/Role"
+          description: Filter nach Rolle
+        - name: active
+          in: query
+          schema:
+            type: boolean
+          description: Filter nach Aktivstatus
+      responses:
+        "200":
+          description: Benutzerliste erfolgreich abgerufen
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/UserProfile"
+                  pagination:
+                    $ref: "#/components/schemas/PaginationMeta"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+
+  # ── 8. Rolle zuweisen ─────────────────────
+  /admin/users/{id}/role:
+    patch:
+      tags: [Admin]
+      summary: Benutzerrolle ändern
+      description: Weist einem Benutzer eine neue Rolle zu. Ein Administrator kann seine eigene Rolle nicht ändern.
+      operationId: updateUserRole
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Benutzer-ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [role]
+              properties:
+                role:
+                  $ref: "#/components/schemas/Role"
+      responses:
+        "200":
+          description: Rolle erfolgreich aktualisiert
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "422":
+          $ref: "#/components/responses/UnprocessableEntity"
+
+  # ── 9. Benutzer deaktivieren ──────────────
+  /admin/users/{id}/deactivate:
+    patch:
+      tags: [Admin]
+      summary: Benutzerkonto deaktivieren
+      description: Deaktiviert ein Benutzerkonto und invalidiert sofort alle aktiven Sessions. Ein Administrator kann sich nicht selbst deaktivieren. Reaktivierung über PATCH /admin/users/{id}/activate möglich.
+      operationId: deactivateUser
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Benutzer-ID
+      responses:
+        "200":
+          description: Konto erfolgreich deaktiviert
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  active:
+                    type: boolean
+                    example: false
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  # ── 9b. Benutzer reaktivieren ─────────────
+  /admin/users/{id}/activate:
+    patch:
+      tags: [Admin]
+      summary: Benutzerkonto reaktivieren
+      description: Reaktiviert ein zuvor deaktiviertes Benutzerkonto.
+      operationId: activateUser
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Benutzer-ID
+      responses:
+        "200":
+          description: Konto erfolgreich reaktiviert
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  active:
+                    type: boolean
+                    example: true
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  # ── 10. Benutzer löschen ──────────────────
+  /admin/users/{id}:
+    delete:
+      tags: [Admin]
+      summary: Benutzerkonto löschen
+      description: Löscht ein Benutzerkonto dauerhaft (Soft-Delete empfohlen für DSGVO-Konformität). Der Vorgang wird im Audit-Log protokolliert. Ein Administrator kann sich nicht selbst löschen.
+      operationId: deleteUser
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Benutzer-ID
+      responses:
+        "204":
+          description: Konto erfolgreich gelöscht
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
