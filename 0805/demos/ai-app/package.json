@@ -1,0 +1,10 @@
+{
+  "name": "todo-fullstack",
+  "version": "1.0.0",
+  "description": "Fullstack Todo App — GraphQL + React",
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev:backend": "cd backend && node index.js",
+    "dev:frontend": "cd frontend && npm run dev"
+  }
+}

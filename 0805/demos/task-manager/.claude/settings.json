@@ -1,0 +1,17 @@
+{
+  "model": "claude-sonnet-4-6",
+  "output": "auto",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date)] PreToolUse: $CLAUDE_TOOL_NAME\" >> .claude/audit.log"
+          }
+        ]
+      }
+    ]
+  }
+}
