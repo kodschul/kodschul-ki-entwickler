@@ -83,7 +83,7 @@ description: "Angular TypeScript code generation rules"
 - Signals (signal(), computed(), effect()) bevorzugen
 - Typ-Annotationen für alle Parameter und Rückgabewerte
 - camelCase für alle Variablen und Funktionen
-- Alle Funktionen starten mit func_
+- Alle Funktionen starten mit func\_
 - Kein `any`-Typ – stattdessen generics oder union types
 - RxJS: takeUntilDestroyed() statt manuellem unsubscribe
 ```
@@ -103,11 +103,11 @@ description: "Angular TypeScript code generation rules"
 
 Entscheide für jede Regel wo sie hingehört:
 
-| Regel                                      | copilot-instructions.md | .instructions.md | .vscode/settings.json |
-|--------------------------------------------|-------------------------|------------------|-----------------------|
-| "Nutze standalone components"              |                         |                  |                       |
-| "Typ-Annotationen für alle Parameter"      |                         |                  |                       |
-| "Tests mit Karma/Jasmine"                  |                         |                  |                       |
-| "Commit-Messages auf Englisch"             |                         |                  |                       |
-| "ng serve startet auf Port 4200"           |                         |                  |                       |
-| "Antworten auf Deutsch"                    |                         |                  |                       |
+| Regel                                 | copilot-instructions.md | .instructions.md | .vscode/settings.json |
+| ------------------------------------- | ----------------------- | ---------------- | --------------------- |
+| "Nutze standalone components"         |                         |                  |                       |
+| "Typ-Annotationen für alle Parameter" |                         |                  |                       |
+| "Tests mit Karma/Jasmine"             |                         |                  |                       |
+| "Commit-Messages auf Englisch"        |                         |                  |                       |
+| "ng serve startet auf Port 4200"      |                         |                  |                       |
+| "Antworten auf Deutsch"               |                         |                  |                       |

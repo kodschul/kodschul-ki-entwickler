@@ -84,7 +84,7 @@ Falls alle Tests grün → einen Test absichtlich kaputt machen:
 
 ```typescript
 // todo.service.spec.ts – temporär ändern:
-it('should load todos', () => {
+it("should load todos", () => {
   expect(true).toBe(false); // Absichtlicher Fehler
 });
 ```
@@ -101,7 +101,7 @@ export interface Todo {
   title: string;
   completed: boolean;
   dueDate: string | null;
-  tags?: string[];  // ← NEU
+  tags?: string[]; // ← NEU
 }
 ```
 
@@ -130,5 +130,6 @@ Nutze ein lokales boolean-Signal: showCompleted.
 ```
 
 **Beobachten:**
+
 - Ask-Modus: erklärt, schreibt keinen Code direkt in die Datei
 - Edit-Modus: ändert direkt die ausgewählten Dateien

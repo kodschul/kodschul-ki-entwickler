@@ -129,7 +129,7 @@ export interface Todo {
   title: string;
   completed: boolean;
   dueDate: string | null;
-  priority: 'low' | 'medium' | 'high';  // ← NEU
+  priority: "low" | "medium" | "high"; // ← NEU
 }
 ```
 
@@ -150,5 +150,6 @@ funcFilterByStatus(todos: Todo[], showCompleted: boolean): Todo[] {
 Lösche die Implementierung wieder. Schreibe nur den Kommentar und lass Copilot vorschlagen.
 
 **Vergleich:**
+
 - Ist Copilots Vorschlag idiomatischer (z.B. nutzt er `filter()`)?
 - Nutzt er den `showCompleted`-Parameter sinnvoll?

@@ -36,6 +36,7 @@ gh copilot suggest "Angular Build-Größe analysieren mit source-map-explorer" -
 ```
 
 **Für jeden Vorschlag:**
+
 - Wähle `[e]xplain` um zu verstehen was der Befehl tut
 - Wähle `[e]xecute` um ihn direkt auszuführen
 - Wähle `[r]evise` um ihn zu verfeinern
@@ -163,6 +164,7 @@ zentralem Error-Handling schreibe.
 ```
 
 **Beobachten:**
+
 - CLI: gibt Shell-Befehle zurück (z.B. `ng generate service...`)
 - Chat: gibt TypeScript-Code zurück mit Erklärung
 - Wann nutzt du welches Tool?

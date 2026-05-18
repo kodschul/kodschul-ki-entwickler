@@ -36,9 +36,9 @@ Was passiert wenn der HTTP-Request fehlschlägt? Gibt es eine Fehlerbehandlung?
 
 ```typescript
 // Statt:
-this.http.get<Todo[]>(this.apiUrl)
+this.http.get<Todo[]>(this.apiUrl);
 // Schreibe:
-this.http.fetch<Todo[]>(this.apiUrl)  // falscher Methodenname
+this.http.fetch<Todo[]>(this.apiUrl); // falscher Methodenname
 ```
 
 **Schritt 2:** Starte den Dev-Server oder führe Build aus:

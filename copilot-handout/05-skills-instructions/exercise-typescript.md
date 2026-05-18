@@ -25,7 +25,7 @@ description: "Angular TypeScript rules for this project"
 - Signals: signal(), computed(), effect() bevorzugen
 - Typ-Annotationen für alle Parameter und Rückgabewerte
 - camelCase für alle Variablen und Funktionen
-- Alle Funktionen starten mit func_
+- Alle Funktionen starten mit func\_
 - Kein `any` – stattdessen generics oder union types
 - RxJS: takeUntilDestroyed() statt manuellem unsubscribe
 ```
@@ -147,6 +147,7 @@ Schreibe eine Angular-Komponente todo-item die:
 ```
 
 **Beobachten:**
+
 - Wirkt `angular.instructions.md` (inject, Signals)?
 - Wirkt `testing.instructions.md` (happy path + edge case)?
 - Wirkt `security.instructions.md` (kein innerHTML)?

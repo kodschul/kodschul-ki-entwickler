@@ -29,7 +29,7 @@ Erkläre #sym:funcLoadTodos
 **Protokolliere:**
 
 | Variante   | Antwort-Qualität | Relevanz | Geschwindigkeit |
-|------------|------------------|----------|-----------------|
+| ---------- | ---------------- | -------- | --------------- |
 | @workspace |                  |          |                 |
 | #file      |                  |          |                 |
 | #sym       |                  |          |                 |
