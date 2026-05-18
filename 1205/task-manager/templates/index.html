@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="text-3xl font-bold text-gray-800 mb-6">My Tasks</h1>
+
+<!-- Add Task Form -->
+<form action="/tasks" method="post" class="flex gap-2 mb-8">
+  <input
+    type="text"
+    name="title"
+    placeholder="Add a new task..."
+    maxlength="200"
+    class="flex-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+    required
+  />
+  <button
+    type="submit"
+    class="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg shadow transition-colors"
+  >
+    Add
+  </button>
+</form>
+
+<!-- Task List -->
+{% if tasks %}
+  <ul class="space-y-2">
+    {% for task in tasks %}
+    <li class="flex items-center gap-3 bg-white rounded-lg shadow px-4 py-3">
+      <!-- Toggle -->
+      <form action="/tasks/{{ task.id }}/toggle" method="post">
+        <button
+          type="submit"
+          class="w-6 h-6 rounded border-2 flex items-center justify-center transition-colors
+            {% if task.completed %}bg-green-500 border-green-500 text-white{% else %}border-gray-300 hover:border-blue-400{% endif %}"
+          title="{% if task.completed %}Mark incomplete{% else %}Mark complete{% endif %}"
+        >
+          {% if task.completed %}✓{% endif %}
+        </button>
+      </form>
+
+      <!-- Title -->
+      <span class="flex-1 text-gray-800 {% if task.completed %}line-through text-gray-400{% endif %}">
+        {{ task.title }}
+      </span>
+
+      <!-- Delete -->
+      <form action="/tasks/{{ task.id }}/delete" method="post">
+        <button
+          type="submit"
+          class="text-gray-400 hover:text-red-500 transition-colors text-lg font-bold leading-none"
+          title="Delete task"
+        >
+          &times;
+        </button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="text-center text-gray-400 mt-12 text-lg">No tasks yet. Add one above!</p>
+{% endif %}
+{% endblock %}

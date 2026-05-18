@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Todo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen py-10">
+  <div class="max-w-lg mx-auto bg-white rounded-2xl shadow p-8">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Edit Todo</h1>
+
+    <form action="/edit/{{ todo.id }}" method="POST" class="space-y-4">
+      <input
+        type="text"
+        name="title"
+        value="{{ todo.title }}"
+        required
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+      <div>
+        <label class="block text-sm font-medium text-gray-600 mb-1">Priority</label>
+        <select
+          name="priority"
+          class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
+        >
+          <option value="high" {% if todo.priority == "high" %}selected{% endif %}>High</option>
+          <option value="medium" {% if todo.priority == "medium" %}selected{% endif %}>Medium</option>
+          <option value="low" {% if todo.priority == "low" %}selected{% endif %}>Low</option>
+        </select>
+      </div>
+      <div class="flex gap-3">
+        <button
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg"
+        >
+          Save
+        </button>
+        <a
+          href="/"
+          class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-4 py-2 rounded-lg"
+        >
+          Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

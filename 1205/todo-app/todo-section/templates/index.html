@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todo Section</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen py-10">
+  <div class="max-w-lg mx-auto bg-white rounded-2xl shadow p-8">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">My Todos</h1>
+
+    <form action="/add" method="POST" class="flex gap-2 mb-8">
+      <input
+        type="text"
+        name="title"
+        placeholder="What needs to be done?"
+        required
+        class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+      <select
+        name="priority"
+        class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm"
+      >
+        <option value="high">High</option>
+        <option value="medium" selected>Medium</option>
+        <option value="low">Low</option>
+      </select>
+      <button
+        type="submit"
+        class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg"
+      >
+        Add
+      </button>
+    </form>
+
+    {% macro priority_badge(priority) %}
+      {% if priority == "high" %}
+        <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-red-100 text-red-600">High</span>
+      {% elif priority == "medium" %}
+        <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-600">Medium</span>
+      {% else %}
+        <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-green-100 text-green-600">Low</span>
+      {% endif %}
+    {% endmacro %}
+
+    {% if todos %}
+    <ul class="space-y-3">
+      {% for todo in todos %}
+      <li class="flex items-center gap-3 p-3 rounded-lg border border-gray-200">
+        <form action="/toggle/{{ todo.id }}" method="POST">
+          <button
+            type="submit"
+            class="w-6 h-6 rounded-full border-2 flex items-center justify-center
+              {% if todo.done %}bg-green-400 border-green-400 text-white{% else %}border-gray-400{% endif %}"
+          >
+            {% if todo.done %}✓{% endif %}
+          </button>
+        </form>
+
+        {{ priority_badge(todo.priority) }}
+
+        <span class="flex-1 {% if todo.done %}line-through text-gray-400{% else %}text-gray-700{% endif %}">
+          {{ todo.title }}
+        </span>
+
+        <a href="/edit/{{ todo.id }}" class="text-sm text-blue-500 hover:underline">Edit</a>
+
+        <form action="/delete/{{ todo.id }}" method="POST">
+          <button type="submit" class="text-sm text-red-400 hover:text-red-600">Delete</button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-gray-400 text-center">No todos yet. Add one above!</p>
+    {% endif %}
+  </div>
+</body>
+</html>
