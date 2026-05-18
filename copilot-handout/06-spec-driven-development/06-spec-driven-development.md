@@ -126,6 +126,7 @@ Feature: ${input:featureName}
 ## Phase 1 – Spec schreiben
 
 Erstelle specs/${input:featureName}.md mit:
+
 - User Story
 - Datenmodell-Änderungen
 - UI-Anforderungen
@@ -159,9 +160,9 @@ Schreibe Tests basierend auf den Akzeptanzkriterien in der Spec.
 
 ## # Referenz-Syntax in Copilot Chat
 
-| Syntax            | Beschreibung                                      |
-| ----------------- | ------------------------------------------------- |
-| `#dateiname.md`   | Einzelne Datei an Copilot übergeben               |
-| `#codebase`       | Gesamte Codebase als Kontext                      |
-| `#selection`      | Aktuell markierter Code                           |
-| `@workspace`      | Workspace-weite Suche aktivieren                  |
+| Syntax          | Beschreibung                        |
+| --------------- | ----------------------------------- |
+| `#dateiname.md` | Einzelne Datei an Copilot übergeben |
+| `#codebase`     | Gesamte Codebase als Kontext        |
+| `#selection`    | Aktuell markierter Code             |
+| `@workspace`    | Workspace-weite Suche aktivieren    |

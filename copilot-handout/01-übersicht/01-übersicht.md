@@ -6,11 +6,11 @@
 
 ## Was haben wir bisher gemacht?
 
-| Thema                       | Inhalt                                                             |
-| --------------------------- | ------------------------------------------------------------------ |
-| GitHub Copilot Grundlagen   | Installation, erste Prompts, copilot-instructions.md eingeführt   |
-| Todo-App aufgebaut          | Flask-App mit CRUD, JSON-Speicher, Tailwind-UI                     |
-| Instructions eingeführt     | `.instructions.md` verstehen und erste Anweisungen geschrieben    |
+| Thema                     | Inhalt                                                          |
+| ------------------------- | --------------------------------------------------------------- |
+| GitHub Copilot Grundlagen | Installation, erste Prompts, copilot-instructions.md eingeführt |
+| Todo-App aufgebaut        | Flask-App mit CRUD, JSON-Speicher, Tailwind-UI                  |
+| Instructions eingeführt   | `.instructions.md` verstehen und erste Anweisungen geschrieben  |
 
 **Unsere App:** `1205/todo-app/` – diese App bauen wir heute weiter aus.
 
@@ -38,16 +38,16 @@ Jede Übung = **ein Artefakt**, das in der App bleibt.
 
 ## Tagesplan
 
-| Zeit              | Block                                      | Format         |
-| ----------------- | ------------------------------------------ | -------------- |
-| 09:00 – 09:15     | Übersicht (dieser Block)                   | Frontal        |
-| 09:15 – 10:30     | Konfiguration & .md-Dateien                | Theorie + Demo |
-| **10:30 – 10:45** | **Pause**                                  |                |
-| 10:45 – 12:15     | Custom Prompts + Custom Agents + Tasks     | Demo + Übung   |
-| **12:15 – 13:15** | **Mittagspause**                           |                |
-| 13:15 – 15:00     | Spec-Driven Development                    | Demo + Übung   |
-| **15:00 – 15:15** | **Pause**                                  |                |
-| 15:15 – 17:00     | MCP + gh copilot CLI + Abschluss           | Demo + Retro   |
+| Zeit              | Block                                  | Format         |
+| ----------------- | -------------------------------------- | -------------- |
+| 09:00 – 09:15     | Übersicht (dieser Block)               | Frontal        |
+| 09:15 – 10:30     | Konfiguration & .md-Dateien            | Theorie + Demo |
+| **10:30 – 10:45** | **Pause**                              |                |
+| 10:45 – 12:15     | Custom Prompts + Custom Agents + Tasks | Demo + Übung   |
+| **12:15 – 13:15** | **Mittagspause**                       |                |
+| 13:15 – 15:00     | Spec-Driven Development                | Demo + Übung   |
+| **15:00 – 15:15** | **Pause**                              |                |
+| 15:15 – 17:00     | MCP + gh copilot CLI + Abschluss       | Demo + Retro   |
 
 ---
 
@@ -66,14 +66,14 @@ Die Todo-App hat:
 
 ## GitHub Copilot vs. Claude Code – Schnellvergleich
 
-| Claude Code                | GitHub Copilot Äquivalent                          |
-| -------------------------- | -------------------------------------------------- |
-| `CLAUDE.md`                | `.github/copilot-instructions.md`                  |
-| `~/.claude/settings.json`  | VS Code User Settings (`settings.json`)            |
-| `.claude/settings.local.json` | `.vscode/settings.json`                         |
-| `.claude/commands/*.md`    | `.github/prompts/*.prompt.md`                      |
-| `.claude/agents/*.md`      | `.github/agents/*.agent.md`                        |
-| `.claude/skills/*/SKILL.md` | `.github/instructions/*.instructions.md`          |
-| `hooks` in settings.json   | `.vscode/tasks.json` + GitHub Actions              |
-| `mcpServers` in settings.json | `.vscode/mcp.json`                              |
-| `claude --print "..."`     | `gh copilot suggest "..."`                         |
+| Claude Code                   | GitHub Copilot Äquivalent                |
+| ----------------------------- | ---------------------------------------- |
+| `CLAUDE.md`                   | `.github/copilot-instructions.md`        |
+| `~/.claude/settings.json`     | VS Code User Settings (`settings.json`)  |
+| `.claude/settings.local.json` | `.vscode/settings.json`                  |
+| `.claude/commands/*.md`       | `.github/prompts/*.prompt.md`            |
+| `.claude/agents/*.md`         | `.github/agents/*.agent.md`              |
+| `.claude/skills/*/SKILL.md`   | `.github/instructions/*.instructions.md` |
+| `hooks` in settings.json      | `.vscode/tasks.json` + GitHub Actions    |
+| `mcpServers` in settings.json | `.vscode/mcp.json`                       |
+| `claude --print "..."`        | `gh copilot suggest "..."`               |

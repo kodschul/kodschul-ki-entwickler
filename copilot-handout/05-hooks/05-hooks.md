@@ -23,12 +23,12 @@ Datei wird gespeichert (oder Build-Trigger)
 
 ## Warum / Wann nicht?
 
-| Warum nutzen                        | Wann nicht                                                |
-| ----------------------------------- | --------------------------------------------------------- |
-| Tests automatisch nach Codeänderung | Task-Befehl dauert sehr lang → blockiert Editor           |
-| Linting erzwingen                   | Zu komplexe Logik → lieber separates Skript               |
-| Build-Automatisierung               | Vertrauliche Daten in Task-Output → sichtbar im Terminal  |
-| Benachrichtigung bei Fertigstellung | Zu viele Tasks → Übersicht verloren                       |
+| Warum nutzen                        | Wann nicht                                               |
+| ----------------------------------- | -------------------------------------------------------- |
+| Tests automatisch nach Codeänderung | Task-Befehl dauert sehr lang → blockiert Editor          |
+| Linting erzwingen                   | Zu komplexe Logik → lieber separates Skript              |
+| Build-Automatisierung               | Vertrauliche Daten in Task-Output → sichtbar im Terminal |
+| Benachrichtigung bei Fertigstellung | Zu viele Tasks → Übersicht verloren                      |
 
 ---
 
@@ -57,30 +57,30 @@ Datei wird gespeichert (oder Build-Trigger)
 
 **Task-Typen:**
 
-| Typ       | Beschreibung                              |
-| --------- | ----------------------------------------- |
-| `shell`   | Shell-Befehl ausführen                    |
-| `process` | Prozess direkt starten (ohne Shell)       |
-| `npm`     | npm-Skript ausführen                      |
+| Typ       | Beschreibung                        |
+| --------- | ----------------------------------- |
+| `shell`   | Shell-Befehl ausführen              |
+| `process` | Prozess direkt starten (ohne Shell) |
+| `npm`     | npm-Skript ausführen                |
 
 **`group`-Werte:**
 
-| Gruppe    | Bedeutung                                           |
-| --------- | --------------------------------------------------- |
-| `build`   | Wird mit `Strg+Shift+B` gestartet                   |
-| `test`    | Wird mit Test-Runner ausgeführt                     |
-| `none`    | Nur manuell über Command Palette                    |
+| Gruppe  | Bedeutung                         |
+| ------- | --------------------------------- |
+| `build` | Wird mit `Strg+Shift+B` gestartet |
+| `test`  | Wird mit Test-Runner ausgeführt   |
+| `none`  | Nur manuell über Command Palette  |
 
 ---
 
 ## Vergleich: Claude Hooks vs. VS Code Tasks
 
-| Claude Code Hook             | VS Code Äquivalent                                     |
-| ---------------------------- | ------------------------------------------------------ |
-| `PostToolUse` bei `Write`    | Task mit `onSave`-Trigger (via Extension)              |
-| `PreToolUse` bei `Write`     | Pre-Build Task / Git Hook (`.git/hooks/pre-commit`)    |
-| `Stop` (Session-Ende)        | `runOptions: { runOn: "default" }` + Terminal          |
-| `Bash(pytest *)` erlauben    | Task direkt definieren + starten                       |
+| Claude Code Hook          | VS Code Äquivalent                                  |
+| ------------------------- | --------------------------------------------------- |
+| `PostToolUse` bei `Write` | Task mit `onSave`-Trigger (via Extension)           |
+| `PreToolUse` bei `Write`  | Pre-Build Task / Git Hook (`.git/hooks/pre-commit`) |
+| `Stop` (Session-Ende)     | `runOptions: { runOn: "default" }` + Terminal       |
+| `Bash(pytest *)` erlauben | Task direkt definieren + starten                    |
 
 ---
 

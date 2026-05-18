@@ -24,7 +24,7 @@ Copilot erhält eine Aufgabe im Agent-Modus
 ---
 name: agent-name
 description: "Wann wird dieser Agent verwendet?"
-tools:               # Tool-Whitelist
+tools: # Tool-Whitelist
   - codebase
   - terminal
 ---
@@ -34,35 +34,35 @@ tools:               # Tool-Whitelist
 
 ## Warum / Wann nicht?
 
-| Warum nutzen                                    | Wann nicht                                               |
-| ----------------------------------------------- | -------------------------------------------------------- |
-| Spezialisierte Aufgabe mit klarem Scope         | Einfache Aufgabe → Prompt reicht                         |
-| Tool-Beschränkung nötig (nur lesen, nur testen) | Kein Mehrwert ohne Tool-Einschränkung                    |
-| Langer Workflow mit eigenen Regeln              | Aufgabe braucht vollen Tool-Zugriff → kein Agent nötig  |
-| Wiederverwendbarer Spezialist                   | Zu viele Agents → Übersicht verloren                     |
+| Warum nutzen                                    | Wann nicht                                             |
+| ----------------------------------------------- | ------------------------------------------------------ |
+| Spezialisierte Aufgabe mit klarem Scope         | Einfache Aufgabe → Prompt reicht                       |
+| Tool-Beschränkung nötig (nur lesen, nur testen) | Kein Mehrwert ohne Tool-Einschränkung                  |
+| Langer Workflow mit eigenen Regeln              | Aufgabe braucht vollen Tool-Zugriff → kein Agent nötig |
+| Wiederverwendbarer Spezialist                   | Zu viele Agents → Übersicht verloren                   |
 
 ---
 
 ## Vergleich: Prompt vs. Instruction vs. Agent
 
-|                | Prompt (`.prompt.md`)    | Instruction (`.instructions.md`) | Agent (`.agent.md`)       |
-| -------------- | ------------------------ | -------------------------------- | ------------------------- |
-| **Aufruf**     | `/name` in Chat          | Automatisch bei Datei-Match      | Per Beschreibung / Aufruf |
-| **Tools**      | Konfigurierbar           | Keine Tools                      | Eingeschränkt definierbar |
-| **Scope**      | Workflow-Schritte        | Verhaltensregeln                 | Eigenständige Aufgabe     |
-| **Datei**      | `.github/prompts/`       | `.github/instructions/`          | `.github/agents/`         |
+|            | Prompt (`.prompt.md`) | Instruction (`.instructions.md`) | Agent (`.agent.md`)       |
+| ---------- | --------------------- | -------------------------------- | ------------------------- |
+| **Aufruf** | `/name` in Chat       | Automatisch bei Datei-Match      | Per Beschreibung / Aufruf |
+| **Tools**  | Konfigurierbar        | Keine Tools                      | Eingeschränkt definierbar |
+| **Scope**  | Workflow-Schritte     | Verhaltensregeln                 | Eigenständige Aufgabe     |
+| **Datei**  | `.github/prompts/`    | `.github/instructions/`          | `.github/agents/`         |
 
 ---
 
 ## Verfügbare Tools für Agents
 
-| Tool           | Beschreibung                                           |
-| -------------- | ------------------------------------------------------ |
-| `codebase`     | Codebase durchsuchen und Dateien lesen                 |
-| `terminal`     | Terminal-Befehle ausführen                             |
-| `githubRepo`   | GitHub Repository-Daten abrufen (Issues, PRs etc.)    |
-| `search`       | Web-Suche durchführen                                  |
-| `extensions`   | VS Code Extensions nutzen                              |
+| Tool         | Beschreibung                                       |
+| ------------ | -------------------------------------------------- |
+| `codebase`   | Codebase durchsuchen und Dateien lesen             |
+| `terminal`   | Terminal-Befehle ausführen                         |
+| `githubRepo` | GitHub Repository-Daten abrufen (Issues, PRs etc.) |
+| `search`     | Web-Suche durchführen                              |
+| `extensions` | VS Code Extensions nutzen                          |
 
 ---
 

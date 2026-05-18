@@ -29,6 +29,7 @@ tools:
 Feature: ${input:featureName}
 
 Analysiere die bestehende Codebase und erstelle specs/${input:featureName}.md mit:
+
 - Ziel (1-2 Sätze)
 - Betroffene Dateien (Liste)
 - Implementierungsschritte als Checkboxen (- [ ])
@@ -163,10 +164,10 @@ Korrigiere nur was falsch ist.
 
 Du hast heute beide Wege gemacht:
 
-| Aspekt                  | Manuell (Aufgabe 1-4 in exercise.md)    | Spec-Kit Prompts (diese Übung)         |
-| ----------------------- | --------------------------------------- | -------------------------------------- |
-| **Kontrolle**           | Du schreibst jeden Prompt selbst        | Standardisierter Workflow              |
-| **Wiederholbarkeit**    | Variiert je nach Formulierung           | Gleicher Ablauf bei jedem Feature      |
-| **Teamnutzung**         | Jeder formuliert anders                 | Geteilte Prompts im Repo               |
-| **Flexibilität**        | Beliebig anpassbar                      | Anpassung in `.prompt.md`-Dateien      |
-| **Einstiegshürde**      | Höher (muss Prompt kennen)             | Niedriger (einfach `/spec-plan`)       |
+| Aspekt               | Manuell (Aufgabe 1-4 in exercise.md) | Spec-Kit Prompts (diese Übung)    |
+| -------------------- | ------------------------------------ | --------------------------------- |
+| **Kontrolle**        | Du schreibst jeden Prompt selbst     | Standardisierter Workflow         |
+| **Wiederholbarkeit** | Variiert je nach Formulierung        | Gleicher Ablauf bei jedem Feature |
+| **Teamnutzung**      | Jeder formuliert anders              | Geteilte Prompts im Repo          |
+| **Flexibilität**     | Beliebig anpassbar                   | Anpassung in `.prompt.md`-Dateien |
+| **Einstiegshürde**   | Höher (muss Prompt kennen)           | Niedriger (einfach `/spec-plan`)  |

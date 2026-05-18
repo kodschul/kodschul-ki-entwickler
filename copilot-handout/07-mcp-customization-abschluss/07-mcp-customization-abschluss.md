@@ -208,14 +208,14 @@ Fasse die Probleme in 3 Bulletpoints zusammen.
 
 ### GitHub Copilot vs. Claude Code – Abschlussvergleich
 
-| Feature                    | Claude Code                  | GitHub Copilot                          |
-| -------------------------- | ---------------------------- | --------------------------------------- |
-| Projektkontext             | `CLAUDE.md`                  | `.github/copilot-instructions.md`       |
-| Globale Einstellungen      | `~/.claude/settings.json`    | VS Code User Settings                   |
-| Custom Commands            | `.claude/commands/*.md`      | `.github/prompts/*.prompt.md`           |
-| Custom Agents              | `.claude/agents/*.md`        | `.github/agents/*.agent.md`             |
-| Skills / Instructions      | `.claude/skills/*/SKILL.md`  | `.github/instructions/*.instructions.md` |
-| Hooks                      | `hooks` in settings.json     | `.vscode/tasks.json` + GitHub Actions   |
-| MCP                        | `mcpServers` in settings.json | `.vscode/mcp.json`                     |
-| CLI (Headless)             | `claude --print "..."`       | `gh copilot suggest "..."`              |
-| Sandbox / Permissions      | `"deny": [...]`              | Instructions + keine `terminal`-Tools   |
+| Feature               | Claude Code                   | GitHub Copilot                           |
+| --------------------- | ----------------------------- | ---------------------------------------- |
+| Projektkontext        | `CLAUDE.md`                   | `.github/copilot-instructions.md`        |
+| Globale Einstellungen | `~/.claude/settings.json`     | VS Code User Settings                    |
+| Custom Commands       | `.claude/commands/*.md`       | `.github/prompts/*.prompt.md`            |
+| Custom Agents         | `.claude/agents/*.md`         | `.github/agents/*.agent.md`              |
+| Skills / Instructions | `.claude/skills/*/SKILL.md`   | `.github/instructions/*.instructions.md` |
+| Hooks                 | `hooks` in settings.json      | `.vscode/tasks.json` + GitHub Actions    |
+| MCP                   | `mcpServers` in settings.json | `.vscode/mcp.json`                       |
+| CLI (Headless)        | `claude --print "..."`        | `gh copilot suggest "..."`               |
+| Sandbox / Permissions | `"deny": [...]`               | Instructions + keine `terminal`-Tools    |

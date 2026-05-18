@@ -106,12 +106,12 @@ python -m pytest test_app.py -v
 
 Wähle eine der folgenden Ideen oder erfinde eine eigene:
 
-| Idee                  | Agent-Datei                         | Beschreibung                                                |
-| --------------------- | ----------------------------------- | ----------------------------------------------------------- |
-| **Dokumentations-Bot** | `doc-writer.agent.md`              | Schreibt Docstrings für undokumentierte Funktionen          |
-| **Dependency-Checker** | `dependency-checker.agent.md`      | Prüft requirements.txt auf veraltete/unsichere Pakete       |
-| **Refactoring-Agent** | `refactor-advisor.agent.md`         | Identifiziert Refactoring-Möglichkeiten ohne Code zu ändern |
-| **i18n-Agent**        | `translation-agent.agent.md`        | Erstellt Übersetzungsdateien für App-Texte                  |
+| Idee                   | Agent-Datei                   | Beschreibung                                                |
+| ---------------------- | ----------------------------- | ----------------------------------------------------------- |
+| **Dokumentations-Bot** | `doc-writer.agent.md`         | Schreibt Docstrings für undokumentierte Funktionen          |
+| **Dependency-Checker** | `dependency-checker.agent.md` | Prüft requirements.txt auf veraltete/unsichere Pakete       |
+| **Refactoring-Agent**  | `refactor-advisor.agent.md`   | Identifiziert Refactoring-Möglichkeiten ohne Code zu ändern |
+| **i18n-Agent**         | `translation-agent.agent.md`  | Erstellt Übersetzungsdateien für App-Texte                  |
 
 **Vorlage:**
 

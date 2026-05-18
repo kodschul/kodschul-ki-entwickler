@@ -27,12 +27,12 @@
 
 ## Warum / Wann nicht?
 
-| Warum nutzen                    | Wann nicht                                              |
-| ------------------------------- | ------------------------------------------------------- |
-| Gleicher Workflow, immer gleich | Einmalige Aufgabe → direkt tippen                       |
-| Teamstandard via Git            | Sehr langer Workflow (>20 Schritte) → lieber Agent      |
-| Onboarding: `/setup` und los    | Sensible Daten als Argument → nie                       |
-| Versionierbar im Repo           | Zu viele Varianten → mehrere Prompt-Dateien anlegen     |
+| Warum nutzen                    | Wann nicht                                          |
+| ------------------------------- | --------------------------------------------------- |
+| Gleicher Workflow, immer gleich | Einmalige Aufgabe → direkt tippen                   |
+| Teamstandard via Git            | Sehr langer Workflow (>20 Schritte) → lieber Agent  |
+| Onboarding: `/setup` und los    | Sensible Daten als Argument → nie                   |
+| Versionierbar im Repo           | Zu viele Varianten → mehrere Prompt-Dateien anlegen |
 
 ---
 
@@ -66,7 +66,7 @@ mein-projekt/
 
 ```markdown
 ---
-mode: ask           # "ask" | "edit" | "agent"
+mode: ask # "ask" | "edit" | "agent"
 description: "Beschreibung was dieser Command tut"
 tools:
   - codebase
@@ -91,20 +91,20 @@ tools:
 
 **Frontmatter-Optionen:**
 
-| Feld          | Bedeutung                                                         |
-| ------------- | ----------------------------------------------------------------- |
+| Feld          | Bedeutung                                                        |
+| ------------- | ---------------------------------------------------------------- |
 | `mode`        | `ask` (nur lesen/antworten), `edit` (Datei bearbeiten), `agent`  |
-| `description` | Wird in der Slash-Command-Liste angezeigt                         |
-| `tools`       | Liste der erlaubten Tools (`codebase`, `terminal`, `githubRepo`)  |
+| `description` | Wird in der Slash-Command-Liste angezeigt                        |
+| `tools`       | Liste der erlaubten Tools (`codebase`, `terminal`, `githubRepo`) |
 
 **Variablen:**
 
-| Platzhalter              | Bedeutung                                             |
-| ------------------------ | ----------------------------------------------------- |
-| `${input:name}`          | Copilot fragt den Nutzer nach einem Wert              |
-| `${file}`                | Aktuell geöffnete Datei                               |
-| `${selection}`           | Aktuell markierter Code                               |
-| `${workspaceFolder}`     | Pfad zum Projektordner                                |
+| Platzhalter          | Bedeutung                                |
+| -------------------- | ---------------------------------------- |
+| `${input:name}`      | Copilot fragt den Nutzer nach einem Wert |
+| `${file}`            | Aktuell geöffnete Datei                  |
+| `${selection}`       | Aktuell markierter Code                  |
+| `${workspaceFolder}` | Pfad zum Projektordner                   |
 
 ---
 

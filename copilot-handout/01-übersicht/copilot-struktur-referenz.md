@@ -63,20 +63,20 @@ mein-projekt/
 
 ```yaml
 ---
-applyTo: "**/*.py"        # Glob-Pattern: welche Dateien betroffen sind
-description: "..."        # Optionale Beschreibung
+applyTo: "**/*.py" # Glob-Pattern: welche Dateien betroffen sind
+description: "..." # Optionale Beschreibung
 ---
 ```
 
 **Verfügbare `applyTo`-Muster:**
 
-| Muster             | Bedeutung                            |
-| ------------------ | ------------------------------------ |
-| `**`               | Alle Dateien (global)                |
-| `**/*.py`          | Alle Python-Dateien                  |
-| `src/**`           | Alles im src-Ordner                  |
-| `**/test_*.py`     | Alle Test-Dateien                    |
-| `templates/**`     | Alle Templates                       |
+| Muster         | Bedeutung             |
+| -------------- | --------------------- |
+| `**`           | Alle Dateien (global) |
+| `**/*.py`      | Alle Python-Dateien   |
+| `src/**`       | Alles im src-Ordner   |
+| `**/test_*.py` | Alle Test-Dateien     |
+| `templates/**` | Alle Templates        |
 
 ---
 
@@ -86,9 +86,9 @@ description: "..."        # Optionale Beschreibung
 
 ```yaml
 ---
-mode: ask           # "ask" | "edit" | "agent"
-description: "..."  # Beschreibung des Commands
-tools:              # Optional: erlaubte Tools
+mode: ask # "ask" | "edit" | "agent"
+description: "..." # Beschreibung des Commands
+tools: # Optional: erlaubte Tools
   - codebase
   - terminal
 ---
@@ -96,11 +96,11 @@ tools:              # Optional: erlaubte Tools
 
 **Modi:**
 
-| Modus    | Bedeutung                                           |
-| -------- | --------------------------------------------------- |
-| `ask`    | Stellt Fragen / analysiert Code (kein Schreiben)    |
-| `edit`   | Bearbeitet aktuelle Datei direkt                    |
-| `agent`  | Voller Agentenmodus mit Tool-Zugriff                |
+| Modus   | Bedeutung                                        |
+| ------- | ------------------------------------------------ |
+| `ask`   | Stellt Fragen / analysiert Code (kein Schreiben) |
+| `edit`  | Bearbeitet aktuelle Datei direkt                 |
+| `agent` | Voller Agentenmodus mit Tool-Zugriff             |
 
 ---
 

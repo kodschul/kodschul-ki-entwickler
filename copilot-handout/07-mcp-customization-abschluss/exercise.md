@@ -144,13 +144,13 @@ Erkläre jede Einschränkung mit einer kurzen Begründung.
 
 Wähle eine der folgenden Ideen:
 
-| Idee                    | Beschreibung                                                                               |
-| ----------------------- | ------------------------------------------------------------------------------------------ |
-| **Eigener MCP-Server**  | Recherche: Wie baut man einen MCP-Server in Python? `gh copilot suggest` nutzen            |
-| **CI erweitern**        | `.github/workflows/test.yml` so erweitern, dass bei Fehlern ein Issue erstellt wird        |
-| **Alias einrichten**    | `gh copilot alias` einrichten für häufige Review-Befehle                                   |
-| **Global vs. Lokal**    | VS Code User Settings öffnen und verstehen was global vs. projektspezifisch konfiguriert ist |
-| **gh copilot explain**  | Erkläre 3 unbekannte Befehle aus dem Projekt mit `gh copilot explain`                      |
+| Idee                   | Beschreibung                                                                                 |
+| ---------------------- | -------------------------------------------------------------------------------------------- |
+| **Eigener MCP-Server** | Recherche: Wie baut man einen MCP-Server in Python? `gh copilot suggest` nutzen              |
+| **CI erweitern**       | `.github/workflows/test.yml` so erweitern, dass bei Fehlern ein Issue erstellt wird          |
+| **Alias einrichten**   | `gh copilot alias` einrichten für häufige Review-Befehle                                     |
+| **Global vs. Lokal**   | VS Code User Settings öffnen und verstehen was global vs. projektspezifisch konfiguriert ist |
+| **gh copilot explain** | Erkläre 3 unbekannte Befehle aus dem Projekt mit `gh copilot explain`                        |
 
 ---
 

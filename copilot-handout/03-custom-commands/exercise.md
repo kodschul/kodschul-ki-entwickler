@@ -114,12 +114,12 @@ Copilot fragt: Gib `Prioritäten für Todos` ein.
 
 **Ideen (falls keine eigene kommt):**
 
-| Idee               | Dateiname                         | Beschreibung                                        |
-| ------------------ | --------------------------------- | --------------------------------------------------- |
-| Dokumentation      | `generate-docs.prompt.md`         | Erstellt Docstrings für alle Funktionen in einer Datei |
-| Changelog          | `update-changelog.prompt.md`      | Schreibt einen Changelog-Eintrag aus Git-Commits    |
-| Refactoring        | `refactor-check.prompt.md`        | Prüft Code auf Refactoring-Potenzial                |
-| Deployment-Check   | `deploy-checklist.prompt.md`      | Erstellt eine Checkliste vor einem Deployment       |
+| Idee             | Dateiname                    | Beschreibung                                           |
+| ---------------- | ---------------------------- | ------------------------------------------------------ |
+| Dokumentation    | `generate-docs.prompt.md`    | Erstellt Docstrings für alle Funktionen in einer Datei |
+| Changelog        | `update-changelog.prompt.md` | Schreibt einen Changelog-Eintrag aus Git-Commits       |
+| Refactoring      | `refactor-check.prompt.md`   | Prüft Code auf Refactoring-Potenzial                   |
+| Deployment-Check | `deploy-checklist.prompt.md` | Erstellt eine Checkliste vor einem Deployment          |
 
 **Vorlage:**
 

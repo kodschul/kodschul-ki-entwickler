@@ -22,25 +22,25 @@ Chat geöffnet
 
 ## Warum / Wann nicht?
 
-| Warum nutzen                      | Wann nicht                                          |
-| --------------------------------- | --------------------------------------------------- |
-| Gleicher Kontext bei jedem Start  | Einmaliger Prompt → direkt tippen                   |
-| Teamkontext via Git teilbar       | Sensible Daten → niemals in `.md`, immer `.env`     |
-| Verhalten gezielt steuern         | Zu viele Instructions (>10) → Copilot wird ungenau  |
-| Lange Prompts als Datei speichern | Sehr spezifische Ausnahme → Kommentar im Code       |
+| Warum nutzen                      | Wann nicht                                         |
+| --------------------------------- | -------------------------------------------------- |
+| Gleicher Kontext bei jedem Start  | Einmaliger Prompt → direkt tippen                  |
+| Teamkontext via Git teilbar       | Sensible Daten → niemals in `.md`, immer `.env`    |
+| Verhalten gezielt steuern         | Zu viele Instructions (>10) → Copilot wird ungenau |
+| Lange Prompts als Datei speichern | Sehr spezifische Ausnahme → Kommentar im Code      |
 
 ---
 
 ## Überblick: Welche Datei macht was?
 
-| Datei                               | Wo                              | Zweck                                                     |
-| ----------------------------------- | ------------------------------- | --------------------------------------------------------- |
-| `copilot-instructions.md`           | `.github/`                      | Globaler Kontext & Regeln für Copilot in diesem Projekt   |
-| `*.instructions.md`                 | `.github/instructions/`         | Wiederverwendbare Anweisung für bestimmte Dateitypen      |
-| `*.prompt.md`                       | `.github/prompts/`              | Slash-Command (`/name`) mit eigenem Workflow              |
-| `*.agent.md`                        | `.github/agents/`               | Spezialisierter Agent mit eigenen Tools/Regeln            |
-| `settings.json`                     | `.vscode/`                      | Projektspezifische Copilot-Einstellungen & Hooks          |
-| `tasks.json`                        | `.vscode/`                      | Automatisierungsaufgaben (Hook-Äquivalent)                |
+| Datei                     | Wo                      | Zweck                                                   |
+| ------------------------- | ----------------------- | ------------------------------------------------------- |
+| `copilot-instructions.md` | `.github/`              | Globaler Kontext & Regeln für Copilot in diesem Projekt |
+| `*.instructions.md`       | `.github/instructions/` | Wiederverwendbare Anweisung für bestimmte Dateitypen    |
+| `*.prompt.md`             | `.github/prompts/`      | Slash-Command (`/name`) mit eigenem Workflow            |
+| `*.agent.md`              | `.github/agents/`       | Spezialisierter Agent mit eigenen Tools/Regeln          |
+| `settings.json`           | `.vscode/`              | Projektspezifische Copilot-Einstellungen & Hooks        |
+| `tasks.json`              | `.vscode/`              | Automatisierungsaufgaben (Hook-Äquivalent)              |
 
 ---
 
@@ -83,8 +83,8 @@ Nutzer können Todos anlegen, bearbeiten, abhaken, löschen.
 
 ## Commands
 
-FLASK_DEBUG=1 python app.py   # Dev-Server starten
-python -m pytest test_app.py  # Tests ausführen
+FLASK_DEBUG=1 python app.py # Dev-Server starten
+python -m pytest test_app.py # Tests ausführen
 
 ## Do
 
