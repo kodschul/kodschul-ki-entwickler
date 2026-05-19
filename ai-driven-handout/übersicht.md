@@ -5,6 +5,7 @@
 ## Tag 1 & 2 — Grundlagen → Copilot Deep Dive
 
 **KI & Prompting**
+
 - Was ist KI — Einsatzgebiete in der Softwareentwicklung, Datenschutz, rechtliche Anforderungen
 - KI-Anbieter im Vergleich: ChatGPT, Claude, Copilot, Gemini, Le Chat, Perplexity, Phind, Codeium
 - Schwerpunkte der Anbieter: Coding vs. Text vs. Bild
@@ -12,30 +13,36 @@
 - AI-Agenten & Multi-Step-Prompting — Konzept, Unterschied zu einfachem Chat
 
 **Inline Completions**
+
 - Ghosttext, Tab-Akzeptanz, Partial Completions
 - Mehrere Vorschläge anzeigen, navigieren, ablehnen
 - Wann Copilot etwas vorschlägt — und wann nicht
 
 **Chat & Kontext**
+
 - Kontext-Variablen: `#file`, `#selection`, `#codebase`, `@workspace`
 - Integrierte Commands: `/explain`, `/fix`, `/tests`, `/doc`
 - Token-Management — was Copilot sieht, was nicht, wie Kontext sparen
 
 **Konfiguration**
+
 - VS Code Settings, Trust, Modellauswahl
 - `copilot-instructions.md` — globale Projektregeln, immer geladen
 - `*.instructions.md` mit `applyTo` — scoped auf Dateityp/Ordner
 
 **Skills & Custom Agents**
+
 - `*.prompt.md` — wiederverwendbare Prompts, Aufruf per `/name`
 - `*.agent.md` — eigener System-Prompt, Tool-Whitelist, autonomer Ablauf
 - Multi-Agent — Agents die andere Agents aufrufen
 
 **Spec-Driven Development**
+
 - Spec schreiben → Copilot generiert Code + Tests daraus
 - Anforderung als Quelle der Wahrheit — nicht Kommentare im Code
 
 **Copilot CLI**
+
 - `gh copilot suggest` — Terminal-Befehle per KI
 - `gh copilot explain` — unbekannte Commands erklären lassen
 
@@ -43,16 +50,54 @@
 
 ---
 
-## Tag 3 — was wir heute bauen
+## Tag 3 — Von DDD bis Web UI: Kompletter .NET Stack
 
-**Hotel Reservierungssystem** — vollständiger .NET Stack, AI-driven von Anfang bis Ende
+**Hotel Reservierungssystem** — AI-driven von Anfang bis Ende
 
-| Zeit | Block | Was entsteht |
-|---|---|---|
-| 09:00–10:30 | m05 + m06 | Domänenmodell → C# Entitäten + EF Core Config |
-| 10:45–12:15 | m07 + m08 | Migration → DB → Geschäftslogik in C# |
-| 13:00–15:00 | m09 + m10 | xUnit Tests → ASP.NET Controller + DTOs |
-| 15:15–16:30 | MCP + Transfer | Copilot spricht direkt mit DB & GitHub |
+**09:00–10:30**
+
+- **m05** Domain Driven Design
+  - 5.1 DDD für KI einordnen
+  - 5.2 Anforderungen → Domänenmodell
+  - 5.3 Klassendiagramm mit draw.io
+  - 5.4 Fach- & technisches Modell abstimmen
+- **m06** Datenklassen & EF Core
+  - 6.1 Klassen mit KI generieren & bewerten
+  - 6.2 Code-First EF Core 9
+  - 6.3 Entwicklungsumgebung einrichten
+  - 6.4 Konsistentes & wartbares Datenmodell
+
+**10:45–12:15**
+
+- **m07** Migrationen & Datenbank
+  - 7.1 Migrationen mit KI erzeugen
+  - 7.2 Datenbank erstellen & initialisieren
+  - 7.3 CLI zur Einrichtung vorbereiten
+  - 7.4 Wartung & Weiterentwicklung
+- **m08** Geschäftslogik
+  - 8.1 Logik aus Anforderungen ableiten
+  - 8.2 Implementieren & integrieren
+  - 8.3 KI gezielt für Logik nutzen
+  - 8.4 Fach-, Daten- & Logikschicht zusammenführen
+
+**13:00–15:00**
+
+- **m09** Softwaretests
+  - 9.1 Teststrategie entwickeln
+  - 9.2 Testdaten mit KI generieren
+  - 9.3 Testdaten validieren & verbessern
+  - 9.4 CRUD-Tests mit KI erzeugen
+- **m10** Web-Oberfläche
+  - 10.1 Frontend als nächsten Schritt einordnen
+  - 10.2 Web UI mit ASP.NET MVC aufbauen
+  - 10.3 Scaffolding als Beschleuniger
+  - 10.4 API-Endpunkte bereitstellen
+
+**15:15–16:30**
+
+- MCP live — Copilot spricht direkt mit DB & GitHub
+- Copilot CLI — `gh copilot suggest / explain`
+- Transfer: jeder TN definiert seinen nächsten Schritt
 
 ---
 
@@ -115,9 +160,9 @@ HotelReservierung/
 
 Jedes Modul (m05–m10) enthält vier Dateien:
 
-| Datei | Inhalt |
-|---|---|
-| `theorie.md` | Konzepte, Patterns, Referenz |
-| `uebungen.md` | Weiterführende Aufgaben |
-| `lab.md` | Demo-Prompt + Deine Aufgabe + Musterlösung |
+| Datei            | Inhalt                                             |
+| ---------------- | -------------------------------------------------- |
+| `theorie.md`     | Konzepte, Patterns, Referenz                       |
+| `uebungen.md`    | Weiterführende Aufgaben                            |
+| `lab.md`         | Demo-Prompt + Deine Aufgabe + Musterlösung         |
 | `agentic-lab.md` | Fertige Instructions, Skills & Agents zum Kopieren |
