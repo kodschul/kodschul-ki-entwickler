@@ -1,3 +1,5 @@
+using HotelApp.Application;
+using HotelApp.Domain;
 using HotelApp.Infrastructure;
 using HotelApp.Web.Components;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +14,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
            .EnableSensitiveDataLogging(builder.Environment.IsDevelopment())
            .EnableDetailedErrors(builder.Environment.IsDevelopment()));
+
+// Repository + Application Service (Clean Architecture)
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+builder.Services.AddScoped<BookingService>();
 
 var app = builder.Build();
 

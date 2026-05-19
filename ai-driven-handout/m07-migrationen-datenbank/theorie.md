@@ -52,13 +52,45 @@ protected override void OnModelCreating(ModelBuilder builder)
     base.OnModelCreating(builder);
 
     // Feste GUIDs für Idempotenz (seed läuft mehrfach = gleiche Daten)
-    builder.Entity<RoomCategory>().HasData(
-        new RoomCategory { Id = Guid.Parse("11111111-0000-0000-0000-000000000001"), Name = "Einzelzimmer", BasePrice = 89.00m },
-        new RoomCategory { Id = Guid.Parse("11111111-0000-0000-0000-000000000002"), Name = "Doppelzimmer", BasePrice = 129.00m },
-        new RoomCategory { Id = Guid.Parse("11111111-0000-0000-0000-000000000003"), Name = "Suite", BasePrice = 249.00m }
+    builder.Entity<Booking>().HasData(
+        new
+        {
+            Id             = Guid.Parse("aaaaaaaa-0000-0000-0000-000000000001"),
+            RoomId         = Guid.Parse("bbbbbbbb-0000-0000-0000-000000000001"),
+            GuestId        = Guid.Parse("cccccccc-0000-0000-0000-000000000001"),
+            CheckInDate    = new DateOnly(2026, 6, 1),
+            CheckOutDate   = new DateOnly(2026, 6, 5),
+            Status         = "Confirmed",
+            TotalPrice     = 516.00m,
+            CancellationFee = (decimal?)null
+        },
+        new
+        {
+            Id             = Guid.Parse("aaaaaaaa-0000-0000-0000-000000000002"),
+            RoomId         = Guid.Parse("bbbbbbbb-0000-0000-0000-000000000002"),
+            GuestId        = Guid.Parse("cccccccc-0000-0000-0000-000000000002"),
+            CheckInDate    = new DateOnly(2026, 7, 10),
+            CheckOutDate   = new DateOnly(2026, 7, 14),
+            Status         = "Requested",
+            TotalPrice     = 356.00m,
+            CancellationFee = (decimal?)null
+        },
+        new
+        {
+            Id             = Guid.Parse("aaaaaaaa-0000-0000-0000-000000000003"),
+            RoomId         = Guid.Parse("bbbbbbbb-0000-0000-0000-000000000001"),
+            GuestId        = Guid.Parse("cccccccc-0000-0000-0000-000000000003"),
+            CheckInDate    = new DateOnly(2026, 5, 1),
+            CheckOutDate   = new DateOnly(2026, 5, 3),
+            Status         = "Cancelled",
+            TotalPrice     = 258.00m,
+            CancellationFee = 50.00m
+        }
     );
 }
 ```
+
+> **Hinweis:** Bei `HasData` muss ein anonymes Objekt verwendet werden, da der `Booking`-Konstruktor Validierungslogik enthält. EF Core befüllt Seed-Daten direkt ohne den Konstruktor aufzurufen.
 
 ### Auto-Migration beim Start (nur Development)
 
@@ -109,6 +141,7 @@ Migration 3: Spalte auf NOT NULL setzen
 ```
 
 **KI-Prompt für Breaking Changes:**
+
 ```
 Ich möchte folgende Modellände ohne Datenverlust durchführen:
 Aktuell: [Modell-Code]

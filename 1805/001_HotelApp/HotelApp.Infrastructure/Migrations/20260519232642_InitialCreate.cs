@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -28,6 +29,21 @@ namespace HotelApp.Infrastructure.Migrations
                     table.PrimaryKey("PK_Bookings", x => x.Id);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Bookings",
+                columns: new[] { "Id", "CancellationFee", "CheckInDate", "CheckOutDate", "GuestId", "RoomId", "Status", "TotalPrice" },
+                values: new object[] { new Guid("aaaaaaaa-0000-0000-0000-000000000001"), null, new DateOnly(2026, 6, 1), new DateOnly(2026, 6, 5), new Guid("cccccccc-0000-0000-0000-000000000001"), new Guid("bbbbbbbb-0000-0000-0000-000000000001"), "Confirmed", 516.00m });
+
+            migrationBuilder.InsertData(
+                table: "Bookings",
+                columns: new[] { "Id", "CancellationFee", "CheckInDate", "CheckOutDate", "GuestId", "RoomId", "TotalPrice" },
+                values: new object[] { new Guid("aaaaaaaa-0000-0000-0000-000000000002"), null, new DateOnly(2026, 7, 10), new DateOnly(2026, 7, 14), new Guid("cccccccc-0000-0000-0000-000000000002"), new Guid("bbbbbbbb-0000-0000-0000-000000000002"), 356.00m });
+
+            migrationBuilder.InsertData(
+                table: "Bookings",
+                columns: new[] { "Id", "CancellationFee", "CheckInDate", "CheckOutDate", "GuestId", "RoomId", "Status", "TotalPrice" },
+                values: new object[] { new Guid("aaaaaaaa-0000-0000-0000-000000000003"), 50.00m, new DateOnly(2026, 5, 1), new DateOnly(2026, 5, 3), new Guid("cccccccc-0000-0000-0000-000000000003"), new Guid("bbbbbbbb-0000-0000-0000-000000000001"), "Cancelled", 258.00m });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_GuestId",
                 table: "Bookings",
@@ -42,7 +58,8 @@ namespace HotelApp.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(name: "Bookings");
+            migrationBuilder.DropTable(
+                name: "Bookings");
         }
     }
 }
