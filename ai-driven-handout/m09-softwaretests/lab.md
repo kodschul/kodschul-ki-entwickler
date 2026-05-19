@@ -21,7 +21,7 @@ Testanforderungen:
 - Fehlerfall: Stornierung eines bereits stornierten Booking → Exception
 
 Methode:
-[Cancel()-Methode aus Booking-Klasse hier einfügen]
+[Cancel()-Methode aus HotelApp.Domain/Booking.cs hier einfügen]
 
 Namenskonvention: MethodName_Scenario_ExpectedResult
 Nur Code, keine Erklärungen.
@@ -64,6 +64,7 @@ Prüfe danach: Haben die Tests aussagekräftige Namen? Sind alle Grenzfälle abg
 <summary>💡 Musterlösung anzeigen</summary>
 
 ```csharp
+// HotelApp.Tests/BookingTests.cs
 public class BookingTests
 {
     private static Booking CreateValidBooking(decimal price = 200m) =>

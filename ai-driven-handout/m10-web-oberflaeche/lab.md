@@ -4,41 +4,42 @@
 
 ## Demo
 
-**Szenario:** Aus fertigen Application Services einen vollständigen ASP.NET MVC Controller + REST API generieren.
+**Szenario:** Blazor Server component + REST API endpoint in HotelApp.Web generieren.
 
 **Prompt:**
 
 ```
-Du bist Senior ASP.NET Core Entwickler. Erstelle einen vollständigen
-`BookingsController` für folgende Anforderungen:
+Du bist Senior ASP.NET Core Entwickler. HotelApp.Web ist ein Blazor Server Projekt.
 
-Vorhandene Services (bereits implementiert):
+Aufgabe 1 — REST API Controller hinzufügen:
+Erstelle einen `BookingsController` unter `HotelApp.Web/Controllers/`:
+
+Vorhandene Services (bereits implementiert in HotelApp.Application):
 - BookingApplicationService.CreateBookingAsync(roomId, guestId, checkIn, checkOut)
 - BookingApplicationService.CancelBookingAsync(bookingId, guestId)
-- BookingQueryService.GetBookingDetailsAsync(bookingId)
-- BookingQueryService.GetGuestBookingsAsync(guestId)
 
 Endpunkte:
 - GET    /api/bookings/{id}            → Buchungsdetails
-- GET    /api/bookings?guestId={id}    → Alle Buchungen eines Gastes
 - POST   /api/bookings                 → Neue Buchung erstellen
 - DELETE /api/bookings/{id}            → Buchung stornieren
 
 Anforderungen:
-- Minimal API ODER Controller (beides zeigen)
-- Request/Response DTOs (keine Entitäten direkt zurückgeben)
-- CORS für http://localhost:4200 erlauben
-- Fehlerbehandlung: 404, 400, 401 mit sinnvollen Meldungen
+- [ApiController] + [Route("api/[controller]")]
+- sealed class, Primärkonstruktor für DI
+- Request/Response Records als DTOs (keine Entitäten direkt)
+- HTTP 200, 201 (CreatedAtAction), 400, 404
 - Nur Code, keine Erklärungen
 ```
 
-CORS konfigurieren in `Program.cs` → API ist von außen erreichbar.
+Aufgabe 2 — Blazor Component:
+Erstelle eine Blazor Komponente `HotelApp.Web/Components/Pages/Bookings.razor`
+die alle Buchungen eines Gastes anzeigt (als Tabelle).
 
 ---
 
 ## Deine Aufgabe
 
-Füge einen `RoomsController` für die Zimmerverwaltung hinzu:
+Füge einen `RoomsController` für die Zimmerverwaltung hinzu unter `HotelApp.Web/Controllers/RoomsController.cs`:
 
 ```
 Du bist Senior ASP.NET Core Entwickler. Erstelle einen `RoomsController`:
@@ -70,10 +71,19 @@ Danach: Teste alle Endpunkte in Swagger UI (`/swagger`).
 <details>
 <summary>💡 Musterlösung anzeigen</summary>
 
-### Program.cs — CORS + Swagger Setup
+### Program.cs — Blazor Server + API Setup
 
 ```csharp
+// HotelApp.Web/Program.cs
+using HotelApp.Application;
+using HotelApp.Infrastructure;
+using HotelApp.Web.Components;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -88,17 +98,35 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddDbContext<AppDbContext>(opt =>
-    opt.UseSqlite(builder.Configuration.GetConnectionString("Default")));
+    opt.UseSqlite(builder.Configuration.GetConnectionString("Default")
+        ?? "Data Source=hotel.db"));
 
 builder.Services.AddScoped<BookingApplicationService>();
 builder.Services.AddScoped<RoomApplicationService>();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseAntiforgery();
 app.UseCors("AllowAll");
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
 app.MapControllers();
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
+
 app.Run();
 ```
 
@@ -171,53 +199,50 @@ public record CreateRoomRequest(string RoomNumber, string Category, decimal Pric
 public record RoomResponse(Guid Id, string RoomNumber, string Category, decimal PricePerNight, bool IsAvailable);
 ```
 
-### Razor View — Zimmerliste anzeigen
+### Blazor Component — Zimmerliste anzeigen
 
-```csharp
-// Controllers/RoomsController.cs (MVC)
-public sealed class RoomsController(RoomApplicationService service) : Controller
+```razor
+@* HotelApp.Web/Components/Pages/Rooms.razor *@
+@page "/rooms"
+@inject RoomApplicationService RoomService
+@rendermode InteractiveServer
+
+<h1>Zimmer</h1>
+
+@if (rooms is null)
 {
-    [HttpGet]
-    public async Task<IActionResult> Index()
+    <p>Wird geladen...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nummer</th><th>Kategorie</th><th>Preis/Nacht</th><th>Verfügbar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var room in rooms)
+            {
+                <tr>
+                    <td>@room.RoomNumber</td>
+                    <td>@room.Category</td>
+                    <td>@room.PricePerNight.ToString("C")</td>
+                    <td>@(room.IsAvailable ? "✅" : "❌")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<RoomDto>? rooms;
+
+    protected override async Task OnInitializedAsync()
     {
-        var rooms = await service.GetAllAsync();
-        return View(rooms.Select(r => new RoomViewModel
-        {
-            Id = r.Id,
-            RoomNumber = r.RoomNumber,
-            Category = r.Category.ToString(),
-            PricePerNight = r.PricePerNight,
-            IsAvailable = r.IsAvailable
-        }));
+        rooms = await RoomService.GetAllAsync();
     }
 }
-```
-
-```html
-<!-- Views/Rooms/Index.cshtml -->
-@model IEnumerable<RoomViewModel>
-  <h1>Zimmer</h1>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Nummer</th>
-        <th>Kategorie</th>
-        <th>Preis/Nacht</th>
-        <th>Verfügbar</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach (var room in Model) {
-      <tr>
-        <td>@room.RoomNumber</td>
-        <td>@room.Category</td>
-        <td>@room.PricePerNight.ToString("C")</td>
-        <td>@(room.IsAvailable ? "✅" : "❌")</td>
-      </tr>
-      }
-    </tbody>
-  </table></RoomViewModel
->
 ```
 
 </details>

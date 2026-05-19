@@ -6,6 +6,8 @@
 
 **Szenario:** Aus dem DDD-Modell eine vollständige C# Entitätsklasse generieren.
 
+Datei anlegen: `HotelApp.Domain/Room.cs`
+
 **Prompt:**
 
 ```
@@ -44,6 +46,8 @@ Copilot generiert die Klasse → gemeinsam Checkliste durchgehen:
 
 Generiere die Klasse `Booking` als Aggregate Root mit diesem Prompt (anpassen erlaubt):
 
+Datei anlegen: `HotelApp.Domain/Booking.cs`
+
 ```
 Du bist Senior C#-Entwickler. .NET 9, C# 13, DDD.
 Erstelle die Klasse `Booking` als AggregateRoot:
@@ -78,6 +82,8 @@ Wende danach die Checkliste an und notiere was Copilot richtig/falsch gemacht ha
 <summary>💡 Musterlösung anzeigen</summary>
 
 ```csharp
+namespace HotelApp.Domain;
+
 /// <summary>Represents a hotel room booking (Aggregate Root).</summary>
 public sealed class Booking
 {

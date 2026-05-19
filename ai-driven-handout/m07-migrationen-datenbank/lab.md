@@ -9,8 +9,8 @@
 **Schritt 1 — Migration erstellen:**
 
 ```powershell
-dotnet ef migrations add InitialCreate
-dotnet ef database update
+dotnet ef migrations add InitialCreate --project HotelApp.Infrastructure --startup-project HotelApp.Web
+dotnet ef database update --project HotelApp.Infrastructure --startup-project HotelApp.Web
 ```
 
 **Schritt 2 — Generierte Migration mit KI reviewen:**
@@ -36,7 +36,7 @@ Copilot findet mindestens 2–3 echte Probleme in der generierten Migration → 
 
 Führe folgende Schritte aus:
 
-1. Öffne die generierte Migration-Datei (`Migrations/TIMESTAMP_InitialCreate.cs`)
+1. Öffne die generierte Migration-Datei (`HotelApp.Infrastructure/Migrations/TIMESTAMP_InitialCreate.cs`)
 2. Kopiere den `Up()`-Methodeninhalt
 3. Füge ihn in diesen Prompt ein und führe ihn aus:
 
@@ -103,9 +103,9 @@ entity.Property(b => b.TotalPrice)
 ### Migration erneut anwenden nach Fixes:
 
 ```powershell
-dotnet ef migrations remove
-dotnet ef migrations add InitialCreate
-dotnet ef database update
+dotnet ef migrations remove --project HotelApp.Infrastructure --startup-project HotelApp.Web
+dotnet ef migrations add InitialCreate --project HotelApp.Infrastructure --startup-project HotelApp.Web
+dotnet ef database update --project HotelApp.Infrastructure --startup-project HotelApp.Web
 ```
 
 </details>

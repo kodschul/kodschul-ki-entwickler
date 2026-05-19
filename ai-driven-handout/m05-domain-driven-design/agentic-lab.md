@@ -21,7 +21,7 @@ applyTo: "**"
 - Aggregate Roots sind mit dem Kommentar `// Aggregate Root` markiert
 - Value Objects sind `sealed record` ohne eigene Id
 - Domain Events sind `sealed record` mit Suffix `Event` (z.B. `BookingCancelledEvent`)
-- Bounded Context: alle Klassen liegen unter `Domain/` — niemals direkt in `Models/`
+- Bounded Context: alle Klassen liegen unter `HotelApp.Domain/` — niemals direkt in `Models/`
 - Niemals `null` zurückgeben — stattdessen `Option<T>` oder Exception werfen
 ```
 
@@ -69,7 +69,7 @@ Anforderungstext:
 name: ddd-analyst
 description: >
   Analysiert Anforderungsdokumente im Projekt und erstellt ein vollständiges
-  Domänenmodell als C#-Klassen unter Domain/
+  Domänenmodell als C#-Klassen unter HotelApp.Domain/
 tools:
   - codebase
   - new_file
@@ -81,8 +81,8 @@ Aufgabe:
 
 1. Lese alle `.md`-Dateien im Ordner `specs/` oder `docs/`
 2. Extrahiere alle Entitäten, Value Objects, Aggregate Roots und Domain Events
-3. Erstelle für jede Klasse eine eigene `.cs`-Datei unter `Domain/`
-4. Erstelle `Domain/Glossar.md` mit der Ubiquitous Language
+3. Erstelle für jede Klasse eine eigene `.cs`-Datei unter `HotelApp.Domain/`
+4. Erstelle `HotelApp.Domain/Glossar.md` mit der Ubiquitous Language
 
 Konventionen:
 
@@ -90,13 +90,13 @@ Konventionen:
 - Value Objects: `public sealed record Name(...)`
 - Domain Events: `public sealed record NameEvent(...)`
 - Aggregate Roots: Kommentar `// Aggregate Root` in der ersten Zeile
-- Namespaces: `HotelReservierung.Domain`
+- Namespaces: `HotelApp.Domain`
 ```
 
 **Workflow:**
 
 ```
-specs/anforderungen.md  →  [ddd-analyst]  →  Domain/*.cs + Domain/Glossar.md
+HotelApp.Domain/ (leer)  →  [ddd-analyst]  →  HotelApp.Domain/*.cs + HotelApp.Domain/Glossar.md
 ```
 
 ---
@@ -105,6 +105,73 @@ specs/anforderungen.md  →  [ddd-analyst]  →  Domain/*.cs + Domain/Glossar.md
 
 ```
 # In Copilot Chat (Agent Mode):
-Lies die Datei specs/anforderungen.md und erstelle das komplette Domänenmodell
-als C#-Klassen unter Domain/ — folge den Konventionen aus ddd.instructions.md
+Analysiere das Hotelreservierungs-Domänenmodell (Booking, Room, Guest, HousekeepingTask) und erstelle das komplette Domänenmodell
+als C#-Klassen unter HotelApp.Domain/ — folge den Konventionen aus ddd.instructions.md
+```
+
+---
+
+## 4. `.github/skills/ddd-scaffolder/SKILL.md`
+
+Ein wiederverwendbarer Workflow — per `/ddd-scaffolder` in Copilot Chat aufrufbar.
+
+```markdown
+---
+name: ddd-scaffolder
+description: >
+  Scaffolds a complete DDD domain model for a .NET project. Use when starting
+  a new bounded context, modelling a domain from requirements, generating
+  entities, value objects, aggregate roots, domain events, and a ubiquitous
+  language glossary. Trigger words: DDD, domain model, bounded context,
+  aggregate, value object, ubiquitous language, domain event, C# domain.
+---
+
+# DDD Scaffolder
+
+Erstellt ein vollständiges Domänenmodell aus Anforderungstexten.
+
+## Wann verwenden
+
+- Neues Bounded Context anlegen
+- Domänenmodell aus User Stories oder Spec-Dateien ableiten
+- Entitäten, Value Objects und Domain Events generieren
+- Ubiquitous Language Glossar erstellen oder erweitern
+
+## Voraussetzungen
+
+- Anforderungstext liegt unter `specs/` oder `docs/` (`.md`-Datei)
+- HotelApp ist bereits angelegt — Klassen kommen nach `HotelApp.Domain/`
+
+## Vorgehen
+
+1. Analysiere das bestehende HotelApp-Domänenmodell (Booking, Room, Guest)
+2. Extrahiere Entitäten, Value Objects, Aggregate Roots, Domain Events
+3. Prüfe bestehende Dateien unter `HotelApp.Domain/` — keine Duplikate anlegen
+4. Erstelle fehlende `.cs`-Gerüste unter `HotelApp.Domain/`
+5. Erstelle oder aktualisiere `HotelApp.Domain/Glossar.md`
+
+## Ausgabe
+
+| Datei                        | Inhalt                                   |
+| ---------------------------- | ---------------------------------------- |
+| `HotelApp.Domain/<Name>.cs`  | Klassengerüst pro Entität / Value Object |
+| `HotelApp.Domain/Glossar.md` | Deutsch → C#-Begriff (min. 10 Einträge)  |
+
+## Beispiel-Aufruf
+```
+
+/ddd-scaffolder
+Erstelle das HousekeepingTask-Domänenmodell für HotelApp.Domain/
+
+```
+
+```
+
+**Skill-Struktur anlegen:**
+
+```
+.github/skills/ddd-scaffolder/
+├── SKILL.md
+└── references/
+    └── ddd-conventions.md    ← Konventionen aus ddd.instructions.md hier zusammenfassen
 ```

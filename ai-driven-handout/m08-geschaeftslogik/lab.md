@@ -34,7 +34,7 @@ Regeln:
 - Gast hat max. 3 aktive Buchungen (Status = Requested oder Confirmed)
 - Stammkunde (> 5 CheckedOut-Buchungen) → 10% Rabatt auf TotalPrice
 
-Vohandene Typen: Booking, BookingStatus, AppDbContext
+Vohandene Typen: Booking, BookingStatus (HotelApp.Domain), AppDbContext (HotelApp.Infrastructure)
 Wirft: BookingValidationException mit sprechender Fehlermeldung
 Nur Code, keine Erklärungen.
 ```
@@ -57,7 +57,7 @@ Regeln:
 - Stornierungsgebühr berechnen: booking.Cancel(DateTimeOffset.UtcNow) aufrufen
 - Änderung in DB speichern
 
-Vohandene Typen: Booking, AppDbContext, BookingStatus
+Vohandene Typen: Booking, BookingStatus (HotelApp.Domain), AppDbContext (HotelApp.Infrastructure)
 Wirft: UnauthorizedAccessException wenn falsche GuestId
 Wirft: InvalidOperationException wenn Status nicht stornierbar
 Nur Code, keine Erklärungen.
@@ -71,6 +71,7 @@ Vergleiche danach mit der Musterlösung.
 <summary>💡 Musterlösung anzeigen</summary>
 
 ```csharp
+// HotelApp.Application/BookingApplicationService.cs
 public sealed class BookingApplicationService(AppDbContext db)
 {
     public async Task<Booking> CreateBookingAsync(

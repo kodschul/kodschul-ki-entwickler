@@ -6,6 +6,8 @@
 
 **Szenario:** Aus einem unstrukturierten Anforderungstext ein Domänenmodell ableiten.
 
+Dies ist die Hauptdomäne von **HotelApp** — das Projekt das wir den ganzen Tag aufbauen.
+
 **Prompt (in Copilot Chat oder ChatGPT eingeben):**
 
 ```
@@ -32,18 +34,28 @@ erhalten Rabatt."
 
 ## Deine Aufgabe
 
-Verwende denselben Prompt mit diesem Anforderungstext:
+Verwende denselben Prompt — analysiere jetzt den **Housekeeping-Bereich** von HotelApp:
 
 ```
-Ein Online-Shop verkauft Produkte. Kunden legen Produkte in einen Warenkorb
-und geben Bestellungen auf. Bestellungen werden bezahlt, verpackt und versendet.
-Bei Problemen können Bestellungen zurückgegeben werden. Produkte können
-vergriffen sein — dann können sich Kunden benachrichtigen lassen.
+Du bist Domain-Experte und Senior-Entwickler. Analysiere diesen Anforderungstext
+und liefere:
+1. Eine Liste aller Entitäten
+2. Eine Liste aller Value Objects
+3. Aggregate Roots
+4. Domain Events (Vergangenheitsform)
+5. Ubiquitous Language Glossar (10 Einträge, DE → Code-Begriff)
+
+Anforderungstext:
+"Housekeeping-Mitarbeiter reinigen Zimmer nach dem Check-out.
+Ein Zimmer kann den Zustand Belegt, Zu reinigen oder Bereit haben.
+Nach jeder Reinigung wird ein Reinigungsprotokoll erstellt.
+Mitarbeiter sind bestimmten Etagen zugewiesen.
+Defekte werden gemeldet und müssen repariert werden bevor das Zimmer freigegeben wird."
 ```
 
 1. Führe den Prompt aus
 2. Vergleiche dein Ergebnis mit der Musterlösung unten
-3. Was hat Copilot richtig erkannt? Was hat gefehlt oder war falsch?
+3. Welche zusätzlichen Entitäten gehören in `HotelApp.Domain/`?
 
 ---
 
@@ -52,45 +64,54 @@ vergriffen sein — dann können sich Kunden benachrichtigen lassen.
 
 ### Entitäten
 
-- `Customer` — hat Identität, Lebenszyklus (registriert, aktiv, gesperrt)
-- `Order` — zentrales Aggregate, durchläuft Zustände
-- `Product` — eigene Identität, Bestand änderbar
-- `Cart` — kurzlebig, gehört zu einem Customer
+- `HousekeepingTask` — hat Lebenszyklus (Pending → InProgress → Done)
+- `Staff` — Mitarbeiter mit Etagen-Zuweisung
+- `CleaningReport` — Protokoll einer abgeschlossenen Reinigung
+- `Defect` — gemeldeter Defekt, blockiert Zimmer-Freigabe
 
 ### Value Objects
 
-- `Address` — Lieferadresse, keine eigene Identität
-- `Money` — Betrag + Währung
-- `OrderLine` — Produkt + Menge + Preis zum Zeitpunkt der Bestellung
+- `FloorAssignment` — Mitarbeiter + Etage (keine eigene Identität)
+- `CleaningDuration` — Start- und Endzeit der Reinigung
 
 ### Aggregate Roots
 
-- `Order` — besitzt `OrderLine`s
-- `Customer` — besitzt `Cart`
-- `Product` — verwaltet Bestand
+- `HousekeepingTask` — besitzt `CleaningReport` und `Defect`-Liste
+- `Staff` — verwaltet Etagen-Zuweisungen
 
 ### Domain Events
 
-- `OrderPlaced`
-- `OrderPaid`
-- `OrderShipped`
-- `OrderReturned`
-- `ProductRestocked`
-- `CustomerNotificationRequested`
+- `RoomCleaningCompleted`
+- `DefectReported`
+- `DefectRepaired`
+- `RoomReadyForGuest`
 
 ### Ubiquitous Language Glossar
 
-| Deutsch             | Code-Begriff        |
-| ------------------- | ------------------- |
-| Bestellung aufgeben | `PlaceOrder()`      |
-| Warenkorb           | `Cart`              |
-| Bestellposition     | `OrderLine`         |
-| vergriffen          | `OutOfStock`        |
-| Rückgabe            | `Return`            |
-| Versand             | `Shipment`          |
-| Benachrichtigung    | `StockNotification` |
-| Stammkunde          | `LoyalCustomer`     |
-| Tagespreis          | `DailyRate`         |
-| Stornierung         | `Cancellation`      |
+| Deutsch | Code-Begriff |
+|---------|-------------|
+| Reinigung | `Cleaning` |
+| Reinigungsauftrag | `HousekeepingTask` |
+| Bereit | `ReadyForGuest` |
+| Zu reinigen | `NeedsCleaning` |
+| Reinigungsprotokoll | `CleaningReport` |
+| Defekt melden | `ReportDefect()` |
+| Etage | `Floor` |
+| Mitarbeiterzuweisung | `FloorAssignment` |
+| Freigabe | `RoomRelease` |
+| Inspektion | `Inspection` |
+
+### Neue Dateien in HotelApp.Domain/
+
+```
+HotelApp.Domain/
+├── HousekeepingTask.cs
+├── Staff.cs
+├── CleaningReport.cs
+├── Defect.cs
+└── Enums/
+    ├── RoomCondition.cs       ← Occupied, NeedsCleaning, Ready
+    └── HousekeepingStatus.cs  ← Pending, InProgress, Done
+```
 
 </details>
