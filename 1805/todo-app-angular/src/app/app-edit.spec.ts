@@ -66,7 +66,9 @@ describe('App editing', () => {
     fixture.detectChanges();
 
     expect(compiled.querySelector('.todo-title')?.textContent).toContain('Updated title');
-    expect(compiled.querySelector('.todo-description')?.textContent).toContain('Updated description');
+    expect(compiled.querySelector('.todo-description')?.textContent).toContain(
+      'Updated description',
+    );
     expect(compiled.querySelector('.todo-date')?.textContent).toContain('2026-12-24');
   });
 
@@ -83,7 +85,9 @@ describe('App editing', () => {
     editTitle.dispatchEvent(new Event('blur'));
     fixture.detectChanges();
 
-    expect(compiled.querySelector('.error')?.textContent).toContain('Der Titel darf nicht leer sein.');
+    expect(compiled.querySelector('.error')?.textContent).toContain(
+      'Der Titel darf nicht leer sein.',
+    );
 
     const cancelButton = compiled.querySelector('.cancel-edit-btn') as HTMLButtonElement;
     cancelButton.dispatchEvent(new MouseEvent('mousedown'));
