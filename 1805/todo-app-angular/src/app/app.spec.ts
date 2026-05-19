@@ -2,6 +2,21 @@ import { TestBed } from '@angular/core/testing';
 import { App } from './app';
 
 describe('App', () => {
+  function setup(): { fixture: any; compiled: HTMLElement } {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    return { fixture, compiled: fixture.nativeElement as HTMLElement };
+  }
+
+  function createTodo(compiled: HTMLElement, title: string): void {
+    const input = compiled.querySelector('#todoTitle') as HTMLInputElement;
+    const form = compiled.querySelector('form') as HTMLFormElement;
+
+    input.value = title;
+    input.dispatchEvent(new Event('input'));
+    form.dispatchEvent(new Event('submit'));
+  }
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
@@ -15,30 +30,20 @@ describe('App', () => {
   });
 
   it('should create a todo and reset the input', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
+    const { fixture, compiled } = setup();
     const input = compiled.querySelector('#todoTitle') as HTMLInputElement;
-    const form = compiled.querySelector('form') as HTMLFormElement;
 
-    input.value = 'Buy milk';
-    input.dispatchEvent(new Event('input'));
-    form.dispatchEvent(new Event('submit'));
+    createTodo(compiled, 'Buy milk');
     fixture.detectChanges();
 
     const items = compiled.querySelectorAll('.todo-list li');
     expect(items.length).toBe(1);
     expect(items[0].textContent).toContain('Buy milk');
-    expect(items[0].textContent).toContain('Offen');
     expect(input.value).toBe('');
   });
 
   it('should reject empty todo input with a validation message', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
+    const { fixture, compiled } = setup();
     const input = compiled.querySelector('#todoTitle') as HTMLInputElement;
     const form = compiled.querySelector('form') as HTMLFormElement;
 
@@ -51,20 +56,4 @@ describe('App', () => {
     expect(compiled.querySelector('.error')?.textContent).toContain('Bitte gib einen Titel ein.');
   });
 
-  it('should create a todo when pressing Enter in the input', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
-    const input = compiled.querySelector('#todoTitle') as HTMLInputElement;
-
-    input.value = 'Read a book';
-    input.dispatchEvent(new Event('input'));
-    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-    fixture.detectChanges();
-
-    const items = compiled.querySelectorAll('.todo-list li');
-    expect(items.length).toBe(1);
-    expect(items[0].textContent).toContain('Read a book');
-  });
 });

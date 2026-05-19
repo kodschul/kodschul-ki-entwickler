@@ -26,9 +26,69 @@
     @if (hasTodos()) {
       <ul class="todo-list" aria-label="Todo-Liste">
         @for (todo of todos(); track todo.id) {
-          <li>
-            <span class="todo-title">{{ todo.title }}</span>
-            <span class="todo-state">{{ todo.completed ? 'Erledigt' : 'Offen' }}</span>
+          <li (dblclick)="startEditing(todo)">
+            @if (isEditing(todo.id)) {
+              <div class="edit-panel">
+                <label class="sr-only" for="editTitle">Titel bearbeiten</label>
+                <input
+                  id="editTitle"
+                  class="edit-title"
+                  type="text"
+                  [formControl]="editTitleControl"
+                  (input)="clearEditValidation()"
+                  (blur)="saveEditOnBlur()"
+                />
+
+                <label class="sr-only" for="editDescription">Beschreibung bearbeiten</label>
+                <textarea
+                  id="editDescription"
+                  class="edit-description"
+                  [formControl]="editDescriptionControl"
+                  (input)="clearEditValidation()"
+                  (blur)="saveEditOnBlur()"
+                  rows="2"
+                ></textarea>
+
+                <label class="sr-only" for="editDueDate">Fälligkeitsdatum bearbeiten</label>
+                <input
+                  id="editDueDate"
+                  class="edit-date"
+                  type="date"
+                  [formControl]="editDueDateControl"
+                  (blur)="saveEditOnBlur()"
+                />
+
+                @if (editValidationMessage(); as editMessage) {
+                  <p class="error" role="alert">{{ editMessage }}</p>
+                }
+
+                <button
+                  type="button"
+                  class="cancel-edit-btn"
+                  (mousedown)="onCancelMouseDown()"
+                  (click)="cancelEdit()"
+                >
+                  Abbrechen
+                </button>
+              </div>
+            } @else {
+              <div class="todo-view" aria-label="Todo-Eintrag">
+                <div class="todo-header">
+                  <span class="todo-title">{{ todo.title }}</span>
+                  <button
+                    type="button"
+                    class="delete-btn"
+                    [attr.aria-label]="'Todo loeschen: ' + todo.title"
+                    (click)="deleteTodo(todo.id)"
+                  >
+                    Loeschen
+                  </button>
+                </div>
+                <span class="todo-description">{{ todo.description || 'Keine Beschreibung' }}</span>
+                <span class="todo-date">{{ todo.dueDate || 'Kein Fälligkeitsdatum' }}</span>
+                <span class="todo-state">{{ todo.completed ? 'Erledigt' : 'Offen' }}</span>
+              </div>
+            }
           </li>
         }
       </ul>
