@@ -106,4 +106,35 @@ Konventionen: camelCase, func_-Praefix, Private Setter per Reflection fuer Test-
 ```
 
 # Befehl zum Ausfuehren der Tests:
+
 dotnet test
+
+## Modul 10 - Frontend + Backend API
+
+```prompt
+Integriere fuer das finale Modul m10 eine komplette Booking-Webflaeche mit API:
+
+Backend (Minimal API in Program.cs):
+- GET /api/bookings
+- GET /api/bookings/{id}
+- POST /api/bookings
+- POST /api/bookings/{id}/confirm
+- POST /api/bookings/{id}/cancel
+- POST /api/bookings/{id}/checkin
+- Validiere Input (Guid nicht leer, CheckOut > CheckIn, Preis >= 0)
+- Mapping auf BookingService und passende HTTP-Responses (404/400/204/201)
+
+Frontend (Blazor):
+- Neue Seite Components/Pages/Bookings.razor
+- Liste aller Bookings aus /api/bookings
+- Formular zum Anlegen einer Booking
+- Buttons fuer Confirm/Cancel/Check-In je Zeile
+- Fehler als Meldung anzeigen und nach Aktionen Reload ausfuehren
+- Navigationseintrag in NavMenu.razor ergaenzen
+```
+
+# m10 ausgefuehrte Kommandos:
+
+dotnet build HotelApp.sln
+dotnet build "c:\Users\User\Documents\kodschul\kodschul-ki-entwickler\1805\001_HotelApp\HotelApp.sln"
+dotnet run --project "c:\Users\User\Documents\kodschul\kodschul-ki-entwickler\1805\001_HotelApp\HotelApp.Web\HotelApp.Web.csproj"

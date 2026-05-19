@@ -1,0 +1,246 @@
+@page "/bookings"
+@inject IHttpClientFactory HttpClientFactory
+@inject NavigationManager Navigation
+
+<PageTitle>Bookings</PageTitle>
+
+<h1>Bookings</h1>
+
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="alert alert-danger" role="alert">@errorMessage</div>
+}
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Neue Buchung</h5>
+
+        <EditForm Model="createModel" OnValidSubmit="func_CreateBookingAsync">
+            <DataAnnotationsValidator />
+
+            <div class="row g-2">
+                <div class="col-md-6">
+                    <label class="form-label">RoomId</label>
+                    <InputText class="form-control" @bind-Value="createModel.roomIdText" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">GuestId</label>
+                    <InputText class="form-control" @bind-Value="createModel.guestIdText" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Check-In</label>
+                    <InputDate class="form-control" @bind-Value="createModel.checkInDate" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Check-Out</label>
+                    <InputDate class="form-control" @bind-Value="createModel.checkOutDate" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Total Price</label>
+                    <InputNumber class="form-control" @bind-Value="createModel.totalPrice" />
+                </div>
+            </div>
+
+            <button class="btn btn-primary mt-3" type="submit" disabled="@isBusy">Erstellen</button>
+        </EditForm>
+    </div>
+</div>
+
+@if (isLoading)
+{
+    <p>Lade Daten...</p>
+}
+else if (bookings.Count == 0)
+{
+    <p>Noch keine Bookings vorhanden.</p>
+}
+else
+{
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>RoomId</th>
+                <th>GuestId</th>
+                <th>Check-In</th>
+                <th>Check-Out</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Fee</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in bookings)
+            {
+                <tr>
+                    <td>@booking.id</td>
+                    <td>@booking.roomId</td>
+                    <td>@booking.guestId</td>
+                    <td>@booking.checkInDate.ToString("yyyy-MM-dd")</td>
+                    <td>@booking.checkOutDate.ToString("yyyy-MM-dd")</td>
+                    <td>@booking.status</td>
+                    <td>@booking.totalPrice.ToString("0.00")</td>
+                    <td>@(booking.cancellationFee?.ToString("0.00") ?? "-")</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-success me-1" disabled="@isBusy" @onclick='() => func_ActionAsync(booking.id, "confirm")'>Confirm</button>
+                        <button class="btn btn-sm btn-outline-warning me-1" disabled="@isBusy" @onclick='() => func_ActionAsync(booking.id, "cancel")'>Cancel</button>
+                        <button class="btn btn-sm btn-outline-primary" disabled="@isBusy" @onclick='() => func_ActionAsync(booking.id, "checkin")'>Check-In</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private readonly List<BookingItemVm> bookings = new();
+    private readonly CreateBookingVm createModel = new()
+    {
+        checkInDate = DateOnly.FromDateTime(DateTime.Today.AddDays(1)),
+        checkOutDate = DateOnly.FromDateTime(DateTime.Today.AddDays(2)),
+        totalPrice = 100m,
+        roomIdText = Guid.NewGuid().ToString(),
+        guestIdText = Guid.NewGuid().ToString()
+    };
+
+    private bool isLoading = true;
+    private bool isBusy;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await func_LoadBookingsAsync();
+    }
+
+    private async Task func_LoadBookingsAsync()
+    {
+        isLoading = true;
+        errorMessage = null;
+
+        try
+        {
+            var client = HttpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(Navigation.BaseUri);
+            var response = await client.GetFromJsonAsync<List<BookingItemVm>>("api/bookings");
+
+            bookings.Clear();
+            if (response is not null)
+            {
+                bookings.AddRange(response);
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task func_CreateBookingAsync()
+    {
+        errorMessage = null;
+
+        if (!Guid.TryParse(createModel.roomIdText, out var roomId) || !Guid.TryParse(createModel.guestIdText, out var guestId))
+        {
+            errorMessage = "RoomId und GuestId muessen gueltige GUIDs sein.";
+            return;
+        }
+
+        if (createModel.checkOutDate <= createModel.checkInDate)
+        {
+            errorMessage = "Check-Out muss nach Check-In liegen.";
+            return;
+        }
+
+        isBusy = true;
+
+        try
+        {
+            var client = HttpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(Navigation.BaseUri);
+
+            var payload = new CreateBookingRequestVm(
+                roomId,
+                guestId,
+                createModel.checkInDate,
+                createModel.checkOutDate,
+                createModel.totalPrice);
+
+            var result = await client.PostAsJsonAsync("api/bookings", payload);
+            if (!result.IsSuccessStatusCode)
+            {
+                errorMessage = await result.Content.ReadAsStringAsync();
+            }
+
+            await func_LoadBookingsAsync();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            isBusy = false;
+        }
+    }
+
+    private async Task func_ActionAsync(Guid id, string action)
+    {
+        errorMessage = null;
+        isBusy = true;
+
+        try
+        {
+            var client = HttpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(Navigation.BaseUri);
+
+            var result = await client.PostAsync($"api/bookings/{id}/{action}", content: null);
+            if (!result.IsSuccessStatusCode)
+            {
+                errorMessage = await result.Content.ReadAsStringAsync();
+            }
+
+            await func_LoadBookingsAsync();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+        finally
+        {
+            isBusy = false;
+        }
+    }
+
+    private sealed class BookingItemVm
+    {
+        public Guid id { get; set; }
+        public Guid roomId { get; set; }
+        public Guid guestId { get; set; }
+        public DateOnly checkInDate { get; set; }
+        public DateOnly checkOutDate { get; set; }
+        public string status { get; set; } = string.Empty;
+        public decimal totalPrice { get; set; }
+        public decimal? cancellationFee { get; set; }
+    }
+
+    private sealed class CreateBookingVm
+    {
+        public string roomIdText { get; set; } = string.Empty;
+        public string guestIdText { get; set; } = string.Empty;
+        public DateOnly checkInDate { get; set; }
+        public DateOnly checkOutDate { get; set; }
+        public decimal totalPrice { get; set; }
+    }
+
+    private sealed record CreateBookingRequestVm(
+        Guid roomId,
+        Guid guestId,
+        DateOnly checkInDate,
+        DateOnly checkOutDate,
+        decimal totalPrice);
+}
