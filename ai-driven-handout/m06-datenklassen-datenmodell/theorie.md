@@ -4,18 +4,19 @@
 
 ### Bewertungscheckliste
 
-| Punkt | Prüffrage |
-|---|---|
-| Kapselung | Alle Properties `private set` oder `init`? |
-| Validierung | Konstruktor/Methoden validieren alle Eingaben? |
-| Null-Safety | Nullable Reference Types aktiviert und korrekt? |
-| UTC-Zeiten | `DateTime.UtcNow` statt `DateTime.Now`? |
-| EF Core | `protected` Konstruktor für Materialisation vorhanden? |
-| Domain Events | Fachliche Ereignisse als records vorhanden? |
-| Status-Guards | Methoden prüfen Status vor Ausführung? |
-| Typen | `decimal` für Geld, `Guid` für IDs? |
+| Punkt         | Prüffrage                                              |
+| ------------- | ------------------------------------------------------ |
+| Kapselung     | Alle Properties `private set` oder `init`?             |
+| Validierung   | Konstruktor/Methoden validieren alle Eingaben?         |
+| Null-Safety   | Nullable Reference Types aktiviert und korrekt?        |
+| UTC-Zeiten    | `DateTime.UtcNow` statt `DateTime.Now`?                |
+| EF Core       | `protected` Konstruktor für Materialisation vorhanden? |
+| Domain Events | Fachliche Ereignisse als records vorhanden?            |
+| Status-Guards | Methoden prüfen Status vor Ausführung?                 |
+| Typen         | `decimal` für Geld, `Guid` für IDs?                    |
 
 ### Prompt-Template für Klassen
+
 ```
 Du bist Senior C#-Entwickler. .NET 9, C# 13, DDD.
 Erstelle [KLASSE] als [Entity / AggregateRoot / ValueObject]:
@@ -26,9 +27,10 @@ Anforderungen: private setter, protected EF-Ctor, XML-Docs, Domain Events.
 Nur Code. Keine Erklärungen.
 ```
 
-## Lab 6.2 — Code-First-Ansatz mit EF Core 9
+## Lab 6.2 — Code-First-Ansatz mit EF Core 8
 
 ### DbContext Grundstruktur
+
 ```csharp
 public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
@@ -44,6 +46,7 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbCon
 ### Fluent API vs. Data Annotations
 
 Fluent API hält die Domäneklassen frei von Infrastruktur-Attributen:
+
 ```csharp
 // ❌ Domäne mit Infrastruktur verschmutzt
 [MaxLength(100), Required]
@@ -56,29 +59,79 @@ builder.Property(e => e.Name).HasMaxLength(100).IsRequired();
 ## Lab 6.3 — Entwicklungsumgebung einrichten
 
 ### NuGet-Pakete
+
 ```xml
-<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.*" />
-<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.*">
+<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.*" />
+<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.*">
   <PrivateAssets>all</PrivateAssets>
 </PackageReference>
 ```
 
 ### Verbindungsstring (Development mit LocalDB)
+
 ```json
-{ "ConnectionStrings": { "Default": "Server=(localdb)\\MSSQLLocalDB;Database=AppDb;Trusted_Connection=True;TrustServerCertificate=True" } }
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=HotelAppDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"
+  }
+}
 ```
 
 ### Registration in Program.cs
+
 ```csharp
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
            .EnableSensitiveDataLogging(builder.Environment.IsDevelopment())
            .EnableDetailedErrors(builder.Environment.IsDevelopment()));
+```
+
+### Praxis: So integrierst du es im Projekt (001_HotelApp)
+
+1. Web-Projekt mit EF-Design-Paket ausstatten:
+
+```powershell
+dotnet add .\HotelApp.Web\HotelApp.Web.csproj package Microsoft.EntityFrameworkCore.Design --version 8.*
+```
+
+2. In `HotelApp.Web\appsettings.json` den ConnectionString eintragen:
+
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=HotelAppDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"
+  }
+}
+```
+
+3. In `HotelApp.Infrastructure` den DbContext anlegen:
+
+```csharp
+public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+{
+}
+```
+
+4. In `HotelApp.Web\Program.cs` DbContext registrieren:
+
+```csharp
+builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+                     .EnableSensitiveDataLogging(builder.Environment.IsDevelopment())
+                     .EnableDetailedErrors(builder.Environment.IsDevelopment()));
+```
+
+5. Setup prüfen:
+
+```powershell
+dotnet restore
+dotnet build
 ```
 
 ## Lab 6.4 — Konsistentes und wartbares Datenmodell
 
 ### Basisklassen
+
 ```csharp
 public abstract class Entity
 {
@@ -98,10 +151,10 @@ public abstract class AuditableEntity : Entity
 
 ### Häufige Modellierungsfehler
 
-| Fehler | Auswirkung | Lösung |
-|---|---|---|
-| `double` für Geld | Rundungsfehler | `decimal` + `HasPrecision(18,2)` |
-| `DateTime.Now` | Zeitzonen-Bug | `DateTime.UtcNow` immer |
-| Enum als int | DB unleserlich | `HasConversion<string>()` |
-| DbContext als Singleton | Thread-Sicherheitsproblem | `AddDbContext` → Scoped |
-| Kein Index auf FK | Langsame Joins | `HasIndex()` oder automatisch durch EF |
+| Fehler                  | Auswirkung                | Lösung                                 |
+| ----------------------- | ------------------------- | -------------------------------------- |
+| `double` für Geld       | Rundungsfehler            | `decimal` + `HasPrecision(18,2)`       |
+| `DateTime.Now`          | Zeitzonen-Bug             | `DateTime.UtcNow` immer                |
+| Enum als int            | DB unleserlich            | `HasConversion<string>()`              |
+| DbContext als Singleton | Thread-Sicherheitsproblem | `AddDbContext` → Scoped                |
+| Kein Index auf FK       | Langsame Joins            | `HasIndex()` oder automatisch durch EF |
