@@ -1,5 +1,5 @@
 ---
-applyTo: '**/*.py'
+applyTo: '**/*.xxxx'
 description: 'When generating code in python'
 ---
 

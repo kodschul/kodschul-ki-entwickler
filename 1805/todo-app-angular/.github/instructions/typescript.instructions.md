@@ -1,5 +1,5 @@
 ---
-applyTo: '**/*.ts'
+applyTo: '**/*.xxxxxx'
 description: 'When generating code in TypeScript'
 ---
 
