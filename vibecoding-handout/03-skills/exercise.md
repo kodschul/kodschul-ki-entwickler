@@ -1,21 +1,49 @@
-# Exercise - 03 Skills
+# Exercise: Skills bauen und anwenden
 
-## Aufgabe
+## Ziel
 
-Lege mindestens 2 Skills an:
+Ihr erstellt wiederverwendbare Skill-Dateien und messt die Qualitaetsverbesserung am gleichen Angebotsinput.
 
-1. `offer-structure.md`
-2. `language-style.md`
+## Schritt 1: Zwei Skills erstellen
 
-## Prompt fuer TN
+Pflichtdateien:
+
+1. `.claude/skills/offer-structure.md`
+2. `.claude/skills/language-style.md`
+
+## Schritt 2: Dritten Skill ergaenzen (frei waehlbar)
+
+Optionen:
+
+- `pricing-rules.md`
+- `risk-wording.md`
+- `executive-summary-rules.md`
+
+## Muster-Prompts
 
 ```text
-Erstelle in `.claude/skills/offer-structure.md` klare Regeln fuer Angebotsaufbau.
-Nutze nummerierte Pflichtabschnitte und eine kurze Qualitaetscheckliste.
+Erstelle `.claude/skills/offer-structure.md`.
+Der Skill muss 5 Pflichtabschnitte, klare Reihenfolge und eine kurze Checkliste enthalten.
 ```
+
+```text
+Erstelle `.claude/skills/language-style.md`.
+Ziel: C-Level lesbar, kurze Saetze, klare Nutzenargumentation, keine Buzzwords ohne Beleg.
+```
+
+```text
+Wende alle drei Skills auf den gleichen Angebotsentwurf an und gib eine
+Vorher/Nachher-Ausgabe mit den wichtigsten Verbesserungen aus.
+```
+
+## Abgabe
+
+- 3 Skill-Dateien
+- 1 Vorher/Nachher Vergleich im Markdown
+- 3 Erkenntnisse: Welche Regel hatte den groessten Effekt?
 
 ## Done-Kriterien
 
-- [ ] 2 Skills vorhanden
-- [ ] Jeder Skill ist kurz, eindeutig, wiederverwendbar
-- [ ] Angebotsausgabe verbessert sich sichtbar
+- [ ] Mindestens 3 Skills vorhanden
+- [ ] Jeder Skill ist konkret und testbar
+- [ ] Vorher/Nachher zeigt klare Qualitaetsverbesserung

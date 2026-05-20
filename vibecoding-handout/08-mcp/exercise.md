@@ -1,21 +1,50 @@
-# Exercise - 08 MCP
+# Exercise: MCP Integrationsskizze
 
-## Aufgabe
+## Ziel
 
-Erstelle eine kleine Integrationsskizze fuer genau eine Datenquelle.
+Ihr erstellt eine realistische Minimalintegration fuer eine externe Datenquelle.
 
-## Prompt fuer TN
+## Aufgabe 1
+
+Waehlt eine Quelle:
+
+- Rate Card
+- Teamverfuegbarkeit
+- Branchenvorlage
+
+## Aufgabe 2
+
+Schreibt eine Integrationsskizze mit:
+
+- benoetigten Feldern
+- Mapping in einen Angebotsabschnitt
+- Fallback-Verhalten bei Ausfall
+
+## Muster-Prompts
 
 ```text
-Erstelle eine MCP-Integrationsskizze fuer die Datenquelle "Rate Card".
-Definiere:
-- benoetigte Felder
-- Mapping in den Pricing-Abschnitt
-- Fehlermeldung, wenn Quelle nicht verfuegbar ist
+Erstelle eine MCP-Integrationsskizze fuer "Rate Card".
+Zeige Felder, Mapping und Fallback im Fehlerfall.
 ```
+
+```text
+Ergaenze Datenschutz- und Sicherheitsaspekte fuer die gewaehlte Quelle.
+```
+
+```text
+Simuliere zwei Faelle:
+1) MCP erfolgreich
+2) MCP nicht verfuegbar
+und vergleiche die Angebotsausgabe.
+```
+
+## Abgabe
+
+- 1 Integrationsskizze (Markdown)
+- 1 Vergleich erfolgreich vs Fehlerfall
 
 ## Done-Kriterien
 
 - [ ] Integrationsskizze vorhanden
-- [ ] Mapping nachvollziehbar
-- [ ] Fallback-Regel beschrieben
+- [ ] Mapping klar nachvollziehbar
+- [ ] Fallback-Regel und Sicherheitsaspekte dokumentiert

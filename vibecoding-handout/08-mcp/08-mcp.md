@@ -1,24 +1,76 @@
-# 08 - MCP
+# MCP
 
-## Ziel
+**Block:** 13:15 - 15:00 Uhr (Tag 2)
 
-Optional externe Datenquellen anbinden, um Angebote kontextreicher zu machen.
+---
 
-## Sinnvolle MCP-Quellen
+## Wie funktioniert das unter der Haube?
 
-- Preisdaten / Rate Cards
-- Teamprofile / Verfuegbarkeit
+```
+Offer Studio braucht Zusatzdaten
+	-> MCP verbindet Claude mit externer Quelle
+	-> relevante Felder werden gemappt
+	-> Angebotsabschnitt wird mit Echtkontext verbessert
+```
+
+MCP ermoeglicht **kontextreiche Angebote mit externen Daten**, ohne den Basisflow zu brechen.
+
+---
+
+## Warum / Wann nicht?
+
+| Warum nutzen                             | Wann nicht                                          |
+| ---------------------------------------- | --------------------------------------------------- |
+| Aktuelle Preis- und Teamdaten im Angebot | Wenn kein stabiler Datenzugang vorhanden ist        |
+| Weniger manuelle Copy/Paste Fehler       | Wenn Datenschutzfreigabe fehlt                      |
+| Hoehere Relevanz und Genauigkeit         | Wenn Workshopziel nur Prototyp ohne Integration ist |
+
+---
+
+## Typische MCP-Quellen fuer Offer Studio
+
+- Rate Cards / Preisdaten
+- Teamverfuegbarkeit
 - Branchenvorlagen
+- Standardbausteine fuer Leistungsbeschreibung
 
-## Sample Prompt
+---
+
+## Aufbau - Integrationsskizze Beispiel
+
+**Quelle:** Rate Card
+
+**Mapping:**
+
+- `role_name` -> Pricing Tabelle / Rolle
+- `daily_rate` -> Preis je Tag
+- `region_factor` -> Regionaler Multiplikator
+
+**Fallback-Regel:**
+
+- Wenn Quelle nicht erreichbar ist: Standardpreisband + Hinweis "Preisannahme"
+
+---
+
+## Muster-Prompts
 
 ```text
-Beschreibe fuer Offer Studio einen MCP-Integrationsplan in 3 Schritten:
-1) Datenquelle anbinden
-2) Felder fuer Angebotsmapping festlegen
-3) Fallback ohne MCP definieren
+Erstelle einen MCP-Integrationsplan fuer die Datenquelle "Rate Card"
+mit Mapping in den Pricing-Abschnitt und sauberem Fallback.
 ```
+
+```text
+Definiere fuer Offer Studio eine Minimalintegration:
+Welche 3 Felder reichen aus, um Pricing in Angeboten besser zu machen?
+```
+
+```text
+Simuliere den Fehlerfall "MCP nicht verfuegbar" und zeige,
+wie der Angebotsflow trotzdem sinnvoll weiterlaeuft.
+```
+
+---
 
 ## Ergebnis
 
-Teilnehmende verstehen, wann MCP Mehrwert bietet und wie man sicher integriert.
+TN koennen entscheiden, wann MCP echten Mehrwert bietet und wie man risikoarm integriert.

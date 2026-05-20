@@ -1,23 +1,51 @@
-# Exercise - 05 Agents
+# Exercise: Agent-Kette bauen
 
-## Aufgabe
+## Ziel
 
-Lege 3 Agents an und teste Reihenfolge:
+Ihr erstellt drei Agents und nutzt sie als feste Pipeline fuer Angebotsqualitaet.
 
-1. compliance-reviewer
+## Aufgabe 1: Agenten anlegen
+
+Pflicht:
+
+1. `compliance-reviewer`
+2. `quality-reviewer`
+3. `translator`
+
+## Aufgabe 2: Reihenfolge testen
+
+Pipeline:
+
+1. generate-offer
 2. quality-reviewer
-3. translator
+3. compliance-reviewer
+4. translator
 
-## Prompt fuer TN
+## Muster-Prompts
 
 ```text
-Erstelle `.claude/agents/quality-reviewer.md` fuer Angebotstexte.
-Pruefe Klarheit, Struktur, Redundanzen, Nutzenargumentation.
-Liefere konkrete Verbesserungspunkte.
+Erstelle `.claude/agents/quality-reviewer.md`.
+Pruefe Struktur, Klarheit, Redundanz und Nutzenargumentation.
 ```
+
+```text
+Erstelle `.claude/agents/compliance-reviewer.md`.
+Pruefe Datenschutz, riskante Aussagen, fehlende Ausschluesse.
+```
+
+```text
+Fasse die Resultate der Agenten in einer priorisierten
+Umsetzungsliste fuer die naechste Angebotsversion zusammen.
+```
+
+## Abgabe
+
+- 3 Agent-Dateien
+- 1 Pipeline-Durchlauf dokumentiert
+- finale Angebotsversion mit 5 wichtigsten Verbesserungen
 
 ## Done-Kriterien
 
-- [ ] 3 Agentdateien angelegt
-- [ ] Jeder Agent hat klaren Scope
-- [ ] Endergebnis ist besser als Basisausgabe
+- [ ] 3 Agent-Dateien vorhanden
+- [ ] klarer Scope je Agent
+- [ ] dokumentierter Pipeline-Run

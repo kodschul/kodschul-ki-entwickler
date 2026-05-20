@@ -1,52 +1,85 @@
-# 01 - Referenzen: Claude Code fuer Frontend Offer Studio
+# Referenzen
 
-Dauer: 09:00 - 10:30
+**Block:** 09:00 - 10:30 Uhr
 
-## Ziel des Moduls
+---
 
-Du verstehst, wie Claude Code ein Frontend-Projekt fuer Angebotsgenerierung Schritt fuer Schritt aufbaut.
+## Wie funktioniert das unter der Haube?
 
-## Claude Code Referenzen (fuer TN)
+```
+TN formuliert Business-Ziel
+	-> Claude erzeugt Projektstruktur
+	-> Kontextdateien lenken das Verhalten
+	-> UI + Angebotslogik wachsen iterativ
+```
 
-- `CLAUDE.md`: Produktregeln, Tonalitaet, Angebotsstruktur
-- `.claude/skills/`: wiederverwendbare Regeln
-- `.claude/commands/`: Slash-Befehle fuer wiederkehrende Workflows
-- `.claude/agents/`: spezialisierte Pruefer/Generatoren
+In diesem Modul setzen wir das Fundament fuer alle spaeteren Module.
+
+---
+
+## Zentrale Referenzen fuer TN
+
+- `CLAUDE.md`: Produktregeln und Tonalitaet
+- `.claude/skills/`: Wiederverwendbare Regeln
+- `.claude/commands/`: Slash-Workflows
+- `.claude/agents/`: Spezialrollen fuer Pruefung/Transformation
 - `.claude/specs/`: Anforderungen und Akzeptanzkriterien
-- `.claude/hooks/`: automatische Folgeaktionen
+- `.claude/hooks/`: Automatische Folgeaktionen
 
-## Beispiel-Prompts
+---
 
-### Prompt 1: Frontend-Grundgeruest
+## Warum / Wann nicht?
+
+| Warum nutzen                             | Wann nicht                                   |
+| ---------------------------------------- | -------------------------------------------- |
+| Klarer Einstieg ohne Chaos               | Wenn nur eine Einmal-Demo geplant ist        |
+| Gemeinsames Begriffsverstaendnis im Kurs | Wenn keine Teamarbeit stattfindet            |
+| Grundlage fuer spaetere Module           | Wenn Scope des Workshops stark reduziert ist |
+
+---
+
+## Muster-Prompts
 
 ```text
 Erstelle ein Frontend-Grundgeruest fuer "Offer Studio".
 Seiten: OfferForm, OfferPreview, Settings.
 Komponenten: ClientSection, ScopeSection, PricingSection, GenerateButton.
-Nutze eine klare Struktur fuer src/pages, src/components und src/services.
 ```
 
-### Prompt 2: Angebotsentwurf generieren
-
 ```text
-Nutze die Eingaben aus dem OfferForm und erzeuge einen Angebotsentwurf im Markdown-Format.
+Nutze die Eingaben aus dem OfferForm und erzeuge einen Angebotsentwurf.
 Struktur: Executive Summary, Scope, Timeline, Pricing, Next Steps.
-Sprache: Deutsch.
 ```
-
-### Prompt 3: Verbesserungsrunde
 
 ```text
-Ueberarbeite den Angebotsentwurf fuer C-Level Lesbarkeit.
-Kuetze Saetze, mache ROI klar, behalte Fakten bei.
+Erklaere die Rolle von CLAUDE.md, Skills, Commands, Agents, Specs und Hooks
+anhand eines einzigen Generate-Workflows.
 ```
 
-## Erwartetes Lernresultat
+---
 
-- TN koennen gute Prompts fuer UI + Angebotslogik schreiben
-- TN verstehen, welche Datei in `.claude/` welchen Zweck hat
-- TN kennen den End-to-End Flow von Formulareingabe bis Angebotsoutput
+## Mini-Referenz: Dateibaum
 
-## Uebergang
+```text
+offer-studio/
+	CLAUDE.md
+	.claude/
+		skills/
+		commands/
+		agents/
+		specs/
+		hooks/
+	frontend/
+		src/
+			pages/
+			components/
+			services/
+```
+
+---
+
+## Ergebnis
+
+TN verstehen den Gesamtzusammenhang und koennen die Module 02-08 zielgerichtet umsetzen.
 
 Naechstes Modul: `02-claude.md-setup`.

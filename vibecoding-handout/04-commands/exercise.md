@@ -1,22 +1,43 @@
-# Exercise - 04 Commands
+# Exercise: Commands implementieren und testen
 
-## Aufgabe
+## Ziel
 
-Implementiere 2 Commands:
+Ihr baut zwei produktive Slash-Commands und testet den End-to-End Ablauf.
 
-- `generate-offer.md`
-- `review-offer.md`
+## Aufgabe 1
 
-## Prompt fuer TN
+Implementiere:
+
+- `.claude/commands/generate-offer.md`
+- `.claude/commands/review-offer.md`
+
+## Aufgabe 2
+
+Fuehre beide Commands auf dem gleichen Input aus und dokumentiere:
+
+- erste Entwurfsversion
+- Review-Befunde
+- ueberarbeitete Version
+
+## Muster-Prompts
 
 ```text
-Erstelle `.claude/commands/review-offer.md`.
-Der Command soll ein bestehendes Angebot auf Vollstaendigkeit,
-Konsistenz und C-Level Verstaendlichkeit pruefen.
+Erstelle `.claude/commands/generate-offer.md` mit Inputvalidierung,
+Skill-Nutzung und standardisierter Ausgabe.
+```
+
+```text
+Erstelle `.claude/commands/review-offer.md` mit Pruefung auf
+Vollstaendigkeit, Nachvollziehbarkeit, Risikoformulierung.
+```
+
+```text
+Teste beide Commands in Reihenfolge und gib eine kurze Auswertung,
+welche Verbesserungen der Review-Command erzeugt hat.
 ```
 
 ## Done-Kriterien
 
-- [ ] Commands sind auf reale Formfelder abgestimmt
-- [ ] Inputs und Outputs sind pro Command klar beschrieben
-- [ ] TN koennen beide Commands nacheinander nutzen
+- [ ] Beide Command-Dateien vorhanden
+- [ ] Inputs/Outputs pro Command klar dokumentiert
+- [ ] End-to-End Test dokumentiert

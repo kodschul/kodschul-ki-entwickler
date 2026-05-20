@@ -1,20 +1,43 @@
-# Exercise - 07 Hooks
+# Exercise: Hooks implementieren
 
-## Aufgabe
+## Ziel
 
-Lege mindestens 1 Hook an und teste ihn mit einem Beispielangebot.
+Ihr automatisiert den Uebergang von "Generated" zu "Review" inklusive Versionierung.
 
-## Prompt fuer TN
+## Aufgabe 1
+
+Erstelle:
+
+- `.claude/hooks/notify-review.md`
+- `.claude/hooks/auto-version.md`
+
+## Aufgabe 2
+
+Simuliere den Ablauf fuer einen Testfall:
+
+1. Angebot erzeugen
+2. Hook notify-review triggert
+3. Review abschliessen
+4. Hook auto-version triggert
+
+## Muster-Prompts
 
 ```text
-Erstelle einen Hook, der nach jedem `/generate-offer`
-- einen Review-Hinweis erzeugt
-- die Angebotsversion inkrementiert
-- den Status auf "in review" setzt
+Erstelle einen Hook fuer Event `offer.generated`, der
+Status auf `in review` setzt und einen Review-Task erzeugt.
+```
+
+```text
+Erstelle einen Hook fuer Event `offer.review.completed`, der
+die Angebotsversion erhoeht und ein Change-Log schreibt.
+```
+
+```text
+Simuliere beide Hooks mit Testdaten und gib die Zustandsaenderungen aus.
 ```
 
 ## Done-Kriterien
 
-- [ ] Hook-Datei vorhanden
-- [ ] Trigger und Wirkung sind klar dokumentiert
-- [ ] Hook wurde mit Testdaten pruefbar ausgefuehrt
+- [ ] 2 Hook-Dateien vorhanden
+- [ ] Trigger und Aktionen dokumentiert
+- [ ] Testsimulation nachvollziehbar
