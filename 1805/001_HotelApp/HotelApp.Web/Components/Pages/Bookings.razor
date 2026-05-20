@@ -15,7 +15,7 @@
     <div class="card-body">
         <h5 class="card-title">Neue Buchung</h5>
 
-        <EditForm Model="createModel" OnValidSubmit="func_CreateBookingAsync">
+        <EditForm Model="createModel" FormName="createBookingForm" OnValidSubmit="func_CreateBookingAsync">
             <DataAnnotationsValidator />
 
             <div class="row g-2">

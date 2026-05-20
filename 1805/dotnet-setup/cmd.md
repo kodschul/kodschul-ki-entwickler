@@ -138,3 +138,11 @@ Frontend (Blazor):
 dotnet build HotelApp.sln
 dotnet build "c:\Users\User\Documents\kodschul\kodschul-ki-entwickler\1805\001_HotelApp\HotelApp.sln"
 dotnet run --project "c:\Users\User\Documents\kodschul\kodschul-ki-entwickler\1805\001_HotelApp\HotelApp.Web\HotelApp.Web.csproj"
+
+# m10 Bugfix (Blazor Form Submit):
+
+# Fehler: "The POST request does not specify which form is being submitted"
+
+# Fix: FormName="createBookingForm" im EditForm von Components/Pages/Bookings.razor
+
+dotnet build HotelApp.sln
