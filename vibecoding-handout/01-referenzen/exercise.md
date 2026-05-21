@@ -1,52 +1,105 @@
-# Exercise: Referenzen anwenden
+# Exercise: Referenzen - Kontext fuer Claude anlegen
 
 ## Ziel
 
-Du setzt die ersten Claude-Prompts fuer die Frontend-Angebots-App um und dokumentierst den Unterschied zwischen vagen und praezisen Prompts.
+Du legst die Grundstruktur deiner App an - allein durch Beschreibungen an Claude.
+Kein Code, keine Konfiguration von Hand.
 
-## Aufgabe 1: Projektstruktur erzeugen
+---
 
-Muster-Prompt:
+## Aufgabe 1: Projektstruktur von Claude anlegen lassen
 
-```text
-Erstelle die Projektstruktur fuer eine Frontend-App "Offer Studio".
-Lege an: frontend/src/pages, frontend/src/components, frontend/src/services,
-CLAUDE.md, README.md, sample-inputs/rfp-basic.md und .claude Unterordner.
-```
-
-## Aufgabe 2: Basis-UI definieren
-
-Muster-Prompt:
+Schreibe diesen Prompt an Claude:
 
 ```text
-Erzeuge eine UI-Struktur mit OfferForm, OfferPreview und GenerateButton.
-Beschreibe pro Komponente Aufgabe, Input, Output und Validierung.
+Erstelle die komplette Ordnerstruktur fuer eine App namens "Offer Studio".
+Lege an:
+- frontend/src/pages (leer)
+- frontend/src/components (leer)
+- .claude/skills/ (leer)
+- .claude/commands/ (leer)
+- .claude/agents/ (leer)
+- .claude/specs/ (leer)
+- .claude/hooks/ (leer)
+- CLAUDE.md mit einem Platzhaltertext
+- README.md mit einer kurzen App-Beschreibung
 ```
 
-## Aufgabe 3: Prompt-Qualitaet vergleichen
+Beobachte: Claude legt alles an. Du hast nichts selbst erstellt.
 
-Prompt A (vage):
+---
+
+## Aufgabe 2: In eigenen Worten beschreiben
+
+Schreibe Claude, was deine App tun soll - so als wuerdest du einem Freund erklaeren:
 
 ```text
-Erstelle ein Angebot.
+Beispiel:
+"Meine App soll Vertriebsmitarbeitern helfen, schnell professionelle Angebote
+zu erstellen. Sie geben Kundendaten und Projektinfos ein, klicken auf
+'Angebot erstellen' und bekommen sofort einen fertigen Text."
 ```
 
-Prompt B (praezise):
+Schreibe deine eigene Version:
+
+```
+Meine App: _______________________________________________
+___________________________________________________________
+___________________________________________________________
+```
+
+Sende sie an Claude und lass Claude daraus eine `README.md` erstellen.
+
+---
+
+## Aufgabe 3: Prompt-Vergleich erleben
+
+**Prompt A (unklar):**
 
 ```text
-Erstelle aus den Formfeldern Kunde, Scope, Budget, Timeline einen Angebotsentwurf
-mit den Abschnitten Executive Summary, Scope, Timeline, Pricing, Next Steps.
-Sprache: Deutsch, Ton: professionell.
+Erstelle eine App.
 ```
 
-## Aufgabe 4: Verbesserungsrunde
-
-Muster-Prompt:
+**Prompt B (klar und konkret):**
 
 ```text
-Analysiere den Unterschied zwischen Output A und B.
-Gib 5 konkrete Prompt-Verbesserungen fuer Offer Studio.
+Erstelle eine Web-App "Offer Studio" mit einer Startseite.
+Die Seite zeigt ein Formular mit den Feldern: Kundenname, Firma,
+Projektbeschreibung, Budget (Zahl in Euro), gewuenschte Lieferzeit.
+Unten gibt es einen blauen Button "Angebot erstellen".
 ```
+
+Teste beide und notiere:
+
+```
+Prompt A: ________________________________________________
+Prompt B: ________________________________________________
+```
+
+---
+
+## Aufgabe 4: Eigene Beschreibung verbessern
+
+Nimm die App-Beschreibung aus Aufgabe 2 und bitte Claude:
+
+```text
+Verbessere meine App-Beschreibung so, dass sie als Basis fuer
+eine CLAUDE.md genutzt werden kann. Struktur: App-Name, Zielgruppe,
+Hauptfunktionen, gewuenschter Ton.
+```
+
+---
+
+## Done-Kriterien
+
+- [ ] Projektstruktur von Claude angelegt
+- [ ] App-Idee in eigenen Worten beschrieben
+- [ ] Prompt-Qualitaet verglichen
+- [ ] README.md von Claude generiert
+
+## Naechstes Modul
+
+`02-claude.md-setup`: Claude deiner App beibringen.
 
 ## Abgabe
 

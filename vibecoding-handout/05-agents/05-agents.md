@@ -1,22 +1,158 @@
 # Agents
 
-**Block:** 09:00 - 10:30 Uhr (Tag 2, zusammen mit Specs)
+**Block:** 09:00 - 10:30 Uhr (Tag 2)
 
 ---
 
-## Wie funktioniert das unter der Haube?
+## Was ist ein Agent?
+
+Ein Agent ist ein **spezialisierter Helfer** fuer eine bestimmte Aufgabe.
+Waehrend ein Command einen Ablauf startet, uebernimmt ein Agent eine ganz
+konkrete Teilaufgabe - zum Beispiel: Qualitaetspruefung, Uebersetzung oder Risikoanalyse.
+
+Du beschreibst einmal, was dieser Helfer tun soll.
+Claude aktiviert ihn automatisch, wenn er gebraucht wird.
 
 ```
-Claude bekommt Aufgabe
-	-> waehlt passenden Agent nach Beschreibung
-	-> Agent arbeitet mit eigenem Prompt und ggf. Tool-Restriktionen
-	-> Agent liefert Teilresultat zuruueck
-	-> Hauptflow setzt Ergebnis zusammen
+Claude arbeitet an deiner App
+  -> Erkennt, dass eine Teilaufgabe spezielles Wissen braucht
+  -> Aktiviert den passenden Agent
+  -> Agent prueft, analysiert oder transformiert
+  -> Ergebnis fliesst zurueck in den Hauptablauf
 ```
-
-Ein Agent ist ein **spezialisierter Subprozess** fuer klar abgegrenzte Aufgaben.
 
 **Pfad:** `.claude/agents/<name>.md`
+
+---
+
+## Warum / Wann nicht?
+
+| Warum nutzen                                            | Wann nicht                           |
+| ------------------------------------------------------- | ------------------------------------ |
+| Komplexe Aufgaben mit einem Helfer sauber trennen       | Sehr einfacher Einzelschritt reicht  |
+| Verschiedene Rollen simulieren (Pruefung, Uebersetzung) | Wenn ein Command schon alles abdeckt |
+| Bessere Qualitaet durch fokussierte Analyse             | Zu viele Agents ohne klare Grenzen   |
+
+---
+
+## Agent vs Skill vs Command
+
+|            | Skill                 | Command             | Agent                         |
+| ---------- | --------------------- | ------------------- | ----------------------------- |
+| Was es ist | Regeln im Hintergrund | Ablauf per Befehl   | Spezialisierter Helfer        |
+| Du machst  | Nichts extra          | Tippst einen Befehl | Bittest Claude um die Aufgabe |
+| Beispiel   | Stil und Format       | Angebot erstellen   | Angebot auf Risiken pruefen   |
+
+---
+
+## So beschreibst du einen Agent - kein Code noetig
+
+Du erklaerst Claude:
+
+- Welche Rolle hat dieser Helfer?
+- Auf was soll er besonders achten?
+- Wie soll seine Ausgabe aussehen?
+
+```text
+Erstelle `.claude/agents/quality-reviewer.md`.
+Dieser Helfer soll Angebotsentwuerfe auf Qualitaet pruefen.
+Er soll checken: Ist alles klar formuliert? Ist der Nutzen
+fuer den Kunden sichtbar? Kann ein Entscheider es in 5 Minuten lesen?
+Ergebnis: Liste mit maximal 10 konkreten Verbesserungen, priorisiert.
+```
+
+Claude schreibt die Agent-Datei. Du pruefst und ergaenzt.
+
+---
+
+## Vollstaendige Beispiele
+
+**`.claude/agents/quality-reviewer.md`**
+
+```markdown
+---
+name: quality-reviewer
+description: Prueft Angebote auf Verstaendlichkeit, Struktur und Ueberzeugungskraft.
+tools:
+  - Read
+---
+
+# Quality Reviewer
+
+Pruefe den Angebotsentwurf auf:
+
+- Sind alle 5 Abschnitte vorhanden und vollstaendig?
+- Ist der Nutzen fuer den Kunden klar sichtbar?
+- Gibt es doppelte oder unklare Aussagen?
+- Kann ein Entscheider es in 5 Minuten lesen?
+
+Ausgabe: Top 10 Verbesserungen, priorisiert nach Wichtigkeit.
+```
+
+**`.claude/agents/translator.md`**
+
+```markdown
+---
+name: translator
+description: Uebersetzt Angebote von Deutsch nach Englisch.
+tools:
+  - Read
+---
+
+# Translator
+
+Uebersetze den Angebotsentwurf von Deutsch nach Englisch.
+Behalte die Struktur bei.
+Passe idiomatische Ausdruecke an britisches Business-Englisch an.
+```
+
+**`.claude/agents/risk-checker.md`**
+
+```markdown
+---
+name: risk-checker
+description: Prueft Angebote auf riskante Aussagen und fehlende Einschraenkungen.
+tools:
+  - Read
+---
+
+# Risk Checker
+
+Pruefe den Angebotsentwurf auf:
+
+- Riskante oder rechtlich problematische Formulierungen
+- Fehlende Annahmen oder Ausschluesse
+- Preise, die nicht als Schaetzungen gekennzeichnet sind
+
+Ausgabe als Tabelle: | Stelle | Risiko | Empfehlung |
+```
+
+---
+
+## Muster-Prompts
+
+```text
+Erstelle `.claude/agents/quality-reviewer.md`.
+Dieser Helfer prueft Angebote auf Klarheit, Vollstaendigkeit
+und Verstaendlichkeit. Ausgabe: Top 10 priorisierte Verbesserungen.
+```
+
+```text
+Erstelle `.claude/agents/translator.md` fuer Deutsch -> Englisch.
+Struktur beibehalten, Business-Englisch, keine wortwoertliche Uebersetzung.
+```
+
+```text
+Lass zuerst quality-reviewer, dann risk-checker ueber das Angebot laufen.
+Fasse beide Ergebnisse in einer gemeinsamen To-do Liste zusammen.
+```
+
+---
+
+## Ergebnis
+
+Deine App hat jetzt spezialisierte Helfer fuer Qualitaet, Uebersetzung und Risiken.
+Du aktivierst sie mit einem Satz - kein technisches Wissen noetig.
 
 ---
 

@@ -1,50 +1,86 @@
-# Exercise: MCP Integrationsskizze
+# Exercise: MCP - Echte Daten planen
 
 ## Ziel
 
-Ihr erstellt eine realistische Minimalintegration fuer eine externe Datenquelle.
+Du planst, welche echten Daten in deine App eingebunden werden koennen.
+Claude hilft dir, die Integration zu beschreiben - ohne Code.
 
-## Aufgabe 1
+---
 
-Waehlt eine Quelle:
+## Aufgabe 1: Datenquelle auswaehlen
 
-- Rate Card
-- Teamverfuegbarkeit
-- Branchenvorlage
+Welche Daten wuerden deine App verbessern?
 
-## Aufgabe 2
+Markiere eine Option (oder schreibe deine eigene):
 
-Schreibt eine Integrationsskizze mit:
+- [ ] Preisliste / Rate Card
+- [ ] Teamverfuegbarkeit
+- [ ] Branchenvorlagen fuer Angebote
+- [ ] Kundendaten aus CRM
+- [ ] Meine Idee: ****************\_****************
 
-- benoetigten Feldern
-- Mapping in einen Angebotsabschnitt
-- Fallback-Verhalten bei Ausfall
+---
 
-## Muster-Prompts
-
-```text
-Erstelle eine MCP-Integrationsskizze fuer "Rate Card".
-Zeige Felder, Mapping und Fallback im Fehlerfall.
-```
+## Aufgabe 2: Integrationsplan erstellen lassen
 
 ```text
-Ergaenze Datenschutz- und Sicherheitsaspekte fuer die gewaehlte Quelle.
+Erstelle einen MCP-Integrationsplan fuer Offer Studio.
+Quelle: [deine gewählte Quelle]
+Zeige:
+- Welche 3 Felder werden benoetigt?
+- Wo erscheinen sie im Angebot?
+- Was passiert, wenn die Quelle nicht verfuegbar ist?
 ```
+
+---
+
+## Aufgabe 3: Zwei Szenarien simulieren
 
 ```text
-Simuliere zwei Faelle:
-1) MCP erfolgreich
-2) MCP nicht verfuegbar
-und vergleiche die Angebotsausgabe.
+Simuliere zwei Szenarien fuer Offer Studio:
+
+1) Die Preisliste ist verfuegbar:
+   Erstelle ein Angebot mit echten Tagessaetzen aus der Quelle.
+
+2) Die Preisliste ist NICHT verfuegbar:
+   Erstelle das gleiche Angebot mit Standardwerten und einem
+   deutlichen Hinweis, dass Preise geprueft werden sollen.
+
+Zeige den Unterschied zwischen den beiden Angeboten.
 ```
 
-## Abgabe
+Notiere:
 
-- 1 Integrationsskizze (Markdown)
-- 1 Vergleich erfolgreich vs Fehlerfall
+```
+Mit Daten: _________________________________________
+Ohne Daten: ________________________________________
+GroeÜter Unterschied: _______________________________
+```
+
+---
+
+## Aufgabe 4: Entscheidung treffen
+
+Beantworte fuer deine eigene App-Idee:
+
+```
+Brauche ich echte Daten? Ja / Nein
+Wenn ja, welche Quelle: ____________________________
+Wann lohnt es sich: ________________________________
+Was ist das Risiko: ________________________________
+```
+
+---
 
 ## Done-Kriterien
 
-- [ ] Integrationsskizze vorhanden
-- [ ] Mapping klar nachvollziehbar
-- [ ] Fallback-Regel und Sicherheitsaspekte dokumentiert
+- [ ] Datenquelle ausgewaehlt
+- [ ] Integrationsplan von Claude erstellt
+- [ ] Zwei Szenarien simuliert und verglichen
+- [ ] Eigene Entscheidung getroffen
+
+## Abschluss
+
+Gluckwunsch! Du hast eine vollstaendige App mit Claude gebaut -
+von der ersten Beschreibung bis zur Datenintegration.
+Kein Code. Nur Beschreibungen, Regeln und klare Kommunikation.

@@ -1,32 +1,42 @@
-# Vibecoding Schulungsplan - Frontend Offer Studio
+# Vibecoding Schulungsplan - App bauen ohne Coding
 
 Schulungszeit: 09:00 - 17:00 Uhr (2 Tage)
 
 ## Leitziel
 
-Wir bauen eine Frontend-App, die Angebote mit Claude erzeugt, prueft, uebersetzt und exportiert.
+Wir bauen eine echte, lauffaehige App - ohne eine einzige Zeile Code selbst zu schreiben.
+Claude ist unser Entwickler. Wir sind die Produktverantwortlichen.
+Wir kommunizieren in natuerlicher Sprache und erhalten funktionierende Software.
+
+App-Beispiel: **Offer Studio** - eine App zur Angebotserstellung.
+Du kannst jede eigene App-Idee mitbringen und parallel umsetzen.
+
+## Kernprinzip Vibecoding
+
+> Du beschreibst, was du willst. Claude baut es.
+> Kein Code lesen. Kein Code schreiben. Nur beschreiben, iterieren, verbessern.
 
 ## Agenda mit fixen Pausen
 
 ### Tag 1
 
-- 09:00 - 10:30: Referenzen, Zielbild, Demo
+- 09:00 - 10:30: Was ist Vibecoding? Demo + erste App in 30 Minuten
 - 10:30 - 10:45: Pause
-- 10:45 - 12:15: CLAUDE.md und Projektstruktur
+- 10:45 - 12:15: CLAUDE.md - der Masterplan fuer deine App
 - 12:15 - 13:15: Pause
-- 13:15 - 15:00: Hands-on Frontend-Form + erster Generate-Flow
+- 13:15 - 15:00: Hands-on: App-Formular + erste Funktion live
 - 15:00 - 15:15: Pause
-- 15:15 - 17:00: Skills und Commands hands-on
+- 15:15 - 17:00: Skills und Commands - Claude mit Shortcuts steuern
 
 ### Tag 2
 
-- 09:00 - 10:30: Agents und Specs
+- 09:00 - 10:30: Agents und Specs - Qualitaet ohne Expertenwissen
 - 10:30 - 10:45: Pause
-- 10:45 - 12:15: Hooks und Review-Flow hands-on
+- 10:45 - 12:15: Hands-on: Review-Flows und Automatisierung
 - 12:15 - 13:15: Pause
-- 13:15 - 15:00: MCP optional und Integrationen
+- 13:15 - 15:00: Hooks und MCP - die App mit der Welt verbinden
 - 15:00 - 15:15: Pause
-- 15:15 - 17:00: Finalisierung, Demo, Feedback
+- 15:15 - 17:00: Finale Demo, Iteration, Feedback
 
 ## Modulstruktur
 
@@ -40,16 +50,18 @@ Wir bauen eine Frontend-App, die Angebote mit Claude erzeugt, prueft, uebersetzt
 - `07-hooks/07-hooks.md` + `07-hooks/exercise.md`
 - `08-mcp/08-mcp.md` + `08-mcp/exercise.md`
 
-## Wachsender Funktionsumfang
+## Wachsende App - Schritt fuer Schritt
 
-1. Formular und Basisentwurf
-2. Skill-basierte Struktur
-3. Command-basierte Generierung
-4. Agent-basierte Qualitaet
-5. Spec-basierte Anforderungen
-6. Hook-basierte Automatisierung
-7. Optional MCP-Datenanbindung
+1. Erste Seite und Grundstruktur - nur mit einem Satz beschrieben
+2. Formular und erste Aktion - Claude baut alles selbst
+3. Wiederverwendbare Regeln hinterlegen (Skills)
+4. Kurzbefehle fuer haeufige Aktionen (Commands)
+5. Spezialisierte Helfer fuer Pruefung und Qualitaet (Agents)
+6. Anforderungen als verstaendliche Geschichten (Specs)
+7. Automatische Folgeaktionen (Hooks)
+8. Echte Daten einbinden (MCP optional)
 
 ## Endergebnis fuer TN
 
-Eine lauffaehige Frontend-Angebots-App mit klarem End-to-End Flow von Eingabe bis finalem Angebotsdokument.
+Eine lauffaehige App - gebaut allein durch natuerlichsprachliche Beschreibungen.
+Keine Vorkenntnisse in HTML, CSS, JavaScript oder Python erforderlich.

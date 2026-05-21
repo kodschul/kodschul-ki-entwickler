@@ -1,43 +1,81 @@
-# Exercise: Hooks implementieren
+# Exercise: Hooks - Automatische Folgeaktionen einrichten
 
 ## Ziel
 
-Ihr automatisiert den Uebergang von "Generated" zu "Review" inklusive Versionierung.
+Du richtest automatische Ablaeufe ein, die ohne dein Zutun starten.
+Kein Code - nur Beschreibungen.
 
-## Aufgabe 1
+---
 
-Erstelle:
-
-- `.claude/hooks/notify-review.md`
-- `.claude/hooks/auto-version.md`
-
-## Aufgabe 2
-
-Simuliere den Ablauf fuer einen Testfall:
-
-1. Angebot erzeugen
-2. Hook notify-review triggert
-3. Review abschliessen
-4. Hook auto-version triggert
-
-## Muster-Prompts
+## Aufgabe 1: Review-Hook anlegen
 
 ```text
-Erstelle einen Hook fuer Event `offer.generated`, der
-Status auf `in review` setzt und einen Review-Task erzeugt.
+Erstelle `.claude/hooks/notify-review.md`.
+Dieser Hook soll automatisch passieren, sobald ein Angebot erstellt wurde.
+Dann soll:
+1. Der Status auf 'Wartet auf Pruefung' gesetzt werden.
+2. Ein Pruefauftrag mit aktuellem Datum erstellt werden.
+3. Ein Hinweis in der App erscheinen: 'Angebot bereit zur Pruefung'.
+Fehlerfall: Wenn keine Angebots-ID vorhanden, Fehler aufzeichnen und stoppen.
 ```
 
-```text
-Erstelle einen Hook fuer Event `offer.review.completed`, der
-die Angebotsversion erhoeht und ein Change-Log schreibt.
-```
+---
+
+## Aufgabe 2: Versions-Hook anlegen
 
 ```text
-Simuliere beide Hooks mit Testdaten und gib die Zustandsaenderungen aus.
+Erstelle `.claude/hooks/auto-version.md`.
+Dieser Hook soll passieren, sobald ein Angebot als geprueft markiert wurde.
+Dann soll:
+1. Die Versionsnummer um 1 erhoehen (v1 -> v2).
+2. Eine kurze Zusammenfassung der Aenderungen gespeichert werden.
 ```
+
+---
+
+## Aufgabe 3: Eigenen Hook erfinden
+
+Ueberlege: Was soll in deiner App automatisch passieren?
+
+```text
+Erstelle `.claude/hooks/[dein-name].md`.
+Dieser Hook soll passieren wenn: [Ereignis beschreiben]
+Dann soll: [Folgeaktion beschreiben]
+```
+
+Beispiele zur Inspiration:
+
+- Angebot exportiert -> Export protokollieren
+- Angebot abgelehnt -> Ablehnungsgrund speichern
+- 7 Tage ohne Pruefung -> Erinnerungshinweis zeigen
+
+---
+
+## Aufgabe 4: Ablauf simulieren lassen
+
+```text
+Simuliere den kompletten Ablauf:
+1. Angebot wird erstellt -> Hook notify-review triggert
+2. Pruefung wird abgeschlossen -> Hook auto-version triggert
+Zeige nach jedem Schritt, welcher Status aktiv ist.
+```
+
+Notiere:
+
+```
+Nach Schritt 1: _______________________________
+Nach Schritt 2: _______________________________
+```
+
+---
 
 ## Done-Kriterien
 
-- [ ] 2 Hook-Dateien vorhanden
-- [ ] Trigger und Aktionen dokumentiert
-- [ ] Testsimulation nachvollziehbar
+- [ ] `notify-review.md` Hook vorhanden
+- [ ] `auto-version.md` Hook vorhanden
+- [ ] Eigener Hook erstellt
+- [ ] Ablauf simuliert
+
+## Naechstes Modul
+
+`08-mcp`: Echte Daten in die App einbinden (optional).

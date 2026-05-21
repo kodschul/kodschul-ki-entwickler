@@ -1,21 +1,148 @@
 # Skills
 
-**Block:** 15:15 - 17:00 Uhr (Tag 1, zusammen mit Commands)
+**Block:** 15:15 - 17:00 Uhr (Tag 1)
 
 ---
 
-## Wie funktioniert das unter der Haube?
+## Was ist ein Skill?
+
+Ein Skill ist eine **Textdatei mit Regeln** - du beschreibst darin, wie Claude
+bei einer bestimmten Aufgabe vorgehen soll.
+
+Beispiel: Du moechtest, dass jedes Angebot immer gleich aufgebaut ist.
+Statt es jedes Mal neu zu erklaeren, schreibst du es einmal in einen Skill.
+Claude folgt diesen Regeln automatisch.
 
 ```
-User beschreibt Aufgabe
-	-> Claude prueft vorhandene Skills in .claude/skills/
-	-> passende Skill-Regeln werden auf die Ausgabe angewendet
-	-> Ergebnis bleibt konsistent, auch bei unterschiedlichen Inputs
+Du stellst eine Anfrage an Claude
+  -> Claude prueft: Gibt es einen passenden Skill?
+  -> Skill-Regeln werden automatisch angewendet
+  -> Ergebnis folgt immer deinen Vorgaben
+  -> Kein Erinnern, kein Wiederholen
 ```
-
-Ein Skill ist eine **wiederverwendbare Regeldatei** fuer Stil, Struktur oder Qualitaetskriterien.
 
 **Pfad:** `.claude/skills/<name>.md`
+
+---
+
+## Warum / Wann nicht?
+
+| Warum nutzen                                  | Wann nicht                                             |
+| --------------------------------------------- | ------------------------------------------------------ |
+| Gleiches Format bei jeder Antwort             | Einmalige Sonderaufgabe ohne Wiederholung              |
+| Kein Erklaeren bei jeder neuen Frage          | Wenn du noch experimentierst, welche Regeln du willst  |
+| Neue Teammitglieder bekommen sofort Qualitaet | Wenn ein Command mit festem Ablauf schon alles abdeckt |
+
+---
+
+## Skill vs Command vs Agent - der Unterschied
+
+|               | Skill                         | Command                | Agent                            |
+| ------------- | ----------------------------- | ---------------------- | -------------------------------- |
+| Was es ist    | Regeln und Stil               | Fertiger Ablauf        | Spezialisierter Helfer           |
+| Wann es wirkt | Automatisch im Hintergrund    | Du tippst einen Befehl | Du bittest Claude um Hilfe       |
+| Beispiel      | "Angebote immer 5 Abschnitte" | "/angebot-erstellen"   | "Pruefe das Angebot auf Risiken" |
+
+---
+
+## So schreibst du einen Skill - kein Code noetig
+
+Du beschreibst einfach, was du willst. Claude legt die Datei an.
+
+**Beispiel: Angebotsstruktur**
+
+```text
+Erstelle die Datei `.claude/skills/offer-structure.md`.
+Dieser Skill soll sicherstellen, dass jedes Angebot
+genau diese 5 Abschnitte enthaelt:
+1. Zusammenfassung
+2. Leistungsumfang
+3. Zeitplan
+4. Preis
+5. Naechste Schritte
+Pro Abschnitt maximal 8 Stichpunkte.
+Keine unbelegten Versprechen.
+```
+
+Claude schreibt die Datei. Du pruefst sie durch und sagst, was noch fehlt.
+
+---
+
+## Vollstaendige Beispiel-Dateien
+
+**`.claude/skills/offer-structure.md`**
+
+```markdown
+# Skill: Angebotsstruktur
+
+Jedes Angebot muss genau diese 5 Abschnitte enthalten:
+
+1. Zusammenfassung - Was bieten wir an?
+2. Leistungsumfang - Was genau machen wir?
+3. Zeitplan - Wann liefern wir was?
+4. Preis - Was kostet es?
+5. Naechste Schritte - Was passiert jetzt?
+
+## Regeln
+
+- Maximal 8 Stichpunkte pro Abschnitt
+- Keine Marketing-Phrasen ohne Inhalt
+- Zahlen nur nennen, wenn sie aus dem Input stammen
+- Zeitplan immer mit Phasen (z.B. Analyse, Umsetzung, Einfuehrung)
+
+## Qualitaetscheck
+
+- Sind alle 5 Abschnitte vorhanden?
+- Ist der Mehrwert fuer den Kunden klar?
+- Kann ein Entscheider es in 5 Minuten lesen?
+```
+
+**`.claude/skills/language-style.md`**
+
+```markdown
+# Skill: Sprache und Stil
+
+## Wie soll die App schreiben?
+
+- Sprache: Deutsch (Geschaftsstil)
+- Ton: klar, loesungsorientiert, ruhig
+- Saetze: eher kurz
+
+## Was vermeiden?
+
+- Technische Details, die der Kunde nicht braucht
+- Unklare Begriffe ohne Erklaerung
+- Absolute Aussagen wie "garantiert" oder "risikofrei"
+```
+
+---
+
+## Muster-Prompts
+
+```text
+Erstelle `.claude/skills/offer-structure.md`.
+Jedes Angebot soll immer die Abschnitte Zusammenfassung, Leistungsumfang,
+Zeitplan, Preis und Naechste Schritte enthalten.
+Maximal 8 Stichpunkte pro Abschnitt, kein Fachjargon.
+```
+
+```text
+Erstelle `.claude/skills/language-style.md`.
+Sprache: Deutsch, Ton: professionell aber verstaendlich,
+kurze Saetze, kein Marketing-Sprech ohne Substanz.
+```
+
+```text
+Wende alle Skills auf dieses Angebot an und zeige mir
+vorher und nachher, was sich veraendert hat.
+```
+
+---
+
+## Ergebnis
+
+Nach diesem Modul hat Claude feste Regeln - und haelt sie automatisch ein.
+Du musst es nie wieder erklaeren.
 
 ---
 
