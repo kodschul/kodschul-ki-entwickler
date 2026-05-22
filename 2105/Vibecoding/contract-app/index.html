@@ -4,374 +4,142 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vertragsmanagement</title>
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', sans-serif; background: #f3f2f1; color: #323130; font-size: 14px; }
-
-  /* Header */
-  .topbar {
-    background: #fff;
-    border-bottom: 1px solid #e1dfdd;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .topbar .logo { font-size: 20px; }
-  .topbar h1 { font-size: 18px; font-weight: 600; color: #323130; }
-  .topbar .search {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #f3f2f1;
-    border: 1px solid #c8c6c4;
-    border-radius: 4px;
-    padding: 6px 12px;
-    width: 280px;
-  }
-  .topbar .search input {
-    border: none; background: transparent; outline: none; width: 100%; font-size: 13px;
-  }
-  .topbar-actions { display: flex; gap: 8px; margin-left: 12px; }
-  .topbar-actions button {
-    background: none; border: none; cursor: pointer; padding: 6px 8px;
-    border-radius: 4px; color: #605e5c; font-size: 16px;
-  }
-  .topbar-actions button:hover { background: #f3f2f1; }
-
-  /* Status Cards */
-  .status-bar {
-    display: flex;
-    gap: 0;
-    padding: 16px 20px 0;
-    overflow-x: auto;
-  }
-  .status-card {
-    flex: 1;
-    min-width: 120px;
-    padding: 14px 16px;
-    color: white;
-    cursor: pointer;
-    transition: opacity 0.15s;
-    border-radius: 4px 4px 0 0;
-    margin-right: 4px;
-  }
-  .status-card:hover { opacity: 0.9; }
-  .status-card.active { box-shadow: inset 0 -3px 0 rgba(255,255,255,0.6); }
-  .status-card .count { font-size: 28px; font-weight: 700; line-height: 1; }
-  .status-card .label { font-size: 12px; margin-top: 4px; opacity: 0.9; }
-  .sc-draft     { background: #0078d4; }
-  .sc-request   { background: #1e3a5f; }
-  .sc-contract  { background: #107c10; }
-  .sc-expiring  { background: #7719aa; }
-  .sc-expired   { background: #d83b01; }
-  .sc-terminated{ background: #e81123; }
-  .sc-tasks     { background: #008272; }
-
-  /* Sub-nav */
-  .subnav {
-    background: #fff;
-    border-bottom: 1px solid #e1dfdd;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    gap: 0;
-  }
-  .subnav-item {
-    padding: 10px 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: #605e5c;
-    border-bottom: 2px solid transparent;
-    white-space: nowrap;
-    position: relative;
-  }
-  .subnav-item:hover { color: #0078d4; background: #f3f2f1; }
-  .subnav-item.active { color: #0078d4; border-bottom-color: #0078d4; font-weight: 600; }
-  .subnav-item .badge {
-    background: #0078d4; color: white;
-    border-radius: 10px; padding: 1px 6px; font-size: 11px;
-  }
-  .subnav-item.active .badge { background: #0078d4; }
-  .subnav-actions {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .btn-add {
-    background: #0078d4; color: white; border: none; border-radius: 4px;
-    padding: 6px 14px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 6px;
-  }
-  .btn-add:hover { background: #106ebe; }
-  .icon-btn {
-    background: none; border: 1px solid #c8c6c4; border-radius: 4px;
-    padding: 5px 8px; cursor: pointer; color: #605e5c; font-size: 14px;
-  }
-  .icon-btn:hover { background: #f3f2f1; }
-
-  /* Table area */
-  .table-container {
-    margin: 0 20px 20px;
-    background: #fff;
-    border: 1px solid #e1dfdd;
-    border-top: none;
-    border-radius: 0 0 4px 4px;
-    overflow: auto;
-  }
-  table { width: 100%; border-collapse: collapse; }
-  thead th {
-    padding: 10px 12px;
-    text-align: left;
-    font-weight: 600;
-    font-size: 13px;
-    color: #323130;
-    border-bottom: 1px solid #e1dfdd;
-    background: #faf9f8;
-    white-space: nowrap;
-    cursor: pointer;
-    user-select: none;
-  }
-  thead th:hover { background: #f3f2f1; }
-  thead th .sort-icon { opacity: 0.4; margin-left: 4px; }
-
-  .filter-row th {
-    padding: 4px 8px;
-    background: #fff;
-  }
-  .filter-row input {
-    width: 100%; border: 1px solid #c8c6c4; border-radius: 2px;
-    padding: 4px 6px; font-size: 12px; color: #323130; outline: none;
-  }
-  .filter-row input:focus { border-color: #0078d4; }
-
-  tbody tr { border-bottom: 1px solid #f3f2f1; }
-  tbody tr:hover { background: #f3f2f1; }
-  tbody td { padding: 10px 12px; font-size: 13px; }
-  .td-title { color: #0078d4; cursor: pointer; font-weight: 500; }
-  .td-title:hover { text-decoration: underline; }
-  .td-number { color: #0078d4; cursor: pointer; }
-  .td-number:hover { text-decoration: underline; }
-  .td-truncate { max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-  .badge-status {
-    display: inline-block; padding: 2px 10px; border-radius: 10px;
-    font-size: 12px; font-weight: 500;
-  }
-  .bs-progress  { background: #ddf4dd; color: #107c10; }
-  .bs-review    { background: #fff4ce; color: #8a6914; }
-  .bs-expiring  { background: #fde7f3; color: #7719aa; }
-  .bs-expired   { background: #fde7e9; color: #a4262c; }
-  .bs-draft     { background: #e1dfdd; color: #323130; }
-
-  /* Upload area */
-  .upload-bar {
-    margin: 16px 20px 0;
-    background: #fff;
-    border: 2px dashed #c8c6c4;
-    border-radius: 4px;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-  }
-  .upload-bar:hover { border-color: #0078d4; background: #f0f6ff; }
-  .upload-bar.dragover { border-color: #0078d4; background: #e0f0ff; }
-  .upload-bar .icon { font-size: 24px; }
-  .upload-bar .text { font-size: 13px; color: #605e5c; }
-  .upload-bar .text strong { color: #0078d4; }
-  #fileInput { display: none; }
-
-  /* Modal */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.4); z-index: 100;
-    align-items: center; justify-content: center;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: #fff; border-radius: 6px; width: 700px; max-width: 95vw;
-    max-height: 85vh; overflow: auto; padding: 24px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-  }
-  .modal h2 { font-size: 18px; margin-bottom: 16px; color: #323130; }
-  .modal-close {
-    float: right; background: none; border: none; font-size: 20px;
-    cursor: pointer; color: #605e5c; margin-top: -4px;
-  }
-  .modal-close:hover { color: #323130; }
-  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .info-item label { font-size: 11px; color: #605e5c; text-transform: uppercase; letter-spacing: 0.5px; }
-  .info-item .val { font-size: 13px; color: #323130; margin-top: 2px; font-weight: 500; }
-  .risk-list { list-style: none; }
-  .risk-list li { padding: 6px 0; border-bottom: 1px solid #f3f2f1; font-size: 13px; }
-  .risk-list li:before { content: "⚠ "; color: #d83b01; }
-  .section-title { font-size: 13px; font-weight: 600; color: #323130; margin: 16px 0 8px; }
-  .summary-box { background: #f3f2f1; border-radius: 4px; padding: 12px; font-size: 13px; line-height: 1.6; }
-  .spinner {
-    display: inline-block; width: 16px; height: 16px;
-    border: 2px solid #c8c6c4; border-top-color: #0078d4;
-    border-radius: 50%; animation: spin 0.6s linear infinite;
-    vertical-align: middle; margin-right: 6px;
-  }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* Toast */
-  .toast {
-    position: fixed; bottom: 24px; right: 24px; z-index: 200;
-    background: #323130; color: white; padding: 10px 18px; border-radius: 4px;
-    font-size: 13px; opacity: 0; transition: opacity 0.3s; pointer-events: none;
-  }
+  .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #c8c6c4; border-top-color: #0078d4; border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; margin-right: 6px; }
+  .toast { position: fixed; bottom: 24px; right: 24px; z-index: 200; background: #323130; color: white; padding: 10px 18px; border-radius: 4px; font-size: 13px; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
   .toast.show { opacity: 1; }
-
-  /* API Key Banner */
-  .api-banner {
-    margin: 12px 20px 0;
-    background: #fff4ce; border: 1px solid #f7c948; border-radius: 4px;
-    padding: 10px 16px; display: flex; align-items: center; gap: 12px; font-size: 13px;
-  }
-  .api-banner input {
-    flex: 1; border: 1px solid #c8c6c4; border-radius: 4px;
-    padding: 6px 10px; font-size: 13px; outline: none; font-family: monospace;
-  }
-  .api-banner input:focus { border-color: #0078d4; }
-  .api-banner button {
-    background: #0078d4; color: white; border: none; border-radius: 4px;
-    padding: 6px 14px; cursor: pointer; font-size: 13px; white-space: nowrap;
-  }
-
-  /* Analyzing overlay on upload bar */
-  .analyzing-bar {
-    margin: 0 20px; background: #f0f6ff; border: 2px solid #0078d4;
-    border-radius: 4px; padding: 14px 20px; display: none;
-    align-items: center; gap: 12px; font-size: 13px; color: #0078d4;
-  }
-  .analyzing-bar.show { display: flex; }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; align-items: center; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .upload-bar.dragover { border-color: #0078d4; background: #e0f0ff; }
+  .status-card.active { box-shadow: inset 0 -3px 0 rgba(255,255,255,0.6); }
+  .subnav-item.active { color: #0078d4; border-bottom-color: #0078d4; font-weight: 600; }
 </style>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-800 text-sm font-sans">
 
 <!-- Top Bar -->
-<div class="topbar">
-  <span class="logo">📋</span>
-  <h1>Vertragsmanagement</h1>
-  <div class="search">
+<div class="bg-white border-b border-gray-200 px-5 py-2.5 flex items-center gap-3">
+  <span class="text-xl">📋</span>
+  <h1 class="text-lg font-semibold text-gray-800">Vertragsmanagement</h1>
+  <div class="ml-auto flex items-center gap-2 bg-gray-100 border border-gray-300 rounded px-3 py-1.5 w-72">
     <span>🔍</span>
-    <input type="text" id="globalSearch" placeholder="Suche..." oninput="filterTable()">
+    <input type="text" id="globalSearch" placeholder="Suche..." oninput="filterTable()"
+      class="bg-transparent border-none outline-none w-full text-sm">
   </div>
-  <div class="topbar-actions">
-    <button title="Einstellungen">⚙</button>
-    <button title="Benachrichtigungen">🔔</button>
+  <div class="flex gap-2 ml-3">
+    <button title="Einstellungen" class="bg-transparent border-none cursor-pointer p-1.5 rounded text-gray-500 hover:bg-gray-100 text-base">⚙</button>
+    <button title="Benachrichtigungen" class="bg-transparent border-none cursor-pointer p-1.5 rounded text-gray-500 hover:bg-gray-100 text-base">🔔</button>
   </div>
 </div>
 
 <!-- Status Cards -->
-<div class="status-bar">
-  <div class="status-card sc-draft active" onclick="filterByStatus('Entwurf')">
-    <div class="count" id="cnt-draft">0</div>
-    <div class="label">Entwurf</div>
+<div class="flex gap-1 px-5 pt-4 overflow-x-auto">
+  <div class="status-card active flex-1 min-w-[120px] px-4 py-3 text-white cursor-pointer rounded-t hover:opacity-90 bg-blue-600" onclick="filterByStatus('Entwurf')">
+    <div class="text-3xl font-bold leading-none" id="cnt-draft">0</div>
+    <div class="text-xs mt-1 opacity-90">Entwurf</div>
   </div>
-  <div class="status-card sc-request" onclick="filterByStatus('Anfrage')">
-    <div class="count" id="cnt-request">0</div>
-    <div class="label">Anfrage</div>
+  <div class="status-card flex-1 min-w-[120px] px-4 py-3 text-white cursor-pointer rounded-t hover:opacity-90 bg-blue-900" onclick="filterByStatus('Anfrage')">
+    <div class="text-3xl font-bold leading-none" id="cnt-request">0</div>
+    <div class="text-xs mt-1 opacity-90">Anfrage</div>
   </div>
-  <div class="status-card sc-contract" onclick="filterByStatus('Aktiv')">
-    <div class="count" id="cnt-contract">0</div>
-    <div class="label">Vertrag</div>
+  <div class="status-card flex-1 min-w-[120px] px-4 py-3 text-white cursor-pointer rounded-t hover:opacity-90 bg-green-700" onclick="filterByStatus('Aktiv')">
+    <div class="text-3xl font-bold leading-none" id="cnt-contract">0</div>
+    <div class="text-xs mt-1 opacity-90">Vertrag</div>
   </div>
-  <div class="status-card sc-expiring" onclick="filterByStatus('Läuft ab')">
-    <div class="count" id="cnt-expiring">0</div>
-    <div class="label">Läuft ab</div>
+  <div class="status-card flex-1 min-w-[120px] px-4 py-3 text-white cursor-pointer rounded-t hover:opacity-90 bg-purple-700" onclick="filterByStatus('Läuft ab')">
+    <div class="text-3xl font-bold leading-none" id="cnt-expiring">0</div>
+    <div class="text-xs mt-1 opacity-90">Läuft ab</div>
   </div>
-  <div class="status-card sc-expired" onclick="filterByStatus('Abgelaufen')">
-    <div class="count" id="cnt-expired">0</div>
-    <div class="label">Abgelaufen</div>
+  <div class="status-card flex-1 min-w-[120px] px-4 py-3 text-white cursor-pointer rounded-t hover:opacity-90 bg-orange-600" onclick="filterByStatus('Abgelaufen')">
+    <div class="text-3xl font-bold leading-none" id="cnt-expired">0</div>
+    <div class="text-xs mt-1 opacity-90">Abgelaufen</div>
   </div>
-  <div class="status-card sc-terminated" onclick="filterByStatus('Gekündigt')">
-    <div class="count" id="cnt-terminated">0</div>
-    <div class="label">Gekündigt</div>
+  <div class="status-card flex-1 min-w-[120px] px-4 py-3 text-white cursor-pointer rounded-t hover:opacity-90 bg-red-600" onclick="filterByStatus('Gekündigt')">
+    <div class="text-3xl font-bold leading-none" id="cnt-terminated">0</div>
+    <div class="text-xs mt-1 opacity-90">Gekündigt</div>
   </div>
-  <div class="status-card sc-tasks" onclick="filterByStatus(null)">
-    <div class="count" id="cnt-all">0</div>
-    <div class="label">Alle</div>
+  <div class="status-card flex-1 min-w-[120px] px-4 py-3 text-white cursor-pointer rounded-t hover:opacity-90 bg-teal-600" onclick="filterByStatus(null)">
+    <div class="text-3xl font-bold leading-none" id="cnt-all">0</div>
+    <div class="text-xs mt-1 opacity-90">Alle</div>
   </div>
 </div>
 
 <!-- API Key Banner -->
-<div class="api-banner" id="apiBanner">
+<div class="mx-5 mt-3 bg-yellow-50 border border-yellow-300 rounded px-4 py-2.5 flex items-center gap-3 text-sm" id="apiBanner">
   <span>🔑</span>
   <span>Gemini API Key für KI-Analyse:</span>
-  <input type="password" id="apiKeyInput" placeholder="AIza..." autocomplete="off">
-  <button onclick="saveApiKey()">Speichern</button>
-  <button onclick="document.getElementById('apiBanner').style.display='none'" style="background:#605e5c">✕</button>
+  <input type="password" id="apiKeyInput" placeholder="AIza..." autocomplete="off"
+    class="flex-1 border border-gray-300 rounded px-2.5 py-1.5 text-sm font-mono outline-none focus:border-blue-500">
+  <button onclick="saveApiKey()"
+    class="bg-blue-600 text-white border-none rounded px-4 py-1.5 text-sm cursor-pointer hover:bg-blue-700 whitespace-nowrap">Speichern</button>
+  <button onclick="document.getElementById('apiBanner').style.display='none'"
+    class="bg-gray-500 text-white border-none rounded px-3 py-1.5 text-sm cursor-pointer hover:bg-gray-600">✕</button>
 </div>
 
 <!-- Upload Bar -->
-<div class="upload-bar" id="uploadBar"
+<div class="upload-bar mx-5 mt-4 bg-white border-2 border-dashed border-gray-300 rounded px-5 py-3.5 flex items-center gap-3 cursor-pointer transition-colors hover:border-blue-500 hover:bg-blue-50"
+  id="uploadBar"
   ondragover="event.preventDefault(); this.classList.add('dragover')"
   ondragleave="this.classList.remove('dragover')"
   ondrop="handleDrop(event)"
   onclick="document.getElementById('fileInput').click()">
-  <span class="icon">📂</span>
-  <div class="text">
-    <strong>Vertrag hochladen &amp; KI-Analyse</strong> — PDF oder TXT hier ablegen oder klicken
+  <span class="text-2xl">📂</span>
+  <div class="text-sm text-gray-500">
+    <strong class="text-blue-600">Vertrag hochladen &amp; KI-Analyse</strong> — PDF oder TXT hier ablegen oder klicken
   </div>
-  <input type="file" id="fileInput" accept=".pdf,.txt" onchange="handleFile(event)">
+  <input type="file" id="fileInput" accept=".pdf,.txt" onchange="handleFile(event)" class="hidden">
 </div>
 
-<div class="analyzing-bar" id="analyzingBar">
+<div class="analyzing-bar mx-5 bg-blue-50 border-2 border-blue-500 rounded px-5 py-3.5 hidden items-center gap-3 text-sm text-blue-600" id="analyzingBar">
   <span class="spinner"></span>
   <span id="analyzingText">Gemini 2.5 Flash analysiert den Vertrag...</span>
 </div>
 
 <!-- Sub-nav -->
-<div class="subnav" style="margin: 0 0;">
-  <div class="subnav-item active" onclick="setSubnav(this,'In Genehmigung')">
-    In Genehmigung <span class="badge" id="sub-approval">0</span>
+<div class="bg-white border-b border-gray-200 flex items-center">
+  <div class="subnav-item px-4 py-2.5 cursor-pointer flex items-center gap-1.5 text-sm text-gray-500 border-b-2 border-transparent hover:text-blue-600 hover:bg-gray-100 active" onclick="setSubnav(this,'In Genehmigung')">
+    In Genehmigung <span class="bg-blue-600 text-white rounded-full px-1.5 py-0.5 text-xs" id="sub-approval">0</span>
   </div>
-  <div class="subnav-item" onclick="setSubnav(this,'Rechtsprüfung')">
-    Rechtsprüfung <span class="badge" id="sub-legal">0</span>
+  <div class="subnav-item px-4 py-2.5 cursor-pointer flex items-center gap-1.5 text-sm text-gray-500 border-b-2 border-transparent hover:text-blue-600 hover:bg-gray-100" onclick="setSubnav(this,'Rechtsprüfung')">
+    Rechtsprüfung <span class="bg-blue-600 text-white rounded-full px-1.5 py-0.5 text-xs" id="sub-legal">0</span>
   </div>
-  <div class="subnav-item" onclick="setSubnav(this,'Verhandlung')">
-    Verhandlung <span class="badge" id="sub-nego">0</span>
+  <div class="subnav-item px-4 py-2.5 cursor-pointer flex items-center gap-1.5 text-sm text-gray-500 border-b-2 border-transparent hover:text-blue-600 hover:bg-gray-100" onclick="setSubnav(this,'Verhandlung')">
+    Verhandlung <span class="bg-blue-600 text-white rounded-full px-1.5 py-0.5 text-xs" id="sub-nego">0</span>
   </div>
-  <div class="subnav-item" onclick="setSubnav(this,'Freigabe')">
-    Freigabe <span class="badge" id="sub-exec">0</span>
+  <div class="subnav-item px-4 py-2.5 cursor-pointer flex items-center gap-1.5 text-sm text-gray-500 border-b-2 border-transparent hover:text-blue-600 hover:bg-gray-100" onclick="setSubnav(this,'Freigabe')">
+    Freigabe <span class="bg-blue-600 text-white rounded-full px-1.5 py-0.5 text-xs" id="sub-exec">0</span>
   </div>
-  <div class="subnav-actions">
-    <button class="btn-add" onclick="openNewContractModal()">+ Neu</button>
-    <button class="icon-btn" title="Exportieren">⬇</button>
-    <button class="icon-btn" title="Einstellungen">⚙</button>
+  <div class="ml-auto flex items-center gap-2 px-4">
+    <button onclick="openNewContractModal()"
+      class="bg-blue-600 text-white border-none rounded px-3.5 py-1.5 text-sm cursor-pointer flex items-center gap-1.5 hover:bg-blue-700">+ Neu</button>
+    <button title="Exportieren" class="border border-gray-300 rounded px-2 py-1 text-sm cursor-pointer text-gray-500 hover:bg-gray-100">⬇</button>
+    <button title="Einstellungen" class="border border-gray-300 rounded px-2 py-1 text-sm cursor-pointer text-gray-500 hover:bg-gray-100">⚙</button>
   </div>
 </div>
 
 <!-- Table -->
-<div class="table-container">
-  <table>
+<div class="mx-5 mb-5 bg-white border border-gray-200 border-t-0 rounded-b overflow-auto">
+  <table class="w-full border-collapse">
     <thead>
       <tr>
-        <th onclick="sortTable('title')">Titel <span class="sort-icon">↕</span></th>
-        <th onclick="sortTable('number')">Vertragsnummer <span class="sort-icon">↕</span></th>
-        <th onclick="sortTable('type')">Vertragsart <span class="sort-icon">↕</span></th>
-        <th onclick="sortTable('start')">Vertragsbeginn <span class="sort-icon">↕</span></th>
-        <th onclick="sortTable('end')">Vertragsende <span class="sort-icon">↕</span></th>
-        <th onclick="sortTable('party')">Vertragspartner <span class="sort-icon">↕</span></th>
-        <th onclick="sortTable('status')">Status <span class="sort-icon">↕</span></th>
+        <th onclick="sortTable('title')" class="px-3 py-2.5 text-left font-semibold text-sm text-gray-800 border-b border-gray-200 bg-gray-50 whitespace-nowrap cursor-pointer select-none hover:bg-gray-100">Titel <span class="opacity-40 ml-1">↕</span></th>
+        <th onclick="sortTable('number')" class="px-3 py-2.5 text-left font-semibold text-sm text-gray-800 border-b border-gray-200 bg-gray-50 whitespace-nowrap cursor-pointer select-none hover:bg-gray-100">Vertragsnummer <span class="opacity-40 ml-1">↕</span></th>
+        <th onclick="sortTable('type')" class="px-3 py-2.5 text-left font-semibold text-sm text-gray-800 border-b border-gray-200 bg-gray-50 whitespace-nowrap cursor-pointer select-none hover:bg-gray-100">Vertragsart <span class="opacity-40 ml-1">↕</span></th>
+        <th onclick="sortTable('start')" class="px-3 py-2.5 text-left font-semibold text-sm text-gray-800 border-b border-gray-200 bg-gray-50 whitespace-nowrap cursor-pointer select-none hover:bg-gray-100">Vertragsbeginn <span class="opacity-40 ml-1">↕</span></th>
+        <th onclick="sortTable('end')" class="px-3 py-2.5 text-left font-semibold text-sm text-gray-800 border-b border-gray-200 bg-gray-50 whitespace-nowrap cursor-pointer select-none hover:bg-gray-100">Vertragsende <span class="opacity-40 ml-1">↕</span></th>
+        <th onclick="sortTable('party')" class="px-3 py-2.5 text-left font-semibold text-sm text-gray-800 border-b border-gray-200 bg-gray-50 whitespace-nowrap cursor-pointer select-none hover:bg-gray-100">Vertragspartner <span class="opacity-40 ml-1">↕</span></th>
+        <th onclick="sortTable('status')" class="px-3 py-2.5 text-left font-semibold text-sm text-gray-800 border-b border-gray-200 bg-gray-50 whitespace-nowrap cursor-pointer select-none hover:bg-gray-100">Status <span class="opacity-40 ml-1">↕</span></th>
       </tr>
       <tr class="filter-row">
-        <th><input type="text" placeholder="Titel" oninput="filterTable()"></th>
-        <th><input type="text" placeholder="Nummer" oninput="filterTable()"></th>
-        <th><input type="text" placeholder="Vertragsart" oninput="filterTable()"></th>
-        <th><input type="text" placeholder="Beginn" oninput="filterTable()"></th>
-        <th><input type="text" placeholder="Ende" oninput="filterTable()"></th>
-        <th><input type="text" placeholder="Partner" oninput="filterTable()"></th>
-        <th><input type="text" placeholder="Status" oninput="filterTable()"></th>
+        <th class="px-2 py-1 bg-white"><input type="text" placeholder="Titel" oninput="filterTable()" class="w-full border border-gray-300 rounded px-1.5 py-1 text-xs text-gray-800 outline-none focus:border-blue-500"></th>
+        <th class="px-2 py-1 bg-white"><input type="text" placeholder="Nummer" oninput="filterTable()" class="w-full border border-gray-300 rounded px-1.5 py-1 text-xs text-gray-800 outline-none focus:border-blue-500"></th>
+        <th class="px-2 py-1 bg-white"><input type="text" placeholder="Vertragsart" oninput="filterTable()" class="w-full border border-gray-300 rounded px-1.5 py-1 text-xs text-gray-800 outline-none focus:border-blue-500"></th>
+        <th class="px-2 py-1 bg-white"><input type="text" placeholder="Beginn" oninput="filterTable()" class="w-full border border-gray-300 rounded px-1.5 py-1 text-xs text-gray-800 outline-none focus:border-blue-500"></th>
+        <th class="px-2 py-1 bg-white"><input type="text" placeholder="Ende" oninput="filterTable()" class="w-full border border-gray-300 rounded px-1.5 py-1 text-xs text-gray-800 outline-none focus:border-blue-500"></th>
+        <th class="px-2 py-1 bg-white"><input type="text" placeholder="Partner" oninput="filterTable()" class="w-full border border-gray-300 rounded px-1.5 py-1 text-xs text-gray-800 outline-none focus:border-blue-500"></th>
+        <th class="px-2 py-1 bg-white"><input type="text" placeholder="Status" oninput="filterTable()" class="w-full border border-gray-300 rounded px-1.5 py-1 text-xs text-gray-800 outline-none focus:border-blue-500"></th>
       </tr>
     </thead>
     <tbody id="tableBody"></tbody>
@@ -380,48 +148,54 @@
 
 <!-- Detail Modal -->
 <div class="modal-overlay" id="detailModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
-    <h2 id="modalTitle">Vertragsdetails</h2>
+  <div class="bg-white rounded-lg w-[700px] max-w-[95vw] max-h-[85vh] overflow-auto p-6 shadow-2xl">
+    <button class="float-right bg-transparent border-none text-xl cursor-pointer text-gray-500 hover:text-gray-800 -mt-1" onclick="closeModal('detailModal')">✕</button>
+    <h2 class="text-lg font-semibold mb-4 text-gray-800" id="modalTitle">Vertragsdetails</h2>
     <div id="modalContent"></div>
   </div>
 </div>
 
 <!-- New Contract Modal -->
 <div class="modal-overlay" id="newModal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('newModal')">✕</button>
-    <h2>Neuen Vertrag anlegen</h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px">
-      <div><label style="font-size:12px;color:#605e5c">Titel *</label><br>
-        <input id="nf-title" style="width:100%;margin-top:4px;border:1px solid #c8c6c4;border-radius:4px;padding:7px 10px;font-size:13px">
+  <div class="bg-white rounded-lg w-[700px] max-w-[95vw] max-h-[85vh] overflow-auto p-6 shadow-2xl">
+    <button class="float-right bg-transparent border-none text-xl cursor-pointer text-gray-500 hover:text-gray-800 -mt-1" onclick="closeModal('newModal')">✕</button>
+    <h2 class="text-lg font-semibold mb-4 text-gray-800">Neuen Vertrag anlegen</h2>
+    <div class="grid grid-cols-2 gap-3 mt-2">
+      <div>
+        <label class="text-xs text-gray-500">Titel *</label><br>
+        <input id="nf-title" class="w-full mt-1 border border-gray-300 rounded px-2.5 py-1.5 text-sm outline-none focus:border-blue-500">
       </div>
-      <div><label style="font-size:12px;color:#605e5c">Vertragsart</label><br>
-        <select id="nf-type" style="width:100%;margin-top:4px;border:1px solid #c8c6c4;border-radius:4px;padding:7px 10px;font-size:13px">
+      <div>
+        <label class="text-xs text-gray-500">Vertragsart</label><br>
+        <select id="nf-type" class="w-full mt-1 border border-gray-300 rounded px-2.5 py-1.5 text-sm outline-none focus:border-blue-500">
           <option>Dienstleistungsvertrag</option><option>Mietvertrag</option>
           <option>Arbeitsvertrag</option><option>NDA</option>
           <option>Liefervertrag</option><option>Lizenzvertrag</option>
         </select>
       </div>
-      <div><label style="font-size:12px;color:#605e5c">Vertragsbeginn</label><br>
-        <input id="nf-start" type="date" style="width:100%;margin-top:4px;border:1px solid #c8c6c4;border-radius:4px;padding:7px 10px;font-size:13px">
+      <div>
+        <label class="text-xs text-gray-500">Vertragsbeginn</label><br>
+        <input id="nf-start" type="date" class="w-full mt-1 border border-gray-300 rounded px-2.5 py-1.5 text-sm outline-none focus:border-blue-500">
       </div>
-      <div><label style="font-size:12px;color:#605e5c">Vertragsende</label><br>
-        <input id="nf-end" type="date" style="width:100%;margin-top:4px;border:1px solid #c8c6c4;border-radius:4px;padding:7px 10px;font-size:13px">
+      <div>
+        <label class="text-xs text-gray-500">Vertragsende</label><br>
+        <input id="nf-end" type="date" class="w-full mt-1 border border-gray-300 rounded px-2.5 py-1.5 text-sm outline-none focus:border-blue-500">
       </div>
-      <div><label style="font-size:12px;color:#605e5c">Vertragspartner</label><br>
-        <input id="nf-party" style="width:100%;margin-top:4px;border:1px solid #c8c6c4;border-radius:4px;padding:7px 10px;font-size:13px">
+      <div>
+        <label class="text-xs text-gray-500">Vertragspartner</label><br>
+        <input id="nf-party" class="w-full mt-1 border border-gray-300 rounded px-2.5 py-1.5 text-sm outline-none focus:border-blue-500">
       </div>
-      <div><label style="font-size:12px;color:#605e5c">Status</label><br>
-        <select id="nf-status" style="width:100%;margin-top:4px;border:1px solid #c8c6c4;border-radius:4px;padding:7px 10px;font-size:13px">
+      <div>
+        <label class="text-xs text-gray-500">Status</label><br>
+        <select id="nf-status" class="w-full mt-1 border border-gray-300 rounded px-2.5 py-1.5 text-sm outline-none focus:border-blue-500">
           <option>Entwurf</option><option>Anfrage</option><option>Aktiv</option>
           <option>Läuft ab</option><option>Abgelaufen</option><option>Gekündigt</option>
         </select>
       </div>
     </div>
-    <div style="margin-top:16px;text-align:right;display:flex;gap:8px;justify-content:flex-end">
-      <button onclick="closeModal('newModal')" style="padding:7px 16px;border:1px solid #c8c6c4;border-radius:4px;background:#fff;cursor:pointer;font-size:13px">Abbrechen</button>
-      <button onclick="saveNewContract()" style="padding:7px 16px;border:none;border-radius:4px;background:#0078d4;color:white;cursor:pointer;font-size:13px">Speichern</button>
+    <div class="mt-4 flex gap-2 justify-end">
+      <button onclick="closeModal('newModal')" class="px-4 py-1.5 border border-gray-300 rounded bg-white cursor-pointer text-sm hover:bg-gray-50">Abbrechen</button>
+      <button onclick="saveNewContract()" class="px-4 py-1.5 border-none rounded bg-blue-600 text-white cursor-pointer text-sm hover:bg-blue-700">Speichern</button>
     </div>
   </div>
 </div>
@@ -490,7 +264,8 @@ async function analyzeWithGemini(file) {
 
   const analyzingBar = document.getElementById('analyzingBar');
   const analyzingText = document.getElementById('analyzingText');
-  analyzingBar.classList.add('show');
+  analyzingBar.classList.remove('hidden');
+  analyzingBar.classList.add('flex');
   document.getElementById('uploadBar').style.display = 'none';
 
   try {
@@ -527,7 +302,6 @@ async function analyzeWithGemini(file) {
     const data = await response.json();
     const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
-    // Strip possible markdown code fences
     const jsonText = rawText.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/,'').trim();
     return JSON.parse(jsonText);
 
@@ -536,7 +310,8 @@ async function analyzeWithGemini(file) {
     console.error(e);
     return null;
   } finally {
-    analyzingBar.classList.remove('show');
+    analyzingBar.classList.add('hidden');
+    analyzingBar.classList.remove('flex');
     document.getElementById('uploadBar').style.display = 'flex';
     document.getElementById('fileInput').value = '';
   }
@@ -570,14 +345,14 @@ function renderTable() {
   const tbody = document.getElementById('tableBody');
   const rows = getFilteredRows();
   tbody.innerHTML = rows.map(c => `
-    <tr>
-      <td class="td-title td-truncate" onclick="openDetail(${c.id})">${c.title}</td>
-      <td class="td-number td-truncate" onclick="openDetail(${c.id})">${c.number}</td>
-      <td>${c.type}</td>
-      <td>${c.start || '-'}</td>
-      <td>${c.end || '-'}</td>
-      <td class="td-truncate">${c.party}</td>
-      <td><span class="badge-status ${statusClass(c.status)}">${c.status}</span></td>
+    <tr class="border-b border-gray-100 hover:bg-gray-50">
+      <td class="px-3 py-2.5 text-sm text-blue-600 cursor-pointer font-medium max-w-[180px] overflow-hidden text-ellipsis whitespace-nowrap hover:underline" onclick="openDetail(${c.id})">${c.title}</td>
+      <td class="px-3 py-2.5 text-sm text-blue-600 cursor-pointer max-w-[180px] overflow-hidden text-ellipsis whitespace-nowrap hover:underline" onclick="openDetail(${c.id})">${c.number}</td>
+      <td class="px-3 py-2.5 text-sm">${c.type}</td>
+      <td class="px-3 py-2.5 text-sm">${c.start || '-'}</td>
+      <td class="px-3 py-2.5 text-sm">${c.end || '-'}</td>
+      <td class="px-3 py-2.5 text-sm max-w-[180px] overflow-hidden text-ellipsis whitespace-nowrap">${c.party}</td>
+      <td class="px-3 py-2.5 text-sm"><span class="${statusClass(c.status)} inline-block px-2.5 py-0.5 rounded-full text-xs font-medium">${c.status}</span></td>
     </tr>`).join('');
   updateCounts();
 }
@@ -622,7 +397,14 @@ function updateCounts() {
 }
 
 function statusClass(s) {
-  return {Aktiv:'bs-progress','Läuft ab':'bs-expiring',Abgelaufen:'bs-expired',Entwurf:'bs-draft',Anfrage:'bs-review',Gekündigt:'bs-expired'}[s]||'bs-draft';
+  return {
+    'Aktiv':      'bg-green-100 text-green-800',
+    'Läuft ab':   'bg-purple-100 text-purple-800',
+    'Abgelaufen': 'bg-red-100 text-red-700',
+    'Entwurf':    'bg-gray-200 text-gray-700',
+    'Anfrage':    'bg-yellow-100 text-yellow-800',
+    'Gekündigt':  'bg-red-100 text-red-700',
+  }[s] || 'bg-gray-200 text-gray-700';
 }
 
 function filterByStatus(s) {
@@ -647,30 +429,30 @@ function openDetail(id) {
   const c = contracts.find(x => x.id === id);
   document.getElementById('modalTitle').textContent = c.title;
   document.getElementById('modalContent').innerHTML = `
-    <div class="info-grid">
-      <div class="info-item"><label>Vertragsnummer</label><div class="val">${c.number}</div></div>
-      <div class="info-item"><label>Vertragsart</label><div class="val">${c.type}</div></div>
-      <div class="info-item"><label>Vertragsbeginn</label><div class="val">${c.start||'–'}</div></div>
-      <div class="info-item"><label>Vertragsende</label><div class="val">${c.end||'–'}</div></div>
-      <div class="info-item"><label>Vertragspartner</label><div class="val">${c.party}</div></div>
-      <div class="info-item"><label>Status</label><div class="val"><span class="badge-status ${statusClass(c.status)}">${c.status}</span></div></div>
-      <div class="info-item"><label>Workflow-Stufe</label><div class="val">${c.workflow}</div></div>
+    <div class="grid grid-cols-2 gap-3">
+      <div><label class="text-xs text-gray-500 uppercase tracking-wide">Vertragsnummer</label><div class="text-sm font-medium mt-0.5">${c.number}</div></div>
+      <div><label class="text-xs text-gray-500 uppercase tracking-wide">Vertragsart</label><div class="text-sm font-medium mt-0.5">${c.type}</div></div>
+      <div><label class="text-xs text-gray-500 uppercase tracking-wide">Vertragsbeginn</label><div class="text-sm font-medium mt-0.5">${c.start||'–'}</div></div>
+      <div><label class="text-xs text-gray-500 uppercase tracking-wide">Vertragsende</label><div class="text-sm font-medium mt-0.5">${c.end||'–'}</div></div>
+      <div><label class="text-xs text-gray-500 uppercase tracking-wide">Vertragspartner</label><div class="text-sm font-medium mt-0.5">${c.party}</div></div>
+      <div><label class="text-xs text-gray-500 uppercase tracking-wide">Status</label><div class="mt-0.5"><span class="${statusClass(c.status)} inline-block px-2.5 py-0.5 rounded-full text-xs font-medium">${c.status}</span></div></div>
+      <div><label class="text-xs text-gray-500 uppercase tracking-wide">Workflow-Stufe</label><div class="text-sm font-medium mt-0.5">${c.workflow}</div></div>
     </div>
-    <div class="section-title">Zusammenfassung</div>
-    <div class="summary-box">${c.summary}</div>
+    <div class="text-sm font-semibold text-gray-800 mt-4 mb-2">Zusammenfassung</div>
+    <div class="bg-gray-100 rounded p-3 text-sm leading-relaxed">${c.summary}</div>
     ${c.extra ? `
-    <div class="section-title">Finanzielle & rechtliche Details</div>
-    <div class="info-grid">
-      ${c.extra.kosten ? `<div class="info-item"><label>Kosten</label><div class="val">${c.extra.kosten}</div></div>` : ''}
-      ${c.extra.zahlungsintervall ? `<div class="info-item"><label>Zahlungsintervall</label><div class="val">${c.extra.zahlungsintervall}</div></div>` : ''}
-      ${c.extra.kuendigungsfrist ? `<div class="info-item"><label>Kündigungsfrist</label><div class="val">${c.extra.kuendigungsfrist}</div></div>` : ''}
-      ${c.extra.automatische_verlaengerung ? `<div class="info-item"><label>Auto-Verlängerung</label><div class="val">${c.extra.automatische_verlaengerung}</div></div>` : ''}
+    <div class="text-sm font-semibold text-gray-800 mt-4 mb-2">Finanzielle & rechtliche Details</div>
+    <div class="grid grid-cols-2 gap-3">
+      ${c.extra.kosten ? `<div><label class="text-xs text-gray-500 uppercase tracking-wide">Kosten</label><div class="text-sm font-medium mt-0.5">${c.extra.kosten}</div></div>` : ''}
+      ${c.extra.zahlungsintervall ? `<div><label class="text-xs text-gray-500 uppercase tracking-wide">Zahlungsintervall</label><div class="text-sm font-medium mt-0.5">${c.extra.zahlungsintervall}</div></div>` : ''}
+      ${c.extra.kuendigungsfrist ? `<div><label class="text-xs text-gray-500 uppercase tracking-wide">Kündigungsfrist</label><div class="text-sm font-medium mt-0.5">${c.extra.kuendigungsfrist}</div></div>` : ''}
+      ${c.extra.automatische_verlaengerung ? `<div><label class="text-xs text-gray-500 uppercase tracking-wide">Auto-Verlängerung</label><div class="text-sm font-medium mt-0.5">${c.extra.automatische_verlaengerung}</div></div>` : ''}
     </div>
-    ${c.extra.wichtige_klauseln?.length ? `<div class="section-title">Wichtige Klauseln</div>
-    <ul class="risk-list" style="--icon:'📌'">${c.extra.wichtige_klauseln.map(k=>`<li style="--before:'📌 '">${k}</li>`).join('')}</ul>` : ''}
+    ${c.extra.wichtige_klauseln?.length ? `<div class="text-sm font-semibold text-gray-800 mt-4 mb-2">Wichtige Klauseln</div>
+    <ul class="list-none">${c.extra.wichtige_klauseln.map(k=>`<li class="py-1.5 border-b border-gray-100 text-sm">📌 ${k}</li>`).join('')}</ul>` : ''}
     ` : ''}
-    ${c.risks.length ? `<div class="section-title">Risiken & Hinweise</div>
-    <ul class="risk-list">${c.risks.map(r=>`<li>${r}</li>`).join('')}</ul>` : ''}
+    ${c.risks.length ? `<div class="text-sm font-semibold text-gray-800 mt-4 mb-2">Risiken & Hinweise</div>
+    <ul class="list-none">${c.risks.map(r=>`<li class="py-1.5 border-b border-gray-100 text-sm text-red-700">⚠ ${r}</li>`).join('')}</ul>` : ''}
   `;
   document.getElementById('detailModal').classList.add('open');
 }
@@ -755,7 +537,6 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-// Close modal on overlay click
 document.querySelectorAll('.modal-overlay').forEach(o => {
   o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
 });

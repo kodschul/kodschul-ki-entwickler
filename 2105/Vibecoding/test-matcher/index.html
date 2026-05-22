@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test-Matcher</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #c8c6c4; border-top-color: #0078d4; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
+  .toast { position: fixed; bottom: 24px; right: 24px; z-index: 200; background: #323130; color: white; padding: 10px 18px; border-radius: 6px; font-size: 13px; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+  .toast.show { opacity: 1; }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 100; align-items: center; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .tab-btn.active { color: #0078d4; border-bottom: 2px solid #0078d4; font-weight: 600; }
+  .tab-btn { border-bottom: 2px solid transparent; }
+  .result-card { transition: box-shadow 0.15s; }
+  .result-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.10); }
+  .conf-HOCH { background: #dcfce7; color: #15803d; }
+  .conf-MITTEL { background: #fef9c3; color: #854d0e; }
+  .conf-NIEDRIG { background: #fee2e2; color: #b91c1c; }
+  .cat-DIREKT_BETROFFEN { border-left: 4px solid #dc2626; }
+  .cat-INDIREKT_BETROFFEN { border-left: 4px solid #d97706; }
+  .cat-NICHT_RELEVANT { border-left: 4px solid #9ca3af; }
+</style>
+</head>
+<body class="bg-gray-100 text-gray-800 text-sm font-sans min-h-screen">
+
+<!-- Top Bar -->
+<div class="bg-white border-b border-gray-200 px-5 py-2.5 flex items-center gap-3 sticky top-0 z-50">
+  <span class="text-xl">🧪</span>
+  <h1 class="text-lg font-semibold text-gray-800">Test-Matcher</h1>
+  <div class="flex gap-1 ml-6">
+    <button class="tab-btn active px-4 py-2 text-sm text-gray-600 hover:text-blue-600" onclick="showTab('analyse')">Analyse</button>
+    <button class="tab-btn px-4 py-2 text-sm text-gray-600 hover:text-blue-600" onclick="showTab('testfaelle')">Testfälle</button>
+  </div>
+  <div class="ml-auto flex items-center gap-2">
+    <span id="keyIndicator" class="text-xs text-gray-400 hidden">API-Key gesetzt ✓</span>
+    <button onclick="openSettings()" class="bg-transparent border border-gray-300 cursor-pointer px-3 py-1.5 rounded text-gray-600 hover:bg-gray-100 text-sm">⚙ Einstellungen</button>
+  </div>
+</div>
+
+<!-- TAB: ANALYSE -->
+<div id="tab-analyse" class="max-w-5xl mx-auto p-5 space-y-4">
+
+  <!-- Stat Cards -->
+  <div id="statCards" class="hidden grid grid-cols-4 gap-3">
+    <div class="bg-red-600 text-white rounded-lg px-4 py-3">
+      <div class="text-3xl font-bold" id="stat-direct">0</div>
+      <div class="text-xs mt-1 opacity-90">Muss laufen</div>
+    </div>
+    <div class="bg-amber-500 text-white rounded-lg px-4 py-3">
+      <div class="text-3xl font-bold" id="stat-indirect">0</div>
+      <div class="text-xs mt-1 opacity-90">Sollte laufen</div>
+    </div>
+    <div class="bg-gray-400 text-white rounded-lg px-4 py-3">
+      <div class="text-3xl font-bold" id="stat-skip">0</div>
+      <div class="text-xs mt-1 opacity-90">Kann übersprungen werden</div>
+    </div>
+    <div class="bg-blue-600 text-white rounded-lg px-4 py-3">
+      <div class="text-3xl font-bold" id="stat-coverage">0%</div>
+      <div class="text-xs mt-1 opacity-90">Abdeckung</div>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="bg-white rounded-lg border border-gray-200 p-5">
+    <label class="block text-sm font-semibold text-gray-700 mb-2">Release-Beschreibung</label>
+    <textarea id="releaseInput" rows="6" placeholder="Füge hier die Release-Notes, Changelog oder Ticket-Beschreibungen ein...&#10;&#10;Beispiel:&#10;- JIRA-123: Login-Flow überarbeitet (neues OAuth 2.0)&#10;- JIRA-456: Passwort-Reset E-Mail Template aktualisiert&#10;- JIRA-789: Performance-Fix im Dashboard" class="w-full border border-gray-300 rounded px-3 py-2 text-sm resize-y outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 font-mono"></textarea>
+    <div class="flex items-center justify-between mt-3">
+      <span class="text-xs text-gray-400" id="tcCount">0 Testfälle in der Bibliothek</span>
+      <button onclick="startAnalysis()" id="analyseBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded text-sm font-medium flex items-center gap-2">
+        Analyse starten
+      </button>
+    </div>
+  </div>
+
+  <!-- Warnings -->
+  <div id="warningsBox" class="hidden bg-amber-50 border border-amber-200 rounded-lg p-4 space-y-1">
+    <div class="font-semibold text-amber-800 text-sm mb-1">⚠ Hinweise</div>
+    <div id="warningsList" class="text-amber-700 text-sm space-y-1"></div>
+  </div>
+
+  <!-- Release Summary -->
+  <div id="summaryBox" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4">
+    <div class="font-semibold text-blue-800 text-sm mb-1">Release-Zusammenfassung</div>
+    <div id="summaryText" class="text-blue-700 text-sm"></div>
+  </div>
+
+  <!-- Filter Tabs for Results -->
+  <div id="resultHeader" class="hidden flex items-center gap-2">
+    <span class="font-semibold text-gray-700">Ergebnisse</span>
+    <div class="flex gap-1 ml-2">
+      <button class="filter-btn px-3 py-1 rounded text-xs border border-red-300 bg-red-50 text-red-700 font-medium" onclick="setFilter('DIREKT_BETROFFEN')">Muss laufen</button>
+      <button class="filter-btn px-3 py-1 rounded text-xs border border-amber-300 bg-amber-50 text-amber-700" onclick="setFilter('INDIREKT_BETROFFEN')">Sollte laufen</button>
+      <button class="filter-btn px-3 py-1 rounded text-xs border border-gray-300 bg-gray-50 text-gray-600" onclick="setFilter('NICHT_RELEVANT')">Übersprungen</button>
+      <button class="filter-btn px-3 py-1 rounded text-xs border border-gray-300 bg-white text-gray-600" onclick="setFilter('ALL')">Alle</button>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="resultsList" class="space-y-2"></div>
+
+  <!-- Empty state -->
+  <div id="emptyState" class="text-center py-16 text-gray-400">
+    <div class="text-5xl mb-3">🔍</div>
+    <div class="text-base font-medium text-gray-500">Noch keine Analyse</div>
+    <div class="text-sm mt-1">Release-Beschreibung eingeben und Analyse starten</div>
+  </div>
+</div>
+
+<!-- TAB: TESTFÄLLE -->
+<div id="tab-testfaelle" class="hidden max-w-4xl mx-auto p-5 space-y-4">
+  <div class="flex items-center justify-between">
+    <h2 class="font-semibold text-gray-700">Testfall-Bibliothek</h2>
+    <button onclick="openTestModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium">+ Testfall hinzufügen</button>
+  </div>
+
+  <div id="tcList" class="space-y-2"></div>
+  <div id="tcEmpty" class="text-center py-16 text-gray-400">
+    <div class="text-5xl mb-3">📋</div>
+    <div class="text-base font-medium text-gray-500">Keine Testfälle vorhanden</div>
+    <div class="text-sm mt-1">Füge deinen ersten Testfall hinzu</div>
+    <button onclick="loadSamples()" class="mt-4 text-blue-600 text-sm underline">Beispiel-Testfälle laden</button>
+  </div>
+</div>
+
+<!-- MODAL: Testfall -->
+<div class="modal-overlay" id="testModal">
+  <div class="bg-white rounded-xl shadow-xl w-full max-w-lg mx-4 p-6">
+    <h2 class="text-base font-semibold text-gray-800 mb-4" id="testModalTitle">Testfall hinzufügen</h2>
+    <input type="hidden" id="editId">
+    <div class="space-y-3">
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1">Name *</label>
+        <input type="text" id="tcName" placeholder="z. B. Login mit gültigen Zugangsdaten" class="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1">Beschreibung *</label>
+        <textarea id="tcDesc" rows="3" placeholder="Was prüft dieser Testfall? Was ist das erwartete Ergebnis?" class="w-full border border-gray-300 rounded px-3 py-2 text-sm resize-none outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"></textarea>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1">Tags (kommagetrennt)</label>
+        <input type="text" id="tcTags" placeholder="z. B. auth, login, smoke" class="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+      </div>
+    </div>
+    <div class="flex justify-end gap-2 mt-5">
+      <button onclick="closeTestModal()" class="px-4 py-2 rounded border border-gray-300 text-sm text-gray-600 hover:bg-gray-50">Abbrechen</button>
+      <button onclick="saveTestCase()" class="px-4 py-2 rounded bg-blue-600 text-white text-sm hover:bg-blue-700 font-medium">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Settings -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="bg-white rounded-xl shadow-xl w-full max-w-md mx-4 p-6">
+    <h2 class="text-base font-semibold text-gray-800 mb-4">Einstellungen</h2>
+    <div class="space-y-3">
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1">Gemini API-Key</label>
+        <input type="password" id="apiKeyInput" placeholder="AIza..." class="w-full border border-gray-300 rounded px-3 py-2 text-sm font-mono outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+        <p class="text-xs text-gray-400 mt-1">Wird nur lokal im Browser gespeichert und nicht übertragen.</p>
+      </div>
+    </div>
+    <div class="flex justify-end gap-2 mt-5">
+      <button onclick="closeSettings()" class="px-4 py-2 rounded border border-gray-300 text-sm text-gray-600 hover:bg-gray-50">Abbrechen</button>
+      <button onclick="saveSettings()" class="px-4 py-2 rounded bg-blue-600 text-white text-sm hover:bg-blue-700 font-medium">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────
+let testCases = JSON.parse(localStorage.getItem('tm_testcases') || '[]');
+let lastResult = null;
+let activeFilter = 'DIREKT_BETROFFEN';
+
+// ── Init ───────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderTestCases();
+  updateTcCount();
+  if (localStorage.getItem('tm_apikey')) {
+    document.getElementById('keyIndicator').classList.remove('hidden');
+  }
+});
+
+// ── Tabs ───────────────────────────────────────────────────────────────
+function showTab(name) {
+  ['analyse', 'testfaelle'].forEach(t => {
+    document.getElementById('tab-' + t).classList.add('hidden');
+  });
+  document.getElementById('tab-' + name).classList.remove('hidden');
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// ── Settings ───────────────────────────────────────────────────────────
+function openSettings() {
+  const k = localStorage.getItem('tm_apikey') || '';
+  document.getElementById('apiKeyInput').value = k;
+  document.getElementById('settingsModal').classList.add('open');
+}
+function closeSettings() {
+  document.getElementById('settingsModal').classList.remove('open');
+}
+function saveSettings() {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if (key) {
+    localStorage.setItem('tm_apikey', key);
+    document.getElementById('keyIndicator').classList.remove('hidden');
+    toast('API-Key gespeichert');
+  } else {
+    localStorage.removeItem('tm_apikey');
+    document.getElementById('keyIndicator').classList.add('hidden');
+    toast('API-Key entfernt');
+  }
+  closeSettings();
+}
+
+// ── Test Cases ─────────────────────────────────────────────────────────
+function openTestModal(id = null) {
+  document.getElementById('editId').value = id || '';
+  document.getElementById('testModalTitle').textContent = id ? 'Testfall bearbeiten' : 'Testfall hinzufügen';
+  if (id) {
+    const tc = testCases.find(t => t.id === id);
+    document.getElementById('tcName').value = tc.name;
+    document.getElementById('tcDesc').value = tc.description;
+    document.getElementById('tcTags').value = tc.tags.join(', ');
+  } else {
+    document.getElementById('tcName').value = '';
+    document.getElementById('tcDesc').value = '';
+    document.getElementById('tcTags').value = '';
+  }
+  document.getElementById('testModal').classList.add('open');
+}
+function closeTestModal() {
+  document.getElementById('testModal').classList.remove('open');
+}
+function saveTestCase() {
+  const name = document.getElementById('tcName').value.trim();
+  const desc = document.getElementById('tcDesc').value.trim();
+  const tags = document.getElementById('tcTags').value.split(',').map(t => t.trim()).filter(Boolean);
+  const editId = document.getElementById('editId').value;
+  if (!name || !desc) { toast('Name und Beschreibung sind Pflichtfelder'); return; }
+  if (editId) {
+    const idx = testCases.findIndex(t => t.id === editId);
+    testCases[idx] = { id: editId, name, description: desc, tags };
+  } else {
+    const id = 'TC-' + String(testCases.length + 1).padStart(3, '0');
+    testCases.push({ id, name, description: desc, tags });
+  }
+  saveTc();
+  closeTestModal();
+  renderTestCases();
+  updateTcCount();
+  toast(editId ? 'Testfall aktualisiert' : 'Testfall hinzugefügt');
+}
+function deleteTestCase(id) {
+  testCases = testCases.filter(t => t.id !== id);
+  saveTc();
+  renderTestCases();
+  updateTcCount();
+  toast('Testfall gelöscht');
+}
+function saveTc() {
+  localStorage.setItem('tm_testcases', JSON.stringify(testCases));
+}
+function updateTcCount() {
+  document.getElementById('tcCount').textContent = testCases.length + ' Testfälle in der Bibliothek';
+}
+function renderTestCases() {
+  const list = document.getElementById('tcList');
+  const empty = document.getElementById('tcEmpty');
+  list.innerHTML = '';
+  if (!testCases.length) { empty.classList.remove('hidden'); return; }
+  empty.classList.add('hidden');
+  testCases.forEach(tc => {
+    const div = document.createElement('div');
+    div.className = 'bg-white rounded-lg border border-gray-200 px-4 py-3 flex items-start gap-3';
+    div.innerHTML = `
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="font-mono text-xs text-gray-400">${tc.id}</span>
+          <span class="font-medium text-gray-800 text-sm">${tc.name}</span>
+        </div>
+        <p class="text-xs text-gray-500 mt-0.5 line-clamp-2">${tc.description}</p>
+        <div class="flex gap-1 mt-1.5 flex-wrap">
+          ${tc.tags.map(tag => `<span class="bg-blue-50 text-blue-700 text-xs px-2 py-0.5 rounded">${tag}</span>`).join('')}
+        </div>
+      </div>
+      <div class="flex gap-1 shrink-0">
+        <button onclick="openTestModal('${tc.id}')" class="text-gray-400 hover:text-blue-600 text-xs px-2 py-1 rounded hover:bg-gray-100">Bearbeiten</button>
+        <button onclick="deleteTestCase('${tc.id}')" class="text-gray-400 hover:text-red-600 text-xs px-2 py-1 rounded hover:bg-gray-100">Löschen</button>
+      </div>`;
+    list.appendChild(div);
+  });
+}
+
+// ── Sample Data ────────────────────────────────────────────────────────
+function loadSamples() {
+  testCases = [
+    { id: 'TC-001', name: 'Login mit gültigen Zugangsdaten', description: 'Prüft, ob ein Benutzer sich mit korrektem Benutzernamen und Passwort einloggen kann. Erwartet: Weiterleitung zum Dashboard.', tags: ['auth', 'login', 'smoke'] },
+    { id: 'TC-002', name: 'Login mit ungültigen Zugangsdaten', description: 'Prüft, ob eine Fehlermeldung erscheint, wenn falsche Zugangsdaten eingegeben werden. Kein Zugang zum System.', tags: ['auth', 'login', 'negativ'] },
+    { id: 'TC-003', name: 'Passwort zurücksetzen via E-Mail', description: 'Prüft den vollständigen Passwort-Reset-Flow: E-Mail eingeben, Link erhalten, neues Passwort setzen.', tags: ['auth', 'passwort', 'email'] },
+    { id: 'TC-004', name: 'Benutzer registrieren', description: 'Prüft den Registrierungsprozess mit allen Pflichtfeldern. Erwartet: Bestätigungsmail und Weiterleitung zur Login-Seite.', tags: ['auth', 'registrierung'] },
+    { id: 'TC-005', name: 'Produkt in den Warenkorb legen', description: 'Prüft ob ein Produkt erfolgreich zum Warenkorb hinzugefügt werden kann und der Zähler sich aktualisiert.', tags: ['shop', 'warenkorb'] },
+    { id: 'TC-006', name: 'Checkout-Prozess abschließen', description: 'Vollständiger Kaufprozess: Warenkorb → Adresse → Zahlung → Bestätigung. Prüft ob Bestellbestätigung erscheint.', tags: ['shop', 'checkout', 'zahlung', 'smoke'] },
+    { id: 'TC-007', name: 'Kreditkartenzahlung', description: 'Prüft die Zahlung mit Kreditkarte. Gültige Kartendaten führen zu Bestellabschluss. Ungültige werden abgelehnt.', tags: ['zahlung', 'kreditkarte'] },
+    { id: 'TC-008', name: 'PayPal-Zahlung', description: 'Prüft die Weiterleitung zu PayPal und die Rückkehr zur Bestätigungsseite nach erfolgreicher Zahlung.', tags: ['zahlung', 'paypal'] },
+    { id: 'TC-009', name: 'Produkt suchen', description: 'Prüft die Suchfunktion: Eingabe eines Suchbegriffs liefert passende Treffer. Keine Treffer zeigt leere Seite.', tags: ['suche', 'produkt'] },
+    { id: 'TC-010', name: 'Dashboard lädt korrekt', description: 'Prüft ob das Dashboard nach dem Login alle Elemente korrekt darstellt und keine Ladefehler auftreten.', tags: ['dashboard', 'smoke'] },
+    { id: 'TC-011', name: 'Benachrichtigungen anzeigen', description: 'Prüft ob neue Benachrichtigungen im Glocken-Icon angezeigt werden und beim Klick die Detailansicht öffnet.', tags: ['benachrichtigungen', 'ui'] },
+    { id: 'TC-012', name: 'Profil bearbeiten', description: 'Prüft ob der Benutzer seinen Namen, seine E-Mail-Adresse und sein Profilbild ändern kann.', tags: ['profil', 'benutzer'] },
+  ];
+  saveTc();
+  renderTestCases();
+  updateTcCount();
+  toast('12 Beispiel-Testfälle geladen');
+}
+
+// ── Analysis ───────────────────────────────────────────────────────────
+async function startAnalysis() {
+  const apiKey = localStorage.getItem('tm_apikey');
+  if (!apiKey) { openSettings(); toast('Bitte zuerst den API-Key eingeben'); return; }
+  if (!testCases.length) { toast('Keine Testfälle in der Bibliothek'); return; }
+  const release = document.getElementById('releaseInput').value.trim();
+  if (!release) { toast('Bitte Release-Beschreibung eingeben'); return; }
+
+  const btn = document.getElementById('analyseBtn');
+  btn.innerHTML = '<span class="spinner"></span>Analyse läuft...';
+  btn.disabled = true;
+
+  document.getElementById('emptyState').classList.add('hidden');
+  document.getElementById('resultsList').innerHTML = '';
+  document.getElementById('resultHeader').classList.add('hidden');
+  document.getElementById('statCards').classList.add('hidden');
+  document.getElementById('warningsBox').classList.add('hidden');
+  document.getElementById('summaryBox').classList.add('hidden');
+
+  const systemPrompt = `Du bist ein erfahrener QA-Analyst und Testmanager. Deine Aufgabe ist es, Release-Inhalte mit einer Testfall-Bibliothek abzugleichen und zu entscheiden, welche Tests für dieses Release ausgeführt werden müssen.
+
+## Deine Aufgabe
+
+Analysiere jeden Testfall und ordne ihn einer der drei Kategorien zu:
+
+- **DIREKT_BETROFFEN**: Der Testfall prüft genau das, was im Release geändert wurde. Muss auf jeden Fall ausgeführt werden.
+- **INDIREKT_BETROFFEN**: Der Testfall prüft etwas, das durch die Änderungen beeinflusst werden könnte. Sollte ausgeführt werden.
+- **NICHT_RELEVANT**: Kein erkennbarer Bezug zum Release-Inhalt.
+
+## Ausgabeformat
+
+Antworte ausschließlich im folgenden JSON-Format ohne Einleitung oder Fließtext:
+
+{
+  "release_summary": "<Kurze Zusammenfassung des Releases in 1–2 Sätzen>",
+  "affected_areas": ["<Bereich 1>", "<Bereich 2>"],
+  "results": [
+    {
+      "test_id": "<ID>",
+      "test_name": "<Name>",
+      "category": "DIREKT_BETROFFEN" | "INDIREKT_BETROFFEN" | "NICHT_RELEVANT",
+      "confidence": "HOCH" | "MITTEL" | "NIEDRIG",
+      "reason": "<Begründung in 1–2 Sätzen>"
+    }
+  ],
+  "statistics": {
+    "total": <Zahl>,
+    "direct": <Zahl>,
+    "indirect": <Zahl>,
+    "not_relevant": <Zahl>,
+    "coverage_score": <0–100>
+  },
+  "warnings": ["<Hinweis falls Änderungen nicht durch Tests abgedeckt sind>"]
+}
+
+## Regeln
+
+1. Semantisch denken: Vergleiche inhaltlich, nicht nur Schlüsselwörter.
+2. Abhängigkeiten berücksichtigen: Zentrale Komponenten können viele Tests indirekt berühren.
+3. Konservativ im Zweifel: Lieber INDIREKT_BETROFFEN als NICHT_RELEVANT.
+4. Lücken in warnings melden wenn Änderungen durch keinen Test abgedeckt sind.`;
+
+  const userPrompt = `## Release-Beschreibung\n\n${release}\n\n---\n\n## Testfall-Bibliothek\n\n${JSON.stringify(testCases, null, 2)}\n\n---\n\nBitte analysiere alle Testfälle und gib das Ergebnis im vorgegebenen JSON-Format zurück.`;
+
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: systemPrompt }] },
+          contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
+          generationConfig: { maxOutputTokens: 8192 }
+        })
+      }
+    );
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.error?.message || 'API-Fehler ' + response.status);
+    }
+
+    const data = await response.json();
+    const text = data.candidates[0].content.parts[0].text.trim();
+
+    // Extract JSON (handle possible markdown code blocks)
+    const jsonMatch = text.match(/```(?:json)?\s*([\s\S]*?)```/) || [null, text];
+    const parsed = JSON.parse(jsonMatch[1].trim());
+
+    lastResult = parsed;
+    renderResults(parsed);
+    toast('Analyse abgeschlossen');
+  } catch (e) {
+    console.error('Analyse-Fehler:', e);
+    toast('Fehler: ' + e.message);
+    document.getElementById('emptyState').classList.remove('hidden');
+  } finally {
+    btn.innerHTML = 'Analyse starten';
+    btn.disabled = false;
+  }
+}
+
+function renderResults(data) {
+  // Stats
+  document.getElementById('stat-direct').textContent = data.statistics.direct;
+  document.getElementById('stat-indirect').textContent = data.statistics.indirect;
+  document.getElementById('stat-skip').textContent = data.statistics.not_relevant;
+  document.getElementById('stat-coverage').textContent = data.statistics.coverage_score + '%';
+  document.getElementById('statCards').classList.remove('hidden');
+
+  // Summary
+  document.getElementById('summaryText').textContent = data.release_summary;
+  document.getElementById('summaryBox').classList.remove('hidden');
+
+  // Warnings
+  if (data.warnings && data.warnings.length) {
+    document.getElementById('warningsList').innerHTML = data.warnings.map(w => `<div>• ${w}</div>`).join('');
+    document.getElementById('warningsBox').classList.remove('hidden');
+  }
+
+  document.getElementById('resultHeader').classList.remove('hidden');
+  setFilter('DIREKT_BETROFFEN');
+}
+
+function setFilter(cat) {
+  activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('ring-2', 'ring-offset-1', 'ring-blue-400'));
+  event && event.target && event.target.classList.add('ring-2', 'ring-offset-1', 'ring-blue-400');
+
+  const list = document.getElementById('resultsList');
+  list.innerHTML = '';
+  if (!lastResult) return;
+
+  const items = cat === 'ALL' ? lastResult.results : lastResult.results.filter(r => r.category === cat);
+  if (!items.length) {
+    list.innerHTML = '<div class="text-center py-8 text-gray-400 text-sm">Keine Testfälle in dieser Kategorie</div>';
+    return;
+  }
+
+  const catLabel = { DIREKT_BETROFFEN: 'Muss laufen', INDIREKT_BETROFFEN: 'Sollte laufen', NICHT_RELEVANT: 'Übersprungen' };
+
+  items.forEach(r => {
+    const div = document.createElement('div');
+    div.className = `result-card bg-white rounded-lg border border-gray-200 px-4 py-3 cat-${r.category}`;
+    div.innerHTML = `
+      <div class="flex items-start gap-3">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="font-mono text-xs text-gray-400">${r.test_id}</span>
+            <span class="font-medium text-gray-800 text-sm">${r.test_name}</span>
+            <span class="text-xs conf-${r.confidence} px-2 py-0.5 rounded font-medium">${r.confidence}</span>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">${r.reason}</p>
+        </div>
+        <span class="shrink-0 text-xs font-medium px-2 py-1 rounded ${
+          r.category === 'DIREKT_BETROFFEN' ? 'bg-red-100 text-red-700' :
+          r.category === 'INDIREKT_BETROFFEN' ? 'bg-amber-100 text-amber-700' :
+          'bg-gray-100 text-gray-500'
+        }">${catLabel[r.category] || r.category}</span>
+      </div>`;
+    list.appendChild(div);
+  });
+}
+
+// ── Toast ──────────────────────────────────────────────────────────────
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
