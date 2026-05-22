@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offer Studio</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f5f5f0;
+      color: #1a1a1a;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    header h1 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; }
+    header span { font-size: 0.75rem; background: #e2b04a; color: #1a1a2e; padding: 2px 8px; border-radius: 99px; font-weight: 700; }
+    header .api-btn { margin-left: auto; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; }
+    header .api-btn:hover { background: rgba(255,255,255,0.1); }
+    header .api-btn.active { border-color: #4caf50; color: #4caf50; }
+
+    /* API Key Modal */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; align-items: center; justify-content: center; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: #fff; border-radius: 12px; padding: 2rem; width: 100%; max-width: 480px; margin: 1rem; }
+    .modal h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .modal p { font-size: 0.85rem; color: #666; margin-bottom: 1.25rem; line-height: 1.5; }
+    .modal input { width: 100%; border: 1px solid #ddd; border-radius: 8px; padding: 0.65rem 0.75rem; font-size: 0.9rem; font-family: monospace; margin-bottom: 1rem; }
+    .modal-btns { display: flex; gap: 0.5rem; justify-content: flex-end; }
+    .modal-btns button { padding: 0.5rem 1.1rem; border-radius: 8px; border: none; cursor: pointer; font-size: 0.9rem; }
+    .modal-btns .btn-cancel { background: #f0f0f0; color: #333; }
+    .modal-btns .btn-save { background: #1a1a2e; color: #fff; }
+    .modal-btns .btn-test { background: #f0f0f0; color: #333; }
+    .modal-btns .btn-test:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .container {
+      max-width: 760px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Stepper */
+    .stepper {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+      gap: 0;
+    }
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex: 1;
+    }
+    .step-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: #ddd;
+      color: #888;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.3s, color 0.3s;
+    }
+    .step.active .step-num { background: #1a1a2e; color: #fff; }
+    .step.done .step-num { background: #4caf50; color: #fff; }
+    .step-label { font-size: 0.75rem; color: #888; white-space: nowrap; }
+    .step.active .step-label { color: #1a1a2e; font-weight: 600; }
+    .step.done .step-label { color: #4caf50; }
+    .step-line { flex: 1; height: 2px; background: #ddd; margin: 0 0.25rem; }
+    .step-line.done { background: #4caf50; }
+
+    /* Card */
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .card h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .card p.sub { font-size: 0.85rem; color: #666; margin-bottom: 1.5rem; }
+
+    /* Form */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-grid.full { grid-template-columns: 1fr; }
+    .field { display: flex; flex-direction: column; gap: 0.35rem; }
+    .field.span2 { grid-column: span 2; }
+    label { font-size: 0.8rem; font-weight: 600; color: #444; }
+    input, textarea, select {
+      border: 1.5px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 0.6rem 0.8rem;
+      font-size: 0.9rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      background: #fafafa;
+      color: #1a1a1a;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #1a1a2e;
+      background: #fff;
+    }
+    textarea { resize: vertical; min-height: 90px; }
+
+    /* Buttons */
+    .btn-row { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem; }
+    button {
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, transform 0.1s;
+    }
+    button:active { transform: scale(0.98); }
+    .btn-primary { background: #1a1a2e; color: #fff; }
+    .btn-primary:hover { background: #2a2a4e; }
+    .btn-secondary { background: #f0f0f0; color: #444; }
+    .btn-secondary:hover { background: #e0e0e0; }
+    .btn-success { background: #4caf50; color: #fff; }
+    .btn-success:hover { background: #43a047; }
+
+    /* Loading */
+    .loading-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      gap: 1.25rem;
+    }
+    .spinner {
+      width: 48px; height: 48px;
+      border: 4px solid #e0e0e0;
+      border-top-color: #1a1a2e;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-screen p { color: #666; font-size: 0.9rem; }
+
+    /* Offer output */
+    .offer-section {
+      border-left: 3px solid #1a1a2e;
+      padding-left: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .offer-section h3 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+      margin-bottom: 0.4rem;
+    }
+    .offer-section p, .offer-section ul {
+      font-size: 0.92rem;
+      line-height: 1.65;
+      color: #2a2a2a;
+    }
+    .offer-section ul { padding-left: 1.25rem; }
+    .offer-section ul li { margin-bottom: 0.25rem; }
+
+    .offer-meta {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid #eee;
+    }
+    .offer-meta div { font-size: 0.8rem; }
+    .offer-meta div span { display: block; color: #888; margin-bottom: 0.1rem; }
+    .offer-meta div strong { font-size: 0.92rem; }
+
+    /* Tags für Optionen */
+    .tag-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .tag {
+      padding: 0.35rem 0.85rem;
+      border-radius: 99px;
+      border: 1.5px solid #ddd;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: #fff;
+      color: #555;
+      transition: all 0.15s;
+    }
+    .tag.selected { border-color: #1a1a2e; background: #1a1a2e; color: #fff; }
+
+    /* Musterangebot Upload */
+    .upload-box {
+      border: 2px dashed #d0d0d0;
+      border-radius: 10px;
+      padding: 1.25rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      background: #fafafa;
+    }
+    .upload-box:hover { border-color: #1a1a2e; background: #f0f0f8; }
+    .upload-box.has-file { border-color: #4caf50; background: #f0faf0; cursor: default; }
+    .upload-box p { font-size: 0.85rem; color: #666; margin-top: 0.4rem; }
+    .upload-box strong { font-size: 0.9rem; color: #1a1a2e; }
+    .upload-box.has-file strong { color: #4caf50; }
+    .upload-preview {
+      margin-top: 0.75rem;
+      padding: 0.6rem 0.8rem;
+      background: #f5f5f5;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      color: #555;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .btn-remove {
+      margin-top: 0.6rem;
+      font-size: 0.78rem;
+      color: #e53935;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-weight: 600;
+    }
+    .btn-remove:hover { text-decoration: underline; }
+
+    @media print {
+      header, .stepper, .btn-row, .card > h2, .card > p.sub { display: none !important; }
+      body { background: #fff; }
+      .card { box-shadow: none; padding: 0; }
+    }
+
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .field.span2 { grid-column: span 1; }
+      .step-label { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Offer Studio</h1>
+  <span id="headerBadge">DEMO</span>
+  <button class="api-btn" id="apiSettingsBtn" onclick="openApiModal()">⚙ API-Key</button>
+</header>
+
+<!-- API Key Modal -->
+<div class="modal-overlay" id="apiModal">
+  <div class="modal">
+    <h3>Gemini API-Key eingeben</h3>
+    <p>Den Schlüssel bekommst du kostenlos auf <strong>aistudio.google.com</strong> → „Get API key". Er wird nur in deinem Browser gespeichert und nirgendwo übertragen.</p>
+    <input type="password" id="apiKeyInput" placeholder="AIza..." autocomplete="off" />
+    <div id="testResult" style="display:none; font-size:0.82rem; padding:0.5rem 0.75rem; border-radius:6px; margin-bottom:0.75rem;"></div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeApiModal()">Abbrechen</button>
+      <button class="btn-test" onclick="testApiKey()">Schlüssel testen</button>
+      <button class="btn-save" onclick="saveApiKey()">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Stepper -->
+  <div class="stepper" id="stepper">
+    <div class="step active" id="s1"><div class="step-num">1</div><div class="step-label">Kundendaten</div></div>
+    <div class="step-line" id="l1"></div>
+    <div class="step" id="s2"><div class="step-num">2</div><div class="step-label">Projektinfos</div></div>
+    <div class="step-line" id="l2"></div>
+    <div class="step" id="s3"><div class="step-num">3</div><div class="step-label">Optionen</div></div>
+    <div class="step-line" id="l3"></div>
+    <div class="step" id="s4"><div class="step-num">4</div><div class="step-label">Angebot</div></div>
+  </div>
+
+  <!-- Step 1: Kundendaten -->
+  <div class="card" id="step1">
+    <h2>Kundendaten</h2>
+    <p class="sub">Grundlegende Informationen zum Kunden</p>
+    <div class="form-grid">
+      <div class="field">
+        <label>Firmenname *</label>
+        <input id="firma" placeholder="z.B. Müller GmbH" />
+      </div>
+      <div class="field">
+        <label>Ansprechpartner *</label>
+        <input id="kontakt" placeholder="z.B. Frau Schmidt" />
+      </div>
+      <div class="field">
+        <label>Branche</label>
+        <select id="branche">
+          <option value="">Bitte wählen</option>
+          <option>IT & Software</option>
+          <option>Beratung</option>
+          <option>Produktion & Industrie</option>
+          <option>Handel & E-Commerce</option>
+          <option>Finanzdienstleistungen</option>
+          <option>Gesundheitswesen</option>
+          <option>Sonstiges</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Unternehmensgröße</label>
+        <select id="groesse">
+          <option value="">Bitte wählen</option>
+          <option>1–10 Mitarbeiter</option>
+          <option>11–50 Mitarbeiter</option>
+          <option>51–250 Mitarbeiter</option>
+          <option>251–1000 Mitarbeiter</option>
+          <option>Über 1000 Mitarbeiter</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="goTo(2)">Weiter →</button>
+    </div>
+  </div>
+
+  <!-- Step 2: Projektinfos -->
+  <div class="card" id="step2" style="display:none">
+    <h2>Projektinfos</h2>
+    <p class="sub">Was soll angeboten werden?</p>
+    <div class="form-grid full">
+      <div class="field">
+        <label>Projektbeschreibung *</label>
+        <textarea id="projekt" placeholder="Beschreibe kurz, was der Kunde braucht oder welches Problem gelöst werden soll…"></textarea>
+      </div>
+      <div class="field">
+        <label>Gewünschte Leistungen *</label>
+        <textarea id="leistungen" placeholder="z.B. Einführung CRM-System, Schulungen, 6 Monate Support…"></textarea>
+      </div>
+      <div class="form-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+        <div class="field">
+          <label>Budget (optional)</label>
+          <input id="budget" placeholder="z.B. 25.000 €" />
+        </div>
+        <div class="field">
+          <label>Zeitraum / Startdatum</label>
+          <input id="zeitraum" placeholder="z.B. ab Juli 2026, 3 Monate" />
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goTo(1)">← Zurück</button>
+      <button class="btn-primary" onclick="goTo(3)">Weiter →</button>
+    </div>
+  </div>
+
+  <!-- Step 3: Optionen -->
+  <div class="card" id="step3" style="display:none">
+    <h2>Optionale Anpassungen</h2>
+    <p class="sub">Verfeinere den Angebotsstil</p>
+    <div class="form-grid full">
+      <div class="field">
+        <label>Tonalität</label>
+        <div class="tag-group" id="tonalitaet">
+          <div class="tag selected" onclick="selectTag(this, 'ton')">Professionell</div>
+          <div class="tag" onclick="selectTag(this, 'ton')">Partnerschaftlich</div>
+          <div class="tag" onclick="selectTag(this, 'ton')">Direkt & knapp</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>USPs hervorheben (mehrere möglich)</label>
+        <div class="tag-group" id="usps">
+          <div class="tag" onclick="toggleTag(this)">Schnelle Umsetzung</div>
+          <div class="tag" onclick="toggleTag(this)">Festpreis-Garantie</div>
+          <div class="tag" onclick="toggleTag(this)">Lokaler Ansprechpartner</div>
+          <div class="tag" onclick="toggleTag(this)">Langjährige Erfahrung</div>
+          <div class="tag" onclick="toggleTag(this)">Branchenexpertise</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Sonderkonditionen (optional)</label>
+        <input id="sonder" placeholder="z.B. 5 % Frühbucherrabatt bis 30.06." />
+      </div>
+      <div class="field">
+        <label>Musterangebot hochladen (optional)</label>
+        <div class="upload-box" id="uploadBox" onclick="document.getElementById('pdfInput').click()">
+          <input type="file" id="pdfInput" accept=".pdf" style="display:none" onchange="handlePdfUpload(this)">
+          <strong id="uploadTitle">PDF auswählen</strong>
+          <p id="uploadHint">Klicke hier und wähle ein bestehendes Angebot als PDF aus.<br>Die KI orientiert sich dann an deinem Stil.</p>
+        </div>
+        <div id="uploadPreview" style="display:none">
+          <div class="upload-preview" id="previewText"></div>
+          <button class="btn-remove" onclick="removeMuster()">✕ Musterangebot entfernen</button>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goTo(2)">← Zurück</button>
+      <button class="btn-primary" onclick="generateOffer()">✦ Angebot generieren</button>
+    </div>
+  </div>
+
+  <!-- Step 4: Angebot -->
+  <div class="card" id="step4" style="display:none">
+    <!-- Loading -->
+    <div class="loading-screen" id="loading">
+      <div class="spinner"></div>
+      <p>Angebot wird erstellt…</p>
+    </div>
+
+    <!-- Result -->
+    <div id="offerResult" style="display:none">
+      <div id="offerContent"></div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="goTo(3)">← Bearbeiten</button>
+        <button class="btn-secondary" onclick="startNew()">Neues Angebot</button>
+        <button class="btn-success" onclick="window.print()">PDF exportieren ↓</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // --- Navigation ---
+  function goTo(n) {
+    if (n === 2 && !validate1()) return;
+    if (n === 3 && !validate2()) return;
+    [1,2,3,4].forEach(i => {
+      document.getElementById('step'+i).style.display = i===n ? 'block' : 'none';
+    });
+    updateStepper(n);
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  function updateStepper(active) {
+    [1,2,3,4].forEach(i => {
+      const s = document.getElementById('s'+i);
+      s.className = 'step' + (i < active ? ' done' : i === active ? ' active' : '');
+      if (i < 4) {
+        const l = document.getElementById('l'+i);
+        l.className = 'step-line' + (i < active ? ' done' : '');
+      }
+    });
+  }
+
+  // --- Validation ---
+  function validate1() {
+    const f = document.getElementById('firma').value.trim();
+    const k = document.getElementById('kontakt').value.trim();
+    if (!f || !k) { alert('Bitte Firmenname und Ansprechpartner ausfüllen.'); return false; }
+    return true;
+  }
+  function validate2() {
+    const p = document.getElementById('projekt').value.trim();
+    const l = document.getElementById('leistungen').value.trim();
+    if (!p || !l) { alert('Bitte Projektbeschreibung und Leistungen ausfüllen.'); return false; }
+    return true;
+  }
+
+  // --- Tags ---
+  function selectTag(el, group) {
+    document.getElementById(group==='ton' ? 'tonalitaet' : 'usps')
+      .querySelectorAll('.tag').forEach(t => t.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+  function toggleTag(el) { el.classList.toggle('selected'); }
+
+  function getSelectedTags(containerId) {
+    return [...document.getElementById(containerId).querySelectorAll('.tag.selected')]
+      .map(t => t.textContent).join(', ');
+  }
+
+  // --- Musterangebot ---
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  function showMusterUI(text) {
+    const box = document.getElementById('uploadBox');
+    box.classList.add('has-file');
+    box.style.pointerEvents = 'none';
+    document.getElementById('uploadTitle').textContent = 'Musterangebot geladen ✓';
+    document.getElementById('uploadHint').textContent = 'Die KI übernimmt deinen Stil.';
+    document.getElementById('previewText').textContent = text.slice(0, 300) + (text.length > 300 ? '…' : '');
+    document.getElementById('uploadPreview').style.display = 'block';
+  }
+
+  function removeMuster() {
+    localStorage.removeItem('musterangebot');
+    const box = document.getElementById('uploadBox');
+    box.classList.remove('has-file');
+    box.style.pointerEvents = '';
+    document.getElementById('uploadTitle').textContent = 'PDF auswählen';
+    document.getElementById('uploadHint').textContent = 'Klicke hier und wähle ein bestehendes Angebot als PDF aus.\nDie KI orientiert sich dann an deinem Stil.';
+    document.getElementById('uploadPreview').style.display = 'none';
+    document.getElementById('pdfInput').value = '';
+  }
+
+  async function handlePdfUpload(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+      try {
+        const pdf = await pdfjsLib.getDocument({ data: e.target.result }).promise;
+        let fullText = '';
+        for (let i = 1; i <= Math.min(pdf.numPages, 10); i++) {
+          const page = await pdf.getPage(i);
+          const content = await page.getTextContent();
+          fullText += content.items.map(s => s.str).join(' ') + '\n';
+        }
+        fullText = fullText.trim();
+        if (!fullText) { alert('Die PDF konnte nicht gelesen werden. Bitte eine andere Datei versuchen.'); return; }
+        localStorage.setItem('musterangebot', fullText);
+        showMusterUI(fullText);
+      } catch {
+        alert('Fehler beim Lesen der PDF. Bitte eine andere Datei versuchen.');
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  // --- API Key ---
+  function getApiKey() { return localStorage.getItem('gemini_api_key') || ''; }
+  function openApiModal() {
+    document.getElementById('apiKeyInput').value = getApiKey();
+    document.getElementById('apiModal').classList.add('open');
+  }
+  function closeApiModal() { document.getElementById('apiModal').classList.remove('open'); }
+  async function testApiKey() {
+    const key = document.getElementById('apiKeyInput').value.trim();
+    const resultBox = document.getElementById('testResult');
+    const btn = document.querySelector('.btn-test');
+    if (!key) { showTestResult('Bitte zuerst einen Schlüssel eingeben.', false); return; }
+    btn.disabled = true;
+    btn.textContent = 'Teste...';
+    resultBox.style.display = 'none';
+    try {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ parts: [{ text: 'Antworte nur mit: OK' }] }] })
+        }
+      );
+      if (res.ok) {
+        showTestResult('✓ Schlüssel funktioniert! Modell: gemini-2.5-flash', true);
+      } else {
+        const err = await res.json();
+        showTestResult('✗ Fehler: ' + (err.error?.message || `HTTP ${res.status}`), false);
+      }
+    } catch (e) {
+      showTestResult('✗ Verbindungsfehler: ' + e.message, false);
+    }
+    btn.disabled = false;
+    btn.textContent = 'Schlüssel testen';
+  }
+
+  function showTestResult(msg, success) {
+    const box = document.getElementById('testResult');
+    box.textContent = msg;
+    box.style.display = 'block';
+    box.style.background = success ? '#e8f5e9' : '#fdecea';
+    box.style.color = success ? '#2e7d32' : '#c62828';
+  }
+
+  function saveApiKey() {
+    const key = document.getElementById('apiKeyInput').value.trim();
+    if (key) {
+      localStorage.setItem('gemini_api_key', key);
+      updateApiStatus();
+    } else {
+      localStorage.removeItem('gemini_api_key');
+      updateApiStatus();
+    }
+    closeApiModal();
+  }
+  function updateApiStatus() {
+    const hasKey = !!getApiKey();
+    const badge = document.getElementById('headerBadge');
+    const btn = document.getElementById('apiSettingsBtn');
+    badge.textContent = hasKey ? 'KI aktiv' : 'DEMO';
+    badge.style.background = hasKey ? '#4caf50' : '';
+    btn.classList.toggle('active', hasKey);
+  }
+  window.addEventListener('DOMContentLoaded', () => {
+    updateApiStatus();
+    const saved = localStorage.getItem('musterangebot');
+    if (saved) showMusterUI(saved);
+  });
+
+  // --- KI Generator ---
+  async function generateOffer() {
+    goTo(4);
+    document.getElementById('loading').style.display = 'flex';
+    document.getElementById('offerResult').style.display = 'none';
+
+    const data = {
+      firma: document.getElementById('firma').value.trim(),
+      kontakt: document.getElementById('kontakt').value.trim(),
+      branche: document.getElementById('branche').value || '',
+      groesse: document.getElementById('groesse').value || '',
+      projekt: document.getElementById('projekt').value.trim(),
+      leistungen: document.getElementById('leistungen').value.trim(),
+      budget: document.getElementById('budget').value.trim(),
+      zeitraum: document.getElementById('zeitraum').value.trim(),
+      ton: getSelectedTags('tonalitaet'),
+      usps: getSelectedTags('usps'),
+      sonder: document.getElementById('sonder').value.trim(),
+    };
+
+    const apiKey = getApiKey();
+    if (!apiKey) {
+      renderOffer(data);
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('offerResult').style.display = 'block';
+      return;
+    }
+
+    try {
+      const aiText = await callGemini(data, apiKey);
+      renderAiOffer(data, aiText);
+    } catch (err) {
+      console.error(err);
+      alert('Fehler beim KI-Aufruf: ' + err.message + '\n\nEs wird ein Vorlagen-Angebot angezeigt.');
+      renderOffer(data);
+    }
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('offerResult').style.display = 'block';
+  }
+
+  async function callGemini(d, apiKey) {
+    const muster = localStorage.getItem('musterangebot');
+    const musterHinweis = muster
+      ? `\n\nOrientiere dich stilistisch an diesem Musterangebot:\n---\n${muster.slice(0, 2000)}\n---`
+      : '';
+
+    const prompt = `Du bist ein erfahrener B2B-Texter. Erstelle ein professionelles Angebot auf Deutsch mit exakt diesen 5 Abschnitten (als HTML mit <h3>-Überschriften und <p>/<ul>-Tags):
+
+1. Executive Summary
+2. Problemverständnis
+3. Lösungsansatz
+4. Investition & Konditionen
+5. Nächste Schritte
+
+Kundendaten:
+- Firma: ${d.firma}
+- Ansprechpartner: ${d.kontakt}
+- Branche: ${d.branche || 'nicht angegeben'}
+- Unternehmensgröße: ${d.groesse || 'nicht angegeben'}
+
+Projektinfos:
+- Projektbeschreibung: ${d.projekt}
+- Gewünschte Leistungen: ${d.leistungen}
+- Budget: ${d.budget || 'nicht angegeben'}
+- Zeitraum: ${d.zeitraum || 'nicht angegeben'}
+
+Tonalität: ${d.ton || 'professionell'}
+Besondere Stärken hervorheben: ${d.usps || 'keine'}
+Sonderkonditionen: ${d.sonder || 'keine'}
+
+Regeln:
+- Keine Platzhalter wie [NAME] oder [DATUM]
+- Aktive Sprache ("Wir liefern", nicht "Es wird geliefert")
+- Kein Berater-Deutsch, keine Floskeln
+- Alle Preisangaben mit Einheit und Zeitraum
+- Gib NUR den HTML-Inhalt der 5 Abschnitte zurück, keine Metadaten${musterHinweis}`;
+
+    const body = JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
+    });
+
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+        { method: 'POST', headers: { 'Content-Type': 'application/json' }, body }
+      );
+      if (res.ok) {
+        const json = await res.json();
+        return json.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      }
+      const err = await res.json();
+      const msg = err.error?.message || `HTTP ${res.status}`;
+      if (res.status === 503 && attempt < 3) {
+        await new Promise(r => setTimeout(r, attempt * 2000));
+        continue;
+      }
+      throw new Error(msg);
+    }
+  }
+
+  function renderAiOffer(d, aiText) {
+    const heute = new Date().toLocaleDateString('de-DE', {day:'2-digit', month:'long', year:'numeric'});
+    const angebotNr = 'ANG-' + Date.now().toString().slice(-6);
+    const cleaned = aiText.replace(/```html|```/g, '').trim();
+
+    const html = `
+      <div style="margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:2px solid #1a1a2e;">
+        <div style="font-size:0.75rem; color:#888; margin-bottom:0.25rem;">Angebotsnummer: ${angebotNr} · ${heute}</div>
+        <div style="font-size:1.3rem; font-weight:700;">Angebot für ${d.firma}</div>
+      </div>
+      <div class="offer-meta">
+        <div><span>An</span><strong>${d.kontakt}, ${d.firma}</strong></div>
+        ${d.branche ? `<div><span>Branche</span><strong>${d.branche}</strong></div>` : ''}
+        ${d.groesse ? `<div><span>Größe</span><strong>${d.groesse}</strong></div>` : ''}
+        ${d.zeitraum ? `<div><span>Zeitraum</span><strong>${d.zeitraum}</strong></div>` : ''}
+      </div>
+      <div class="offer-section">${cleaned}</div>
+    `;
+    document.getElementById('offerContent').innerHTML = html;
+  }
+
+  function renderOffer(d) {
+    const heute = new Date().toLocaleDateString('de-DE', {day:'2-digit', month:'long', year:'numeric'});
+    const angebotNr = 'ANG-' + Date.now().toString().slice(-6);
+    const zeitraum = d.zeitraum || 'nach Vereinbarung';
+    const budget = d.budget ? d.budget : 'auf Anfrage';
+
+    const uspsHtml = d.usps ? d.usps.split(', ').map(u => `<li>${u}</li>`).join('') : '';
+    const sonderHtml = d.sonder ? `<li>${d.sonder}</li>` : '';
+
+    const html = `
+      <div style="margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:2px solid #1a1a2e;">
+        <div style="font-size:0.75rem; color:#888; margin-bottom:0.25rem;">Angebotsnummer: ${angebotNr} · ${heute}</div>
+        <div style="font-size:1.3rem; font-weight:700;">Angebot für ${d.firma}</div>
+      </div>
+
+      <div class="offer-meta">
+        <div><span>An</span><strong>${d.kontakt}, ${d.firma}</strong></div>
+        ${d.branche ? `<div><span>Branche</span><strong>${d.branche}</strong></div>` : ''}
+        ${d.groesse ? `<div><span>Größe</span><strong>${d.groesse}</strong></div>` : ''}
+        <div><span>Zeitraum</span><strong>${zeitraum}</strong></div>
+      </div>
+
+      <div class="offer-section">
+        <h3>1 · Executive Summary</h3>
+        <p>${d.firma} steht vor der Aufgabe, ${d.projekt}. Wir liefern eine praxisnahe Lösung, die direkt auf Ihre Situation zugeschnitten ist und schnell messbare Ergebnisse erzeugt. Mit diesem Angebot zeigen wir Ihnen den direkten Weg vom Problem zur Lösung — ohne Umwege.</p>
+      </div>
+
+      <div class="offer-section">
+        <h3>2 · Problemverständnis</h3>
+        <p>Sie haben uns geschildert, dass ${d.projekt}. Für ein Unternehmen ${d.groesse ? 'Ihrer Größe ' : ''}in der Branche ${d.branche} ist das eine zentrale Herausforderung, die direkten Einfluss auf Effizienz und Wettbewerbsfähigkeit hat. Wir haben diese Anforderung vollständig aufgenommen und als Ausgangspunkt für unsere Lösung genommen.</p>
+      </div>
+
+      <div class="offer-section">
+        <h3>3 · Lösungsansatz</h3>
+        <p>Wir bieten Ihnen folgende Leistungen:</p>
+        <ul>
+          ${d.leistungen.split(/[,\n]/).filter(Boolean).map(l => `<li>${l.trim()}</li>`).join('')}
+        </ul>
+        ${uspsHtml ? `<p style="margin-top:0.75rem;">Was Sie von uns erwarten können: <ul>${uspsHtml}</ul></p>` : ''}
+      </div>
+
+      <div class="offer-section">
+        <h3>4 · Investition & Konditionen</h3>
+        <ul>
+          <li>Gesamtinvestition: <strong>${budget}</strong></li>
+          <li>Zahlungsmodalität: 50 % bei Auftragserteilung, 50 % nach Abnahme</li>
+          <li>Laufzeit: ${zeitraum}</li>
+          ${sonderHtml}
+        </ul>
+      </div>
+
+      <div class="offer-section">
+        <h3>5 · Nächste Schritte</h3>
+        <p>Wir freuen uns auf Ihre Rückmeldung bis <strong>Ende dieser Woche</strong>. Nach Ihrer Bestätigung terminieren wir gemeinsam einen Kick-off-Termin und starten ${zeitraum}. Bei Fragen stehen wir jederzeit zur Verfügung — einfach antworten oder anrufen.</p>
+      </div>
+    `;
+
+    document.getElementById('offerContent').innerHTML = html;
+  }
+
+  function startNew() {
+    ['firma','kontakt','projekt','leistungen','budget','zeitraum','sonder'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('branche').value = '';
+    document.getElementById('groesse').value = '';
+    document.querySelectorAll('.tag').forEach(t => t.classList.remove('selected'));
+    document.querySelector('#tonalitaet .tag').classList.add('selected');
+    goTo(1);
+  }
+</script>
+
+</body>
+</html>

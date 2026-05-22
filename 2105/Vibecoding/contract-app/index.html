@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vertragsmanagement</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #f3f2f1; color: #323130; font-size: 14px; }
+
+  /* Header */
+  .topbar {
+    background: #fff;
+    border-bottom: 1px solid #e1dfdd;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .topbar .logo { font-size: 20px; }
+  .topbar h1 { font-size: 18px; font-weight: 600; color: #323130; }
+  .topbar .search {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f3f2f1;
+    border: 1px solid #c8c6c4;
+    border-radius: 4px;
+    padding: 6px 12px;
+    width: 280px;
+  }
+  .topbar .search input {
+    border: none; background: transparent; outline: none; width: 100%; font-size: 13px;
+  }
+  .topbar-actions { display: flex; gap: 8px; margin-left: 12px; }
+  .topbar-actions button {
+    background: none; border: none; cursor: pointer; padding: 6px 8px;
+    border-radius: 4px; color: #605e5c; font-size: 16px;
+  }
+  .topbar-actions button:hover { background: #f3f2f1; }
+
+  /* Status Cards */
+  .status-bar {
+    display: flex;
+    gap: 0;
+    padding: 16px 20px 0;
+    overflow-x: auto;
+  }
+  .status-card {
+    flex: 1;
+    min-width: 120px;
+    padding: 14px 16px;
+    color: white;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    border-radius: 4px 4px 0 0;
+    margin-right: 4px;
+  }
+  .status-card:hover { opacity: 0.9; }
+  .status-card.active { box-shadow: inset 0 -3px 0 rgba(255,255,255,0.6); }
+  .status-card .count { font-size: 28px; font-weight: 700; line-height: 1; }
+  .status-card .label { font-size: 12px; margin-top: 4px; opacity: 0.9; }
+  .sc-draft     { background: #0078d4; }
+  .sc-request   { background: #1e3a5f; }
+  .sc-contract  { background: #107c10; }
+  .sc-expiring  { background: #7719aa; }
+  .sc-expired   { background: #d83b01; }
+  .sc-terminated{ background: #e81123; }
+  .sc-tasks     { background: #008272; }
+
+  /* Sub-nav */
+  .subnav {
+    background: #fff;
+    border-bottom: 1px solid #e1dfdd;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .subnav-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #605e5c;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    position: relative;
+  }
+  .subnav-item:hover { color: #0078d4; background: #f3f2f1; }
+  .subnav-item.active { color: #0078d4; border-bottom-color: #0078d4; font-weight: 600; }
+  .subnav-item .badge {
+    background: #0078d4; color: white;
+    border-radius: 10px; padding: 1px 6px; font-size: 11px;
+  }
+  .subnav-item.active .badge { background: #0078d4; }
+  .subnav-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-add {
+    background: #0078d4; color: white; border: none; border-radius: 4px;
+    padding: 6px 14px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 6px;
+  }
+  .btn-add:hover { background: #106ebe; }
+  .icon-btn {
+    background: none; border: 1px solid #c8c6c4; border-radius: 4px;
+    padding: 5px 8px; cursor: pointer; color: #605e5c; font-size: 14px;
+  }
+  .icon-btn:hover { background: #f3f2f1; }
+
+  /* Table area */
+  .table-container {
+    margin: 0 20px 20px;
+    background: #fff;
+    border: 1px solid #e1dfdd;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    overflow: auto;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    color: #323130;
+    border-bottom: 1px solid #e1dfdd;
+    background: #faf9f8;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  thead th:hover { background: #f3f2f1; }
+  thead th .sort-icon { opacity: 0.4; margin-left: 4px; }
+
+  .filter-row th {
+    padding: 4px 8px;
+    background: #fff;
+  }
+  .filter-row input {
+    width: 100%; border: 1px solid #c8c6c4; border-radius: 2px;
+    padding: 4px 6px; font-size: 12px; color: #323130; outline: none;
+  }
+  .filter-row input:focus { border-color: #0078d4; }
+
+  tbody tr { border-bottom: 1px solid #f3f2f1; }
+  tbody tr:hover { background: #f3f2f1; }
+  tbody td { padding: 10px 12px; font-size: 13px; }
+  .td-title { color: #0078d4; cursor: pointer; font-weight: 500; }
+  .td-title:hover { text-decoration: underline; }
+  .td-number { color: #0078d4; cursor: pointer; }
+  .td-number:hover { text-decoration: underline; }
+  .td-truncate { max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .badge-status {
+    display: inline-block; padding: 2px 10px; border-radius: 10px;
+    font-size: 12px; font-weight: 500;
+  }
+  .bs-progress  { background: #ddf4dd; color: #107c10; }
+  .bs-review    { background: #fff4ce; color: #8a6914; }
+  .bs-expiring  { background: #fde7f3; color: #7719aa; }
+  .bs-expired   { background: #fde7e9; color: #a4262c; }
+  .bs-draft     { background: #e1dfdd; color: #323130; }
+
+  /* Upload area */
+  .upload-bar {
+    margin: 16px 20px 0;
+    background: #fff;
+    border: 2px dashed #c8c6c4;
+    border-radius: 4px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .upload-bar:hover { border-color: #0078d4; background: #f0f6ff; }
+  .upload-bar.dragover { border-color: #0078d4; background: #e0f0ff; }
+  .upload-bar .icon { font-size: 24px; }
+  .upload-bar .text { font-size: 13px; color: #605e5c; }
+  .upload-bar .text strong { color: #0078d4; }
+  #fileInput { display: none; }
+
+  /* Modal */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4); z-index: 100;
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: #fff; border-radius: 6px; width: 700px; max-width: 95vw;
+    max-height: 85vh; overflow: auto; padding: 24px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+  .modal h2 { font-size: 18px; margin-bottom: 16px; color: #323130; }
+  .modal-close {
+    float: right; background: none; border: none; font-size: 20px;
+    cursor: pointer; color: #605e5c; margin-top: -4px;
+  }
+  .modal-close:hover { color: #323130; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .info-item label { font-size: 11px; color: #605e5c; text-transform: uppercase; letter-spacing: 0.5px; }
+  .info-item .val { font-size: 13px; color: #323130; margin-top: 2px; font-weight: 500; }
+  .risk-list { list-style: none; }
+  .risk-list li { padding: 6px 0; border-bottom: 1px solid #f3f2f1; font-size: 13px; }
+  .risk-list li:before { content: "⚠ "; color: #d83b01; }
+  .section-title { font-size: 13px; font-weight: 600; color: #323130; margin: 16px 0 8px; }
+  .summary-box { background: #f3f2f1; border-radius: 4px; padding: 12px; font-size: 13px; line-height: 1.6; }
+  .spinner {
+    display: inline-block; width: 16px; height: 16px;
+    border: 2px solid #c8c6c4; border-top-color: #0078d4;
+    border-radius: 50%; animation: spin 0.6s linear infinite;
+    vertical-align: middle; margin-right: 6px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 24px; right: 24px; z-index: 200;
+    background: #323130; color: white; padding: 10px 18px; border-radius: 4px;
+    font-size: 13px; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+  }
+  .toast.show { opacity: 1; }
+
+  /* API Key Banner */
+  .api-banner {
+    margin: 12px 20px 0;
+    background: #fff4ce; border: 1px solid #f7c948; border-radius: 4px;
+    padding: 10px 16px; display: flex; align-items: center; gap: 12px; font-size: 13px;
+  }
+  .api-banner input {
+    flex: 1; border: 1px solid #c8c6c4; border-radius: 4px;
+    padding: 6px 10px; font-size: 13px; outline: none; font-family: monospace;
+  }
+  .api-banner input:focus { border-color: #0078d4; }
+  .api-banner button {
+    background: #0078d4; color: white; border: none; border-radius: 4px;
+    padding: 6px 14px; cursor: pointer; font-size: 13px; white-space: nowrap;
+  }
+
+  /* Analyzing overlay on upload bar */
+  .analyzing-bar {
+    margin: 0 20px; background: #f0f6ff; border: 2px solid #0078d4;
+    border-radius: 4px; padding: 14px 20px; display: none;
+    align-items: center; gap: 12px; font-size: 13px; color: #0078d4;
+  }
+  .analyzing-bar.show { display: flex; }
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="topbar">
+  <span class="logo">📋</span>
+  <h1>Vertragsmanagement</h1>
+  <div class="search">
+    <span>🔍</span>
+    <input type="text" id="globalSearch" placeholder="Suche..." oninput="filterTable()">
+  </div>
+  <div class="topbar-actions">
+    <button title="Einstellungen">⚙</button>
+    <button title="Benachrichtigungen">🔔</button>
+  </div>
+</div>
+
+<!-- Status Cards -->
+<div class="status-bar">
+  <div class="status-card sc-draft active" onclick="filterByStatus('Entwurf')">
+    <div class="count" id="cnt-draft">0</div>
+    <div class="label">Entwurf</div>
+  </div>
+  <div class="status-card sc-request" onclick="filterByStatus('Anfrage')">
+    <div class="count" id="cnt-request">0</div>
+    <div class="label">Anfrage</div>
+  </div>
+  <div class="status-card sc-contract" onclick="filterByStatus('Aktiv')">
+    <div class="count" id="cnt-contract">0</div>
+    <div class="label">Vertrag</div>
+  </div>
+  <div class="status-card sc-expiring" onclick="filterByStatus('Läuft ab')">
+    <div class="count" id="cnt-expiring">0</div>
+    <div class="label">Läuft ab</div>
+  </div>
+  <div class="status-card sc-expired" onclick="filterByStatus('Abgelaufen')">
+    <div class="count" id="cnt-expired">0</div>
+    <div class="label">Abgelaufen</div>
+  </div>
+  <div class="status-card sc-terminated" onclick="filterByStatus('Gekündigt')">
+    <div class="count" id="cnt-terminated">0</div>
+    <div class="label">Gekündigt</div>
+  </div>
+  <div class="status-card sc-tasks" onclick="filterByStatus(null)">
+    <div class="count" id="cnt-all">0</div>
+    <div class="label">Alle</div>
+  </div>
+</div>
+
+<!-- API Key Banner -->
+<div class="api-banner" id="apiBanner">
+  <span>🔑</span>
+  <span>Gemini API Key für KI-Analyse:</span>
+  <input type="password" id="apiKeyInput" placeholder="AIza..." autocomplete="off">
+  <button onclick="saveApiKey()">Speichern</button>
+  <button onclick="document.getElementById('apiBanner').style.display='none'" style="background:#605e5c">✕</button>
+</div>
+
+<!-- Upload Bar -->
+<div class="upload-bar" id="uploadBar"
+  ondragover="event.preventDefault(); this.classList.add('dragover')"
+  ondragleave="this.classList.remove('dragover')"
+  ondrop="handleDrop(event)"
+  onclick="document.getElementById('fileInput').click()">
+  <span class="icon">📂</span>
+  <div class="text">
+    <strong>Vertrag hochladen &amp; KI-Analyse</strong> — PDF oder TXT hier ablegen oder klicken
+  </div>
+  <input type="file" id="fileInput" accept=".pdf,.txt" onchange="handleFile(event)">
+</div>
+
+<div class="analyzing-bar" id="analyzingBar">
+  <span class="spinner"></span>
+  <span id="analyzingText">Gemini 2.5 Flash analysiert den Vertrag...</span>
+</div>
+
+<!-- Sub-nav -->
+<div class="subnav" style="margin: 0 0;">
+  <div class="subnav-item active" onclick="setSubnav(this,'In Genehmigung')">
+    In Genehmigung <span class="badge" id="sub-approval">0</span>
+  </div>
+  <div class="subnav-item" onclick="setSubnav(this,'Rechtsprüfung')">
+    Rechtsprüfung <span class="badge" id="sub-legal">0</span>
+  </div>
+  <div class="subnav-item" onclick="setSubnav(this,'Verhandlung')">
+    Verhandlung <span class="badge" id="sub-nego">0</span>
+  </div>
+  <div class="subnav-item" onclick="setSubnav(this,'Freigabe')">
+    Freigabe <span class="badge" id="sub-exec">0</span>
+  </div>
+  <div class="subnav-actions">
+    <button class="btn-add" onclick="openNewContractModal()">+ Neu</button>
+    <button class="icon-btn" title="Exportieren">⬇</button>
+    <button class="icon-btn" title="Einstellungen">⚙</button>
+  </div>
+</div>
+
+<!-- Table -->
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th onclick="sortTable('title')">Titel <span class="sort-icon">↕</span></th>
+        <th onclick="sortTable('number')">Vertragsnummer <span class="sort-icon">↕</span></th>
+        <th onclick="sortTable('type')">Vertragsart <span class="sort-icon">↕</span></th>
+        <th onclick="sortTable('start')">Vertragsbeginn <span class="sort-icon">↕</span></th>
+        <th onclick="sortTable('end')">Vertragsende <span class="sort-icon">↕</span></th>
+        <th onclick="sortTable('party')">Vertragspartner <span class="sort-icon">↕</span></th>
+        <th onclick="sortTable('status')">Status <span class="sort-icon">↕</span></th>
+      </tr>
+      <tr class="filter-row">
+        <th><input type="text" placeholder="Titel" oninput="filterTable()"></th>
+        <th><input type="text" placeholder="Nummer" oninput="filterTable()"></th>
+        <th><input type="text" placeholder="Vertragsart" oninput="filterTable()"></th>
+        <th><input type="text" placeholder="Beginn" oninput="filterTable()"></th>
+        <th><input type="text" placeholder="Ende" oninput="filterTable()"></th>
+        <th><input type="text" placeholder="Partner" oninput="filterTable()"></th>
+        <th><input type="text" placeholder="Status" oninput="filterTable()"></th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal-overlay" id="detailModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
+    <h2 id="modalTitle">Vertragsdetails</h2>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- New Contract Modal -->
+<div class="modal-overlay" id="newModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('newModal')">✕</button>
+    <h2>Neuen Vertrag anlegen</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px">
+      <div><label style="font-size:12px;color:#605e5c">Titel *</label><br>
+        <input id="nf-title" style="width:100%;margin-top:4px;border:1px solid #c8c6c4;border-radius:4px;padding:7px 10px;font-size:13px">
+      </div>
+      <div><label style="font-size:12px;color:#605e5c">Vertragsart</label><br>
+        <select id="nf-type" style="width:100%;margin-top:4px;border:1px solid #c8c6c4;border-radius:4px;padding:7px 10px;font-size:13px">
+          <option>Dienstleistungsvertrag</option><option>Mietvertrag</option>
+          <option>Arbeitsvertrag</option><option>NDA</option>
+          <option>Liefervertrag</option><option>Lizenzvertrag</option>
+        </select>
+      </div>
+      <div><label style="font-size:12px;color:#605e5c">Vertragsbeginn</label><br>
+        <input id="nf-start" type="date" style="width:100%;margin-top:4px;border:1px solid #c8c6c4;border-radius:4px;padding:7px 10px;font-size:13px">
+      </div>
+      <div><label style="font-size:12px;color:#605e5c">Vertragsende</label><br>
+        <input id="nf-end" type="date" style="width:100%;margin-top:4px;border:1px solid #c8c6c4;border-radius:4px;padding:7px 10px;font-size:13px">
+      </div>
+      <div><label style="font-size:12px;color:#605e5c">Vertragspartner</label><br>
+        <input id="nf-party" style="width:100%;margin-top:4px;border:1px solid #c8c6c4;border-radius:4px;padding:7px 10px;font-size:13px">
+      </div>
+      <div><label style="font-size:12px;color:#605e5c">Status</label><br>
+        <select id="nf-status" style="width:100%;margin-top:4px;border:1px solid #c8c6c4;border-radius:4px;padding:7px 10px;font-size:13px">
+          <option>Entwurf</option><option>Anfrage</option><option>Aktiv</option>
+          <option>Läuft ab</option><option>Abgelaufen</option><option>Gekündigt</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:16px;text-align:right;display:flex;gap:8px;justify-content:flex-end">
+      <button onclick="closeModal('newModal')" style="padding:7px 16px;border:1px solid #c8c6c4;border-radius:4px;background:#fff;cursor:pointer;font-size:13px">Abbrechen</button>
+      <button onclick="saveNewContract()" style="padding:7px 16px;border:none;border-radius:4px;background:#0078d4;color:white;cursor:pointer;font-size:13px">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const GEMINI_MODEL = 'gemini-2.5-flash';
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+
+const SYSTEM_PROMPT = `Du bist ein KI-gestütztes Vertragsanalyse- und Tracking-System für Unternehmen.
+Deine Aufgabe ist es, Verträge automatisiert einzulesen, relevante Informationen präzise zu extrahieren und daraus eine strukturierte, verständliche Übersicht zu erstellen.
+
+Extrahiere folgende Daten und gib NUR gültiges JSON zurück — kein Markdown, keine Erklärungen, nur das JSON-Objekt:
+
+{
+  "vertragsname": "string",
+  "vertragsart": "string (z.B. Dienstleistungsvertrag, Mietvertrag, Arbeitsvertrag, NDA, Liefervertrag, Lizenzvertrag)",
+  "vertragsnummer": "string oder 'nicht gefunden'",
+  "vertragspartner": ["array of strings"],
+  "vertragsbeginn": "YYYY-MM-DD oder 'nicht gefunden'",
+  "vertragsende": "YYYY-MM-DD oder 'nicht gefunden'",
+  "kuendigungsfrist": "string",
+  "automatische_verlaengerung": "ja/nein/nicht gefunden",
+  "kosten": "string",
+  "zahlungsintervall": "string",
+  "status": "Entwurf|Anfrage|Aktiv|Läuft ab|Abgelaufen|Gekündigt",
+  "risiken": ["array of strings — kritische Klauseln, ungewöhnliche Verpflichtungen, Risiken"],
+  "wichtige_klauseln": ["array of strings"],
+  "zusammenfassung": "string — 2-3 Sätze verständliche Zusammenfassung"
+}
+
+Regeln:
+- Erfinde keine Informationen
+- Wenn Daten fehlen: "nicht gefunden"
+- Datumsangaben im Format YYYY-MM-DD
+- Gib keine rechtliche Beratung
+- NUR JSON zurückgeben`;
+
+function getApiKey() { return localStorage.getItem('gemini_api_key') || ''; }
+
+function saveApiKey() {
+  const key = document.getElementById('apiKeyInput').value.trim();
+  if (!key) { showToast('Bitte API Key eingeben'); return; }
+  localStorage.setItem('gemini_api_key', key);
+  document.getElementById('apiBanner').style.display = 'none';
+  showToast('API Key gespeichert');
+}
+
+function initApiBanner() {
+  const banner = document.getElementById('apiBanner');
+  if (getApiKey()) {
+    banner.style.display = 'none';
+  } else {
+    banner.style.display = 'flex';
+  }
+}
+
+async function analyzeWithGemini(file) {
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    document.getElementById('apiBanner').style.display = 'flex';
+    showToast('Bitte zuerst Gemini API Key eingeben');
+    return null;
+  }
+
+  const analyzingBar = document.getElementById('analyzingBar');
+  const analyzingText = document.getElementById('analyzingText');
+  analyzingBar.classList.add('show');
+  document.getElementById('uploadBar').style.display = 'none';
+
+  try {
+    analyzingText.textContent = `"${file.name}" wird gelesen...`;
+
+    let parts;
+    if (file.type === 'application/pdf' || file.name.endsWith('.pdf')) {
+      const base64 = await fileToBase64(file);
+      parts = [
+        { text: SYSTEM_PROMPT + '\n\nAnalysiere den folgenden Vertrag:' },
+        { inline_data: { mime_type: 'application/pdf', data: base64 } }
+      ];
+    } else {
+      const text = await file.text();
+      parts = [{ text: SYSTEM_PROMPT + '\n\nAnalysiere den folgenden Vertragstext:\n\n' + text }];
+    }
+
+    analyzingText.textContent = `Gemini 2.5 Flash analysiert "${file.name}"...`;
+
+    const response = await fetch(`${GEMINI_URL}?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ role: 'user', parts }],
+        generationConfig: { temperature: 0.1, maxOutputTokens: 2048 }
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.error?.message || `HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+    // Strip possible markdown code fences
+    const jsonText = rawText.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/,'').trim();
+    return JSON.parse(jsonText);
+
+  } catch (e) {
+    showToast('Fehler: ' + e.message);
+    console.error(e);
+    return null;
+  } finally {
+    analyzingBar.classList.remove('show');
+    document.getElementById('uploadBar').style.display = 'flex';
+    document.getElementById('fileInput').value = '';
+  }
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+let contracts = [
+  { id:1, title:"Mietvertrag Büro", number:"MV-2024-001", type:"Mietvertrag", start:"2022-01-15", end:"2025-01-15", party:"Silverline GmbH", status:"Aktiv", risks:["Automatische Verlängerung um 12 Monate","Indexmiete ohne Obergrenze"], summary:"Gewerbemietvertrag über Bürofläche 450m², monatliche Miete 3.200 €, jährliche Indexanpassung.", workflow:"In Genehmigung" },
+  { id:2, title:"Geschäftsführervertrag", number:"GF-2023-025", type:"Dienstleistungsvertrag", start:"2023-06-05", end:"2024-01-05", party:"Prudent AG", status:"Abgelaufen", risks:["Nachvertragliches Wettbewerbsverbot 24 Monate"], summary:"Anstellungsvertrag Geschäftsführer, Jahresgehalt 120.000 €, variable Vergütung 20%.", workflow:"Rechtsprüfung" },
+  { id:3, title:"IT-Infrastruktur Lieferung", number:"LV-2024-038", type:"Liefervertrag", start:"2022-04-25", end:"2023-05-25", party:"Prime Energy Solutions", status:"Abgelaufen", risks:["Vertragsstrafe bei Lieferverzug fehlt"], summary:"Liefervertrag Server-Hardware, Gesamtvolumen 85.000 €, Lieferzeit 8 Wochen.", workflow:"Verhandlung" },
+  { id:4, title:"Arbeitsvertrag Marketing", number:"AV-2020-010", type:"Arbeitsvertrag", start:"2020-01-10", end:"2021-06-30", party:"Prime Energy Solutions", status:"Gekündigt", risks:["Urlaubsregelung abweichend vom Gesetz"], summary:"Vollzeitarbeitsverhältnis, Marketingmanager, Gehalt 58.000 €/Jahr.", workflow:"Freigabe" },
+  { id:5, title:"Investorenrechte Vereinbarung", number:"IV-2022-062", type:"Lizenzvertrag", start:"2022-06-10", end:"2024-05-08", party:"Innovatech Industries", status:"Läuft ab", risks:["Vorkaufsrecht der Investoren","Verwässerungsschutz"], summary:"Investorenrechtsvereinbarung Series-A, 2 Mio. € Investition, 15% Unternehmensanteil.", workflow:"In Genehmigung" },
+  { id:6, title:"NDA Entwicklungspartner", number:"NDA-2022-006", type:"NDA", start:"2022-01-30", end:"2023-03-26", party:"Horizon Media Group", status:"Aktiv", risks:["Vertragsstrafe 50.000 € bei Verstoß"], summary:"Gegenseitiges Geheimhaltungsabkommen für Produktentwicklungsprojekt.", workflow:"In Genehmigung" },
+  { id:7, title:"Softwareentwicklung Subunternehmer", number:"SU-2024-009", type:"Dienstleistungsvertrag", start:"2024-09-01", end:"", party:"Horizon Media Group", status:"Aktiv", risks:["Fehlende Abnahmekriterien","Stundensatz ohne Obergrenze"], summary:"Subunternehmervertrag Softwareentwicklung, Stundensatz 120 €, unbegrenzte Laufzeit.", workflow:"Rechtsprüfung" },
+  { id:8, title:"Beratungsvertrag Strategie", number:"BV-2023-001", type:"Dienstleistungsvertrag", start:"2023-03-28", end:"2024-01-30", party:"Greenfield Enterprises", status:"Läuft ab", risks:["Exklusivitätsklausel für 6 Monate nach Vertragsende"], summary:"Strategieberatung, Pauschalhonorar 15.000 €/Monat, Projektlaufzeit 10 Monate.", workflow:"Verhandlung" },
+  { id:9, title:"Rahmenvertrag Cloud-Services", number:"RV-2024-015", type:"Lizenzvertrag", start:"2024-01-15", end:"2026-01-15", party:"Global Tech Solutions", status:"Aktiv", risks:["Preiserhöhung bis 30% jährlich möglich"], summary:"Cloud-Infrastrukturvertrag, monatliche Grundgebühr 8.500 €, SLA 99,9%.", workflow:"Freigabe" },
+  { id:10, title:"Lizenzvertrag Software-IP", number:"LZ-2024-025", type:"Lizenzvertrag", start:"2024-06-25", end:"2025-12-01", party:"Global Tech Solutions", status:"Entwurf", risks:[], summary:"Softwarelizenzvertrag für proprietäre Analyseplattform, Jahreslizenz 45.000 €.", workflow:"In Genehmigung" },
+];
+
+let sortCol = null, sortDir = 1, activeStatus = null;
+
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  const rows = getFilteredRows();
+  tbody.innerHTML = rows.map(c => `
+    <tr>
+      <td class="td-title td-truncate" onclick="openDetail(${c.id})">${c.title}</td>
+      <td class="td-number td-truncate" onclick="openDetail(${c.id})">${c.number}</td>
+      <td>${c.type}</td>
+      <td>${c.start || '-'}</td>
+      <td>${c.end || '-'}</td>
+      <td class="td-truncate">${c.party}</td>
+      <td><span class="badge-status ${statusClass(c.status)}">${c.status}</span></td>
+    </tr>`).join('');
+  updateCounts();
+}
+
+function getFilteredRows() {
+  const filterInputs = document.querySelectorAll('.filter-row input');
+  const global = document.getElementById('globalSearch').value.toLowerCase();
+  let rows = [...contracts];
+
+  if (activeStatus) rows = rows.filter(c => c.status === activeStatus);
+
+  rows = rows.filter(c => {
+    const fields = [c.title, c.number, c.type, c.start, c.end, c.party, c.status];
+    const colMatch = [...filterInputs].every((inp, i) =>
+      !inp.value || fields[i].toLowerCase().includes(inp.value.toLowerCase()));
+    const globalMatch = !global || fields.some(f => f.toLowerCase().includes(global));
+    return colMatch && globalMatch;
+  });
+
+  if (sortCol) {
+    const key = {title:'title',number:'number',type:'type',start:'start',end:'end',party:'party',status:'status'}[sortCol];
+    rows.sort((a,b) => (a[key]||'').localeCompare(b[key]||'') * sortDir);
+  }
+  return rows;
+}
+
+function updateCounts() {
+  const cnt = s => contracts.filter(c => c.status === s).length;
+  document.getElementById('cnt-draft').textContent     = cnt('Entwurf');
+  document.getElementById('cnt-request').textContent   = cnt('Anfrage');
+  document.getElementById('cnt-contract').textContent  = cnt('Aktiv');
+  document.getElementById('cnt-expiring').textContent  = cnt('Läuft ab');
+  document.getElementById('cnt-expired').textContent   = cnt('Abgelaufen');
+  document.getElementById('cnt-terminated').textContent= cnt('Gekündigt');
+  document.getElementById('cnt-all').textContent       = contracts.length;
+
+  const wf = s => contracts.filter(c => c.workflow === s).length;
+  document.getElementById('sub-approval').textContent = wf('In Genehmigung');
+  document.getElementById('sub-legal').textContent    = wf('Rechtsprüfung');
+  document.getElementById('sub-nego').textContent     = wf('Verhandlung');
+  document.getElementById('sub-exec').textContent     = wf('Freigabe');
+}
+
+function statusClass(s) {
+  return {Aktiv:'bs-progress','Läuft ab':'bs-expiring',Abgelaufen:'bs-expired',Entwurf:'bs-draft',Anfrage:'bs-review',Gekündigt:'bs-expired'}[s]||'bs-draft';
+}
+
+function filterByStatus(s) {
+  activeStatus = s;
+  document.querySelectorAll('.status-card').forEach(el => el.classList.remove('active'));
+  renderTable();
+}
+
+function filterTable() { renderTable(); }
+
+function sortTable(col) {
+  if (sortCol === col) sortDir *= -1; else { sortCol = col; sortDir = 1; }
+  renderTable();
+}
+
+function setSubnav(el, name) {
+  document.querySelectorAll('.subnav-item').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function openDetail(id) {
+  const c = contracts.find(x => x.id === id);
+  document.getElementById('modalTitle').textContent = c.title;
+  document.getElementById('modalContent').innerHTML = `
+    <div class="info-grid">
+      <div class="info-item"><label>Vertragsnummer</label><div class="val">${c.number}</div></div>
+      <div class="info-item"><label>Vertragsart</label><div class="val">${c.type}</div></div>
+      <div class="info-item"><label>Vertragsbeginn</label><div class="val">${c.start||'–'}</div></div>
+      <div class="info-item"><label>Vertragsende</label><div class="val">${c.end||'–'}</div></div>
+      <div class="info-item"><label>Vertragspartner</label><div class="val">${c.party}</div></div>
+      <div class="info-item"><label>Status</label><div class="val"><span class="badge-status ${statusClass(c.status)}">${c.status}</span></div></div>
+      <div class="info-item"><label>Workflow-Stufe</label><div class="val">${c.workflow}</div></div>
+    </div>
+    <div class="section-title">Zusammenfassung</div>
+    <div class="summary-box">${c.summary}</div>
+    ${c.extra ? `
+    <div class="section-title">Finanzielle & rechtliche Details</div>
+    <div class="info-grid">
+      ${c.extra.kosten ? `<div class="info-item"><label>Kosten</label><div class="val">${c.extra.kosten}</div></div>` : ''}
+      ${c.extra.zahlungsintervall ? `<div class="info-item"><label>Zahlungsintervall</label><div class="val">${c.extra.zahlungsintervall}</div></div>` : ''}
+      ${c.extra.kuendigungsfrist ? `<div class="info-item"><label>Kündigungsfrist</label><div class="val">${c.extra.kuendigungsfrist}</div></div>` : ''}
+      ${c.extra.automatische_verlaengerung ? `<div class="info-item"><label>Auto-Verlängerung</label><div class="val">${c.extra.automatische_verlaengerung}</div></div>` : ''}
+    </div>
+    ${c.extra.wichtige_klauseln?.length ? `<div class="section-title">Wichtige Klauseln</div>
+    <ul class="risk-list" style="--icon:'📌'">${c.extra.wichtige_klauseln.map(k=>`<li style="--before:'📌 '">${k}</li>`).join('')}</ul>` : ''}
+    ` : ''}
+    ${c.risks.length ? `<div class="section-title">Risiken & Hinweise</div>
+    <ul class="risk-list">${c.risks.map(r=>`<li>${r}</li>`).join('')}</ul>` : ''}
+  `;
+  document.getElementById('detailModal').classList.add('open');
+}
+
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function openNewContractModal() { document.getElementById('newModal').classList.add('open'); }
+
+function saveNewContract() {
+  const title = document.getElementById('nf-title').value.trim();
+  if (!title) { showToast('Bitte Titel eingeben'); return; }
+  const num = 'V-' + Date.now().toString().slice(-6);
+  contracts.push({
+    id: Date.now(), title, number: num,
+    type: document.getElementById('nf-type').value,
+    start: document.getElementById('nf-start').value,
+    end: document.getElementById('nf-end').value,
+    party: document.getElementById('nf-party').value || '–',
+    status: document.getElementById('nf-status').value,
+    risks: [], summary: 'Manuell angelegt.', workflow: 'In Genehmigung'
+  });
+  closeModal('newModal');
+  renderTable();
+  showToast('Vertrag angelegt');
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('uploadBar').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) processFile(file);
+}
+
+function handleFile(e) {
+  const file = e.target.files[0];
+  if (file) processFile(file);
+}
+
+async function processFile(file) {
+  const result = await analyzeWithGemini(file);
+  if (!result) return;
+
+  const party = Array.isArray(result.vertragspartner) && result.vertragspartner.length
+    ? result.vertragspartner.filter(p => p !== 'nicht gefunden').join(', ') || 'nicht gefunden'
+    : 'nicht gefunden';
+
+  const validStatuses = ['Entwurf','Anfrage','Aktiv','Läuft ab','Abgelaufen','Gekündigt'];
+  const status = validStatuses.includes(result.status) ? result.status : 'Entwurf';
+
+  contracts.push({
+    id: Date.now(),
+    title: result.vertragsname && result.vertragsname !== 'nicht gefunden'
+      ? result.vertragsname : file.name.replace(/\.[^.]+$/, ''),
+    number: result.vertragsnummer && result.vertragsnummer !== 'nicht gefunden'
+      ? result.vertragsnummer : 'AI-' + Date.now().toString().slice(-5),
+    type: result.vertragsart || 'Dienstleistungsvertrag',
+    start: result.vertragsbeginn !== 'nicht gefunden' ? result.vertragsbeginn : '',
+    end: result.vertragsende !== 'nicht gefunden' ? result.vertragsende : '',
+    party,
+    status,
+    risks: Array.isArray(result.risiken) ? result.risiken : [],
+    summary: result.zusammenfassung || '',
+    workflow: 'In Genehmigung',
+    extra: {
+      kuendigungsfrist: result.kuendigungsfrist,
+      automatische_verlaengerung: result.automatische_verlaengerung,
+      kosten: result.kosten,
+      zahlungsintervall: result.zahlungsintervall,
+      wichtige_klauseln: result.wichtige_klauseln || []
+    }
+  });
+
+  renderTable();
+  showToast(`"${file.name}" erfolgreich analysiert`);
+  openDetail(contracts[contracts.length - 1].id);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Close modal on overlay click
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+
+renderTable();
+initApiBanner();
+</script>
+</body>
+</html>
