@@ -22,25 +22,25 @@ Chat opened
 
 ## Why / When not?
 
-| Why use it                       | When not to                                        |
-| -------------------------------- | -------------------------------------------------- |
-| Same context at every start      | One-time prompt → type it directly                 |
-| Team context shareable via Git   | Sensitive data → never in `.md`, always `.env`     |
-| Control behavior deliberately    | Too many instructions (>10) → Copilot gets less accurate |
-| Save long prompts as files       | Very specific exception → comment in code          |
+| Why use it                     | When not to                                              |
+| ------------------------------ | -------------------------------------------------------- |
+| Same context at every start    | One-time prompt → type it directly                       |
+| Team context shareable via Git | Sensitive data → never in `.md`, always `.env`           |
+| Control behavior deliberately  | Too many instructions (>10) → Copilot gets less accurate |
+| Save long prompts as files     | Very specific exception → comment in code                |
 
 ---
 
 ## Overview: Which file does what?
 
-| File                      | Location                | Purpose                                                      |
-| ------------------------- | ----------------------- | ------------------------------------------------------------ |
-| `copilot-instructions.md` | `.github/`              | Global context & rules for Copilot in this project           |
-| `*.instructions.md`       | `.github/instructions/` | Reusable instruction for specific file types                 |
-| `*.prompt.md`             | `.github/prompts/`      | Slash command (`/name`) with its own workflow                |
-| `*.agent.md`              | `.github/agents/`       | Specialized agent with its own tools/rules                   |
-| `settings.json`           | `.vscode/`              | Project-specific Copilot settings & hooks                    |
-| `tasks.json`              | `.vscode/`              | Automation tasks (hook equivalent)                           |
+| File                      | Location                | Purpose                                            |
+| ------------------------- | ----------------------- | -------------------------------------------------- |
+| `copilot-instructions.md` | `.github/`              | Global context & rules for Copilot in this project |
+| `*.instructions.md`       | `.github/instructions/` | Reusable instruction for specific file types       |
+| `*.prompt.md`             | `.github/prompts/`      | Slash command (`/name`) with its own workflow      |
+| `*.agent.md`              | `.github/agents/`       | Specialized agent with its own tools/rules         |
+| `settings.json`           | `.vscode/`              | Project-specific Copilot settings & hooks          |
+| `tasks.json`              | `.vscode/`              | Automation tasks (hook equivalent)                 |
 
 ---
 

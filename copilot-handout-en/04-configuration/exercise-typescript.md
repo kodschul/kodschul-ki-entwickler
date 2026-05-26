@@ -72,11 +72,11 @@ Configure:
 
 ## Task 5 – Reflection (5 min)
 
-| Rule                                            | Where does it belong?                    |
-| ----------------------------------------------- | ---------------------------------------- |
-| "Use Jasmine for tests"                         | settings.json / testGeneration           |
-| "No backend – only LocalStorage"                | copilot-instructions.md                  |
-| "No 'any' in TypeScript"                        | angular.instructions.md (applyTo: **/*.ts) |
-| "No eval()"                                     | security.instructions.md                |
-| "Commit in Conventional Commits format"         | settings.json / commitMessageGeneration  |
-| "All Observables unsubscribed"                  | angular.instructions.md                 |
+| Rule                                    | Where does it belong?                       |
+| --------------------------------------- | ------------------------------------------- |
+| "Use Jasmine for tests"                 | settings.json / testGeneration              |
+| "No backend – only LocalStorage"        | copilot-instructions.md                     |
+| "No 'any' in TypeScript"                | angular.instructions.md (applyTo: \*_/_.ts) |
+| "No eval()"                             | security.instructions.md                    |
+| "Commit in Conventional Commits format" | settings.json / commitMessageGeneration     |
+| "All Observables unsubscribed"          | angular.instructions.md                     |

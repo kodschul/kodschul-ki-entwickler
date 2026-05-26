@@ -8,11 +8,11 @@
 
 The Spec-Kit is a set of three custom prompt commands that implement the entire spec-driven workflow:
 
-| Command       | Task                                          |
-| ------------- | --------------------------------------------- |
-| `/spec-plan`  | Validate spec, identify gaps, plan approach   |
-| `/spec-build` | Implement feature step by step                |
-| `/spec-test`  | Generate tests from acceptance criteria       |
+| Command       | Task                                        |
+| ------------- | ------------------------------------------- |
+| `/spec-plan`  | Validate spec, identify gaps, plan approach |
+| `/spec-build` | Implement feature step by step              |
+| `/spec-test`  | Generate tests from acceptance criteria     |
 
 ---
 
@@ -36,12 +36,12 @@ Review → Accept / Reject
 
 ## Why / When not?
 
-| Why                                    | When not to                         |
-| -------------------------------------- | ----------------------------------- |
-| Complex feature with multiple steps    | Trivial changes                     |
-| Spec serves as documentation           | Quick prototyping                   |
-| Multiple people work on it             | No clear requirements               |
-| Reproducing the same type of feature   | Exploratory development             |
+| Why                                  | When not to             |
+| ------------------------------------ | ----------------------- |
+| Complex feature with multiple steps  | Trivial changes         |
+| Spec serves as documentation         | Quick prototyping       |
+| Multiple people work on it           | No clear requirements   |
+| Reproducing the same type of feature | Exploratory development |
 
 ---
 
@@ -62,6 +62,7 @@ Read #file:SPEC.md and perform the following checks:
 ## 1. Spec Completeness
 
 Check if all sections are present and complete:
+
 - [ ] User Story (role, action, benefit)
 - [ ] Data Model (fields, types, defaults)
 - [ ] UI description
@@ -72,6 +73,7 @@ Check if all sections are present and complete:
 ## 2. Identify Questions
 
 List all questions that need to be answered before implementation:
+
 - Unclear requirements
 - Missing edge cases
 - Undefined behavior for error scenarios
@@ -79,6 +81,7 @@ List all questions that need to be answered before implementation:
 ## 3. Implementation Plan
 
 Create a step-by-step implementation plan:
+
 1. Data model change
 2. Backend route
 3. Template/UI
@@ -88,6 +91,7 @@ Create a step-by-step implementation plan:
 ## 4. Risk Assessment
 
 Which parts of the spec could be problematic?
+
 - Backwards compatibility
 - Performance
 - Security
@@ -118,7 +122,7 @@ Ensure backward compatibility (existing todos without new field must still work)
 ## Step 2: Backend
 
 Implement all routes listed in the spec.
-Follow existing code conventions (func_ prefix, PRG pattern).
+Follow existing code conventions (func\_ prefix, PRG pattern).
 
 ## Step 3: Frontend
 
@@ -138,9 +142,11 @@ Fix all test failures before moving to the next step.
 ## Final Report
 
 ✅ Implemented:
+
 - [list of completed acceptance criteria]
 
 ❌ Not implemented (with reasons):
+
 - [list of missing criteria]
 ```
 
@@ -164,7 +170,7 @@ Read #file:SPEC.md and generate tests for all acceptance criteria.
 ## Rules
 
 1. Each acceptance criterion → at least 1 test
-2. Test naming: test_{criterion}_{condition}_{expected}
+2. Test naming: test*{criterion}*{condition}\_{expected}
 3. Happy path + error cases for each criterion
 4. Tests must be independent (no shared state)
 5. Mock all external dependencies
@@ -184,7 +190,7 @@ Read #file:SPEC.md and generate tests for all acceptance criteria.
 Show a table at the end:
 | Criterion | Test name | Status |
 | --------- | --------- | ------ |
-| ...       | ...       | ✅/❌  |
+| ... | ... | ✅/❌ |
 ```
 
 ---
@@ -200,9 +206,9 @@ As a [role], I want [action], so that [benefit].
 
 ## Data Model
 
-| Field     | Type    | Default  | Required |
-| --------- | ------- | -------- | -------- |
-| due_date  | string  | null     | No       |
+| Field    | Type   | Default | Required |
+| -------- | ------ | ------- | -------- |
+| due_date | string | null    | No       |
 
 ## UI
 
@@ -210,9 +216,9 @@ As a [role], I want [action], so that [benefit].
 
 ## Routes
 
-| Method | Path   | Action          |
-| ------ | ------ | --------------- |
-| POST   | /add   | Save with field |
+| Method | Path | Action          |
+| ------ | ---- | --------------- |
+| POST   | /add | Save with field |
 
 ## Acceptance Criteria
 

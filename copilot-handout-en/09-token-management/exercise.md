@@ -30,11 +30,11 @@ How does #sym:func_save_todos work?
 
 **Fill in the comparison table:**
 
-| Variant   | Response time | Quality | Tokens (estimated) |
-| --------- | ------------- | ------- | ------------------ |
-| @workspace |              |         | High               |
-| #file     |              |         | Medium             |
-| #sym      |              |         | Low                |
+| Variant    | Response time | Quality | Tokens (estimated) |
+| ---------- | ------------- | ------- | ------------------ |
+| @workspace |               |         | High               |
+| #file      |               |         | Medium             |
+| #sym       |               |         | Low                |
 
 **Conclusion:** When does each variant make sense?
 

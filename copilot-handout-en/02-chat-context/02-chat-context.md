@@ -6,22 +6,22 @@
 
 ## Opening Chat
 
-| Action                  | macOS         | Windows/Linux  |
-| ----------------------- | ------------- | -------------- |
-| Open Chat               | `⌃ ⌘ I`       | `Ctrl Alt I`   |
-| Inline Chat (in editor) | `⌘ I`         | `Ctrl I`       |
-| Quick Chat              | `⌘ Shift I`   | `Ctrl Shift I` |
-| Clear Chat              | `+` icon top  | `+` icon top   |
+| Action                  | macOS        | Windows/Linux  |
+| ----------------------- | ------------ | -------------- |
+| Open Chat               | `⌃ ⌘ I`      | `Ctrl Alt I`   |
+| Inline Chat (in editor) | `⌘ I`        | `Ctrl I`       |
+| Quick Chat              | `⌘ Shift I`  | `Ctrl Shift I` |
+| Clear Chat              | `+` icon top | `+` icon top   |
 
 ---
 
 ## Chat Modes
 
-| Mode      | Symbol | When to use                                               |
-| --------- | ------ | --------------------------------------------------------- |
-| **Ask**   | 💬     | Questions, explanations, code review without changes      |
-| **Edit**  | ✏️     | Edit files directly (shows diff)                          |
-| **Agent** | 🤖     | Multi-step tasks, terminal commands, multiple files       |
+| Mode      | Symbol | When to use                                          |
+| --------- | ------ | ---------------------------------------------------- |
+| **Ask**   | 💬     | Questions, explanations, code review without changes |
+| **Edit**  | ✏️     | Edit files directly (shows diff)                     |
+| **Agent** | 🤖     | Multi-step tasks, terminal commands, multiple files  |
 
 > **Switch:** Dropdown at the bottom left of the chat input field.
 
@@ -31,17 +31,17 @@
 
 Add files, symbols, or the entire workspace as context:
 
-| Variable               | Description                                        |
-| ---------------------- | -------------------------------------------------- |
-| `#file`                | Select a file and add it as context                |
-| `#codebase`            | Search the entire codebase (semantic search)       |
-| `#selection`           | Currently selected text                            |
-| `#editor`              | Content of the active editor file                  |
-| `#terminalSelection`   | Selected text in the terminal                      |
-| `#terminalLastCommand` | Last command + output in the terminal              |
-| `#sym`                 | Select a symbol (function, class)                  |
-| `#changes`             | Git changes (staged + unstaged)                    |
-| `#testFailure`         | Failed test + stack trace                          |
+| Variable               | Description                                  |
+| ---------------------- | -------------------------------------------- |
+| `#file`                | Select a file and add it as context          |
+| `#codebase`            | Search the entire codebase (semantic search) |
+| `#selection`           | Currently selected text                      |
+| `#editor`              | Content of the active editor file            |
+| `#terminalSelection`   | Selected text in the terminal                |
+| `#terminalLastCommand` | Last command + output in the terminal        |
+| `#sym`                 | Select a symbol (function, class)            |
+| `#changes`             | Git changes (staged + unstaged)              |
+| `#testFailure`         | Failed test + stack trace                    |
 
 **Examples:**
 
@@ -61,12 +61,12 @@ Create a code review for #changes
 
 Agents are specialized chat participants with access to specific data:
 
-| Agent        | Access to                                        |
-| ------------ | ------------------------------------------------ |
-| `@workspace` | All files in the workspace (semantic search)     |
-| `@github`    | GitHub repos, issues, PRs, commits, code search  |
-| `@vscode`    | VS Code settings, commands, documentation        |
-| `@terminal`  | Terminal context and command suggestions          |
+| Agent        | Access to                                       |
+| ------------ | ----------------------------------------------- |
+| `@workspace` | All files in the workspace (semantic search)    |
+| `@github`    | GitHub repos, issues, PRs, commits, code search |
+| `@vscode`    | VS Code settings, commands, documentation       |
+| `@terminal`  | Terminal context and command suggestions        |
 
 **Examples:**
 
@@ -120,12 +120,12 @@ def func_load_todos():
 
 **Inline Chat Shortcuts:**
 
-| Action              | Key        |
-| ------------------- | ---------- |
-| Accept changes      | `⌘ Enter`  |
-| Reject changes      | `Esc`      |
-| Next change         | `F7`       |
-| Previous change     | `Shift F7` |
+| Action          | Key        |
+| --------------- | ---------- |
+| Accept changes  | `⌘ Enter`  |
+| Reject changes  | `Esc`      |
+| Next change     | `F7`       |
+| Previous change | `Shift F7` |
 
 ---
 

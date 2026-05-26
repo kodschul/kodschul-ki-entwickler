@@ -25,12 +25,12 @@ Tasks are defined in `.vscode/tasks.json` and triggered by:
 
 ## Why / When not?
 
-| Why use Tasks                        | When not to                                |
-| ------------------------------------ | ------------------------------------------ |
-| Runs same command repeatedly         | One-time script → run in terminal directly |
-| Run tests automatically on save      | Complex CI/CD → use GitHub Actions         |
-| Chain multiple commands              | Team-wide automation → GitHub Actions      |
-| Local development automation         | Doesn't need VS Code → Makefile or script  |
+| Why use Tasks                   | When not to                                |
+| ------------------------------- | ------------------------------------------ |
+| Runs same command repeatedly    | One-time script → run in terminal directly |
+| Run tests automatically on save | Complex CI/CD → use GitHub Actions         |
+| Chain multiple commands         | Team-wide automation → GitHub Actions      |
+| Local development automation    | Doesn't need VS Code → Makefile or script  |
 
 ---
 
@@ -41,19 +41,19 @@ Tasks are defined in `.vscode/tasks.json` and triggered by:
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Run Tests",          // Name shown in "Run Task"
-      "type": "shell",               // shell | process | npm
-      "command": "python",           // Command to execute
-      "args": ["-m", "pytest", "-v"],// Arguments
+      "label": "Run Tests", // Name shown in "Run Task"
+      "type": "shell", // shell | process | npm
+      "command": "python", // Command to execute
+      "args": ["-m", "pytest", "-v"], // Arguments
       "group": {
-        "kind": "test",              // build | test | none
-        "isDefault": true            // Default task for the group
+        "kind": "test", // build | test | none
+        "isDefault": true // Default task for the group
       },
       "presentation": {
-        "reveal": "always",          // always | never | silent
-        "panel": "shared"            // shared | dedicated | new
+        "reveal": "always", // always | never | silent
+        "panel": "shared" // shared | dedicated | new
       },
-      "problemMatcher": "$pytest"    // Error pattern for Problems pane
+      "problemMatcher": "$pytest" // Error pattern for Problems pane
     }
   ]
 }
@@ -63,11 +63,11 @@ Tasks are defined in `.vscode/tasks.json` and triggered by:
 
 ## Task Types and Groups
 
-| `type`    | Used for                               |
-| --------- | -------------------------------------- |
-| `shell`   | Shell commands (bash, zsh, cmd)        |
-| `process` | Direct program execution               |
-| `npm`     | npm scripts from package.json          |
+| `type`    | Used for                        |
+| --------- | ------------------------------- |
+| `shell`   | Shell commands (bash, zsh, cmd) |
+| `process` | Direct program execution        |
+| `npm`     | npm scripts from package.json   |
 
 | `group.kind` | Keyboard shortcut           |
 | ------------ | --------------------------- |
@@ -78,13 +78,13 @@ Tasks are defined in `.vscode/tasks.json` and triggered by:
 
 ## Claude Hooks vs. VS Code Tasks
 
-| Claude Hooks                       | VS Code Tasks                        |
-| ---------------------------------- | ------------------------------------ |
-| Runs before/after agent action     | Runs on demand or on file save       |
-| Configured in settings.json        | Configured in tasks.json             |
-| Automatic (no user action)         | Manually triggered                   |
-| AI-driven                          | Deterministic                        |
-| E.g.: Validate before every write  | E.g.: Run tests at start of dev      |
+| Claude Hooks                      | VS Code Tasks                   |
+| --------------------------------- | ------------------------------- |
+| Runs before/after agent action    | Runs on demand or on file save  |
+| Configured in settings.json       | Configured in tasks.json        |
+| Automatic (no user action)        | Manually triggered              |
+| AI-driven                         | Deterministic                   |
+| E.g.: Validate before every write | E.g.: Run tests at start of dev |
 
 ---
 
@@ -123,7 +123,15 @@ Tasks are defined in `.vscode/tasks.json` and triggered by:
   "label": "Git: Stage and Commit",
   "type": "shell",
   "command": "git",
-  "args": ["add", "-A", "&&", "git", "commit", "-m", "Auto-backup: ${env:USER} $(date)"],
+  "args": [
+    "add",
+    "-A",
+    "&&",
+    "git",
+    "commit",
+    "-m",
+    "Auto-backup: ${env:USER} $(date)"
+  ],
   "group": "none",
   "presentation": {
     "reveal": "silent"

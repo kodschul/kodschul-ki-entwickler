@@ -63,14 +63,14 @@ Never change existing source code – only test_app.py.
 
 Ideas for a custom agent:
 
-| Agent Name            | Description                                              |
-| --------------------- | -------------------------------------------------------- |
-| `performance-auditor` | Analyze response times, unnecessary loops               |
-| `docs-writer`         | Generate API documentation from routes                   |
-| `refactoring-guide`   | Find duplicates, suggest refactoring                     |
-| `dependency-checker`  | Find outdated requirements.txt entries                   |
-| `changelog-generator` | Generate CHANGELOG.md from Git commits                   |
-| `onboarding-helper`   | Explain the codebase structure to new developers         |
+| Agent Name            | Description                                      |
+| --------------------- | ------------------------------------------------ |
+| `performance-auditor` | Analyze response times, unnecessary loops        |
+| `docs-writer`         | Generate API documentation from routes           |
+| `refactoring-guide`   | Find duplicates, suggest refactoring             |
+| `dependency-checker`  | Find outdated requirements.txt entries           |
+| `changelog-generator` | Generate CHANGELOG.md from Git commits           |
+| `onboarding-helper`   | Explain the codebase structure to new developers |
 
 **Template:**
 
@@ -80,7 +80,7 @@ name: [agent-name]
 description: "[When is this agent useful?]"
 tools:
   - codebase
-  - terminal  # only if commands need to run
+  - terminal # only if commands need to run
 ---
 
 # [Agent Name]

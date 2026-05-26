@@ -90,14 +90,14 @@ Add to `.vscode/settings.json`:
 
 Write a table that describes what each pattern matches:
 
-| Pattern              | Which files match?                 |
-| -------------------- | ---------------------------------- |
-| `**/*.ts`            |                                    |
-| `**/*.spec.ts`       |                                    |
-| `src/app/**`         |                                    |
-| `**/*.component.ts`  |                                    |
-| `**/*.service.ts`    |                                    |
-| `**`                 |                                    |
+| Pattern             | Which files match? |
+| ------------------- | ------------------ |
+| `**/*.ts`           |                    |
+| `**/*.spec.ts`      |                    |
+| `src/app/**`        |                    |
+| `**/*.component.ts` |                    |
+| `**/*.service.ts`   |                    |
+| `**`                |                    |
 
 Now create a `flask.instructions.md` → wrong project!  
 **Question:** Why doesn't `applyTo: **` make sense for every instruction?
@@ -125,6 +125,7 @@ Working on todo.service.spec.ts:
 ```
 
 **Check the generated tests:**
+
 - Is TestBed set up correctly?
 - Does the naming convention follow "should ... when ..."?
 - Are there 3 test cases?

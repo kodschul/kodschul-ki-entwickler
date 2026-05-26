@@ -134,9 +134,9 @@ How do I run only the pytest tests for the /add route? #file:test_app.py
 
 **Fill in the comparison table:**
 
-| Aspect           | CLI                    | Chat                   |
-| ---------------- | ---------------------- | ---------------------- |
-| Speed            |                        |                        |
-| Context quality  | No file context        | With #file             |
-| Tokens used      | 0 Copilot tokens       | ~500 tokens            |
-| Best for         | Terminal questions      | Code analysis          |
+| Aspect          | CLI                | Chat          |
+| --------------- | ------------------ | ------------- |
+| Speed           |                    |               |
+| Context quality | No file context    | With #file    |
+| Tokens used     | 0 Copilot tokens   | ~500 tokens   |
+| Best for        | Terminal questions | Code analysis |

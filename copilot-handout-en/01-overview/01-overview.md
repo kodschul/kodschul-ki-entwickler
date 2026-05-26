@@ -6,11 +6,11 @@
 
 ## What have we done so far?
 
-| Topic                     | Content                                                                |
-| ------------------------- | ---------------------------------------------------------------------- |
-| GitHub Copilot Basics     | Installation, first prompts, copilot-instructions.md introduced        |
-| Built the Todo App        | Flask app with CRUD, JSON storage, Tailwind UI                         |
-| Instructions introduced   | Understanding `.instructions.md` and writing first instructions        |
+| Topic                   | Content                                                         |
+| ----------------------- | --------------------------------------------------------------- |
+| GitHub Copilot Basics   | Installation, first prompts, copilot-instructions.md introduced |
+| Built the Todo App      | Flask app with CRUD, JSON storage, Tailwind UI                  |
+| Instructions introduced | Understanding `.instructions.md` and writing first instructions |
 
 **Our App:** `1205/todo-app/` – this is the app we continue building today.
 
@@ -38,16 +38,16 @@ Each exercise = **one artifact** that stays in the app.
 
 ## Day Plan
 
-| Time              | Block                                  | Format         |
-| ----------------- | -------------------------------------- | -------------- |
-| 09:00 – 09:15     | Overview (this block)                  | Lecture        |
-| 09:15 – 10:30     | Configuration & .md files              | Theory + Demo  |
-| **10:30 – 10:45** | **Break**                              |                |
-| 10:45 – 12:15     | Custom Prompts + Custom Agents + Tasks | Demo + Exercise|
-| **12:15 – 13:15** | **Lunch Break**                        |                |
-| 13:15 – 15:00     | Spec-Driven Development                | Demo + Exercise|
-| **15:00 – 15:15** | **Break**                              |                |
-| 15:15 – 17:00     | MCP + gh copilot CLI + Wrap-up         | Demo + Retro   |
+| Time              | Block                                  | Format          |
+| ----------------- | -------------------------------------- | --------------- |
+| 09:00 – 09:15     | Overview (this block)                  | Lecture         |
+| 09:15 – 10:30     | Configuration & .md files              | Theory + Demo   |
+| **10:30 – 10:45** | **Break**                              |                 |
+| 10:45 – 12:15     | Custom Prompts + Custom Agents + Tasks | Demo + Exercise |
+| **12:15 – 13:15** | **Lunch Break**                        |                 |
+| 13:15 – 15:00     | Spec-Driven Development                | Demo + Exercise |
+| **15:00 – 15:15** | **Break**                              |                 |
+| 15:15 – 17:00     | MCP + gh copilot CLI + Wrap-up         | Demo + Retro    |
 
 ---
 

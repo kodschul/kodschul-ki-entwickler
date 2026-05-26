@@ -22,12 +22,12 @@ User types /todo-review
 
 ## Why / When not?
 
-| Why use them                          | When not to                            |
-| ------------------------------------- | -------------------------------------- |
-| Same task repeated regularly          | One-time task → type it directly       |
-| Complex prompts (10+ lines)           | Simple question                        |
-| Team-wide standardized workflows      | Highly context-dependent (use chat)    |
-| Parameterizable templates             | Tasks that vary greatly each time      |
+| Why use them                     | When not to                         |
+| -------------------------------- | ----------------------------------- |
+| Same task repeated regularly     | One-time task → type it directly    |
+| Complex prompts (10+ lines)      | Simple question                     |
+| Team-wide standardized workflows | Highly context-dependent (use chat) |
+| Parameterizable templates        | Tasks that vary greatly each time   |
 
 ---
 
@@ -58,9 +58,9 @@ User types /todo-review
 
 ```markdown
 ---
-mode: ask               # "ask" | "edit" | "agent"
-description: "..."      # What does this command do?
-tools:                  # Optional: allowed tools
+mode: ask # "ask" | "edit" | "agent"
+description: "..." # What does this command do?
+tools: # Optional: allowed tools
   - codebase
   - terminal
 ---
@@ -76,22 +76,22 @@ Can reference files: #file:app.py
 
 ## Frontmatter Options
 
-| Key           | Values                      | Effect                                   |
-| ------------- | --------------------------- | ---------------------------------------- |
-| `mode`        | `ask` / `edit` / `agent`   | Chat mode when calling the command       |
-| `description` | String                      | Shown as tooltip in command list         |
-| `tools`       | List of tool names          | Which tools the agent may use            |
+| Key           | Values                   | Effect                             |
+| ------------- | ------------------------ | ---------------------------------- |
+| `mode`        | `ask` / `edit` / `agent` | Chat mode when calling the command |
+| `description` | String                   | Shown as tooltip in command list   |
+| `tools`       | List of tool names       | Which tools the agent may use      |
 
 ---
 
 ## Variables
 
-| Variable              | Example                          | Effect                                 |
-| --------------------- | -------------------------------- | -------------------------------------- |
-| `${input:label}`      | `${input:feature_name}`          | Asks for input when calling            |
-| `#file:path`          | `#file:app.py`                   | Includes the file as context           |
-| `#sym:symbol`         | `#sym:func_load_todos`           | Includes a specific symbol             |
-| `${workspaceFolder}`  | `${workspaceFolder}/app.py`      | Absolute path to workspace             |
+| Variable             | Example                     | Effect                       |
+| -------------------- | --------------------------- | ---------------------------- |
+| `${input:label}`     | `${input:feature_name}`     | Asks for input when calling  |
+| `#file:path`         | `#file:app.py`              | Includes the file as context |
+| `#sym:symbol`        | `#sym:func_load_todos`      | Includes a specific symbol   |
+| `${workspaceFolder}` | `${workspaceFolder}/app.py` | Absolute path to workspace   |
 
 ---
 
@@ -114,11 +114,17 @@ Analyze the code of our Todo App:
 5. **Tests:** Are the important cases tested?
 
 Output format:
+
 ## Summary
+
 [Overall assessment]
+
 ## Critical Issues
+
 [Bugs that need immediate fixing]
+
 ## Suggestions
+
 [Non-critical improvements]
 
 #file:app.py

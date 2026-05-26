@@ -100,6 +100,7 @@ Add tests for func_format_due_date.
 ```
 
 **Check:**
+
 - Are type annotations present? (Python instructions)
 - Are security checks mentioned? (Security instructions)
 - Is the test naming convention followed? (Testing instructions)
@@ -121,13 +122,13 @@ Working on test_app.py:
 
 Choose an idea from this table or invent one:
 
-| Idea                   | Description                                      |
-| ---------------------- | ------------------------------------------------ |
-| `api.instructions.md`  | REST API conventions for Flask endpoints         |
-| `logging.instructions.md` | Always use structured logging                 |
-| `performance.instructions.md` | Avoid N+1 queries, unnecessary loops      |
-| `docs.instructions.md` | Google Docstring style, always document raises  |
-| `typing.instructions.md` | Advanced typing: TypedDict, Protocol, etc.    |
+| Idea                          | Description                                    |
+| ----------------------------- | ---------------------------------------------- |
+| `api.instructions.md`         | REST API conventions for Flask endpoints       |
+| `logging.instructions.md`     | Always use structured logging                  |
+| `performance.instructions.md` | Avoid N+1 queries, unnecessary loops           |
+| `docs.instructions.md`        | Google Docstring style, always document raises |
+| `typing.instructions.md`      | Advanced typing: TypedDict, Protocol, etc.     |
 
 **Template:**
 

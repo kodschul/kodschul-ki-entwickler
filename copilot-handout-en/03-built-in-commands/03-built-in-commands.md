@@ -184,11 +184,11 @@ Searches the codebase for relevant places:
 
 Select code → right-click → **Copilot**:
 
-| Action              | Effect                                                 |
-| ------------------- | ------------------------------------------------------ |
-| Explain             | Explain selected code                                  |
-| Fix                 | Fix bugs in selection                                  |
-| Generate Tests      | Create tests for selection                             |
-| Review and Comment  | Code review with inline comments                       |
-| Generate Docs       | Add docstrings/comments                                |
-| Start Inline Chat   | Open Inline Chat at selection position                 |
+| Action             | Effect                                 |
+| ------------------ | -------------------------------------- |
+| Explain            | Explain selected code                  |
+| Fix                | Fix bugs in selection                  |
+| Generate Tests     | Create tests for selection             |
+| Review and Comment | Code review with inline comments       |
+| Generate Docs      | Add docstrings/comments                |
+| Start Inline Chat  | Open Inline Chat at selection position |

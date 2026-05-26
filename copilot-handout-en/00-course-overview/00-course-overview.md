@@ -6,20 +6,22 @@
 
 ## Topic Overview (all 3 days)
 
-| #   | Topic                           | Day   | Duration |
-| --- | ------------------------------- | ----- | -------- |
-| 01  | Inline Completions              | Day 1 | 90 min   |
-| 02  | Chat & Context Variables        | Day 1 | 90 min   |
-| 03  | Built-in Commands               | Day 1 | 90 min   |
-| 04  | Configuration & Instructions    | Day 1 | 60 min   |
-| 05  | Skills & .instructions.md       | Day 2 | 90 min   |
-| 06  | Custom Prompts (Slash Commands) | Day 2 | 90 min   |
-| 07  | Custom Agents                   | Day 2 | 90 min   |
-| 08  | Automation & Tasks              | Day 2 | 60 min   |
-| 09  | Token Management                | Day 3 | 60 min   |
-| 10  | Copilot CLI – complete          | Day 3 | 90 min   |
-| 11  | Spec-Driven Development         | Day 3 | 90 min   |
-| 12  | MCP – Model Context Protocol    | Day 3 | 60 min   |
+| #   | Topic                            | Day   | Duration |
+| --- | -------------------------------- | ----- | -------- |
+| 01  | Prompt Engineering               | Day 1 | 90 min   |
+| 02  | AI Agents & Multi-Step Prompting | Day 1 | 90 min   |
+| 03  | Inline Completions               | Day 1 | 90 min   |
+| 04  | Chat & Context Variables         | Day 1 | 90 min   |
+| 05  | Built-in Commands                | Day 1 | 90 min   |
+| 06  | Configuration & Instructions     | Day 1 | 60 min   |
+| 07  | Skills & .instructions.md        | Day 2 | 90 min   |
+| 08  | Custom Prompts (Slash Commands)  | Day 2 | 90 min   |
+| 09  | Custom Agents                    | Day 2 | 90 min   |
+| 10  | Automation & Tasks               | Day 2 | 60 min   |
+| 11  | Token Management                 | Day 3 | 60 min   |
+| 12  | Copilot CLI – complete           | Day 3 | 90 min   |
+| 13  | Spec-Driven Development          | Day 3 | 90 min   |
+| 14  | MCP – Model Context Protocol     | Day 3 | 60 min   |
 
 ---
 

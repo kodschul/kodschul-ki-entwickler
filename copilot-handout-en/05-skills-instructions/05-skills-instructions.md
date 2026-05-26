@@ -10,12 +10,12 @@
 
 **Unlike Prompts (`.prompt.md`):**
 
-| Aspect          | Prompt (`.prompt.md`)      | Instruction (`.instructions.md`) |
-| --------------- | -------------------------- | -------------------------------- |
-| Activation      | Manual (`/command`)        | Automatic (when file matches)    |
-| Purpose         | Task to execute            | Rule to always follow            |
-| Mode            | ask / edit / agent         | Passive context                  |
-| Usage           | On demand                  | Always active for matching files |
+| Aspect     | Prompt (`.prompt.md`) | Instruction (`.instructions.md`) |
+| ---------- | --------------------- | -------------------------------- |
+| Activation | Manual (`/command`)   | Automatic (when file matches)    |
+| Purpose    | Task to execute       | Rule to always follow            |
+| Mode       | ask / edit / agent    | Passive context                  |
+| Usage      | On demand             | Always active for matching files |
 
 ---
 
@@ -36,8 +36,8 @@
 
 ```yaml
 ---
-applyTo: "**/*.py"        # Which files this applies to (glob pattern)
-description: "..."        # When is this instruction used? (optional)
+applyTo: "**/*.py" # Which files this applies to (glob pattern)
+description: "..." # When is this instruction used? (optional)
 ---
 ```
 
@@ -45,27 +45,27 @@ description: "..."        # When is this instruction used? (optional)
 
 ## applyTo Patterns
 
-| Pattern          | Applies to                      |
-| ---------------- | ------------------------------- |
-| `**`             | All files (global)              |
-| `**/*.py`        | All Python files                |
-| `**/test_*.py`   | All pytest test files           |
-| `src/**`         | Everything in src/              |
-| `**/app.py`      | Only files named app.py         |
-| `templates/**`   | All templates                   |
-| `**/*.{ts,tsx}`  | TypeScript and TSX files        |
+| Pattern         | Applies to               |
+| --------------- | ------------------------ |
+| `**`            | All files (global)       |
+| `**/*.py`       | All Python files         |
+| `**/test_*.py`  | All pytest test files    |
+| `src/**`        | Everything in src/       |
+| `**/app.py`     | Only files named app.py  |
+| `templates/**`  | All templates            |
+| `**/*.{ts,tsx}` | TypeScript and TSX files |
 
 ---
 
 ## copilot-instructions.md vs. .instructions.md
 
-| Aspect              | copilot-instructions.md         | .instructions.md              |
-| ------------------- | --------------------------------| ----------------------------- |
-| Location            | `.github/`                      | `.github/instructions/`       |
-| Read automatically  | Always                          | Only when applyTo matches     |
-| Scope               | Entire project                  | File-type-specific            |
-| Purpose             | Project context & general rules | Specific technology rules     |
-| Recommended length  | Max 80 lines                    | 20–40 lines                   |
+| Aspect             | copilot-instructions.md         | .instructions.md          |
+| ------------------ | ------------------------------- | ------------------------- |
+| Location           | `.github/`                      | `.github/instructions/`   |
+| Read automatically | Always                          | Only when applyTo matches |
+| Scope              | Entire project                  | File-type-specific        |
+| Purpose            | Project context & general rules | Specific technology rules |
+| Recommended length | Max 80 lines                    | 20–40 lines               |
 
 ---
 
@@ -117,7 +117,7 @@ description: "Testing conventions for pytest"
 
 # Testing Guidelines
 
-- Test naming: test_{function}_{condition}_{expected_result}
+- Test naming: test*{function}*{condition}\_{expected_result}
 - Create at least 3 tests per function: happy path, empty input, edge case
 - Use pytest fixtures for repeated setup
 - Never test implementation details, only public behavior
@@ -204,11 +204,11 @@ Working on test_app.py
 
 ## When Instructions vs. Prompts
 
-| Task                                   | Solution              |
-| -------------------------------------- | --------------------- |
-| "Always write type annotations"        | instruction           |
-| "Run a code review now"                | prompt                |
-| "Never use eval()"                     | instruction           |
-| "Generate tests for this function"     | prompt or /tests      |
-| "Use PRG pattern in Flask"             | instruction           |
-| "Add a new feature step by step"       | prompt + agent        |
+| Task                               | Solution         |
+| ---------------------------------- | ---------------- |
+| "Always write type annotations"    | instruction      |
+| "Run a code review now"            | prompt           |
+| "Never use eval()"                 | instruction      |
+| "Generate tests for this function" | prompt or /tests |
+| "Use PRG pattern in Flask"         | instruction      |
+| "Add a new feature step by step"   | prompt + agent   |

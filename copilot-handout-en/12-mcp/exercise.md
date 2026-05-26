@@ -95,6 +95,7 @@ Extend `.github/copilot-instructions.md` with a Permissions section:
 ## Allowed Actions
 
 The agent may:
+
 - Read and modify Python files
 - Run tests: `python -m pytest`
 - Run linting: `ruff check .`
@@ -102,6 +103,7 @@ The agent may:
 ## Prohibited
 
 The agent must NOT:
+
 - Execute `git push` without approval
 - Install new packages without approval
 - Access files outside this project

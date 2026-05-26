@@ -24,15 +24,15 @@ def func_calculate_total(items):
 
 ## Keyboard Shortcuts
 
-| Action                      | macOS                | Windows/Linux           |
-| --------------------------- | -------------------- | ----------------------- |
-| Accept suggestion           | `Tab`                | `Tab`                   |
-| Dismiss suggestion          | `Esc`                | `Esc`                   |
-| Accept **word by word**     | `⌘ →`                | `Ctrl →`                |
-| Next suggestion             | `⌥ ]`                | `Alt ]`                 |
-| Previous suggestion         | `⌥ [`                | `Alt [`                 |
-| Show all suggestions        | `⌥ Enter`            | `Alt Enter`             |
-| Toggle completions          | `⌘ Shift P` → Toggle | `Ctrl Shift P` → Toggle |
+| Action                  | macOS                | Windows/Linux           |
+| ----------------------- | -------------------- | ----------------------- |
+| Accept suggestion       | `Tab`                | `Tab`                   |
+| Dismiss suggestion      | `Esc`                | `Esc`                   |
+| Accept **word by word** | `⌘ →`                | `Ctrl →`                |
+| Next suggestion         | `⌥ ]`                | `Alt ]`                 |
+| Previous suggestion     | `⌥ [`                | `Alt [`                 |
+| Show all suggestions    | `⌥ Enter`            | `Alt Enter`             |
+| Toggle completions      | `⌘ Shift P` → Toggle | `Ctrl Shift P` → Toggle |
 
 > **Tip:** `⌥ Enter` opens the Completions panel with up to 10 alternatives side by side.
 
@@ -103,13 +103,13 @@ def func_get_overdue_todos(todos):
 
 ## Why is there no suggestion?
 
-| Problem                        | Solution                                           |
-| ------------------------------ | -------------------------------------------------- |
-| Cursor in empty file           | Add filename/comment                               |
-| Too little context             | Rename function/class, add comment                 |
-| Copilot disabled               | Check status bar icon (bottom right)               |
-| Wrong cursor area              | Start a new line instead of typing in the middle   |
-| Completion disabled for type   | Check `settings.json`: `copilot.enable`            |
+| Problem                      | Solution                                         |
+| ---------------------------- | ------------------------------------------------ |
+| Cursor in empty file         | Add filename/comment                             |
+| Too little context           | Rename function/class, add comment               |
+| Copilot disabled             | Check status bar icon (bottom right)             |
+| Wrong cursor area            | Start a new line instead of typing in the middle |
+| Completion disabled for type | Check `settings.json`: `copilot.enable`          |
 
 ---
 

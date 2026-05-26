@@ -61,13 +61,13 @@ Configure:
 
 Fill out this table based on the exercise:
 
-| Rule                                          | Where does it belong?               |
-| --------------------------------------------- | ----------------------------------- |
-| "Use pytest"                                  | settings.json / testGeneration      |
-| "No database – only todos.json"               | copilot-instructions.md             |
-| "Always write type annotations for *.py"      | python.instructions.md (applyTo)    |
-| "No eval() or exec()"                         | security.instructions.md            |
+| Rule                                             | Where does it belong?                   |
+| ------------------------------------------------ | --------------------------------------- |
+| "Use pytest"                                     | settings.json / testGeneration          |
+| "No database – only todos.json"                  | copilot-instructions.md                 |
+| "Always write type annotations for \*.py"        | python.instructions.md (applyTo)        |
+| "No eval() or exec()"                            | security.instructions.md                |
 | "Commit messages in Conventional Commits format" | settings.json / commitMessageGeneration |
-| "Validate all user inputs"                    | security.instructions.md            |
+| "Validate all user inputs"                       | security.instructions.md                |
 
 **Discuss:** When would you put a rule in settings.json vs. in a .md file?

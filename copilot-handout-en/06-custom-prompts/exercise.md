@@ -59,14 +59,14 @@ Use mode: agent with tools: codebase, terminal.
 
 Choose a prompt idea from this table or invent one:
 
-| Idea                  | Description                                             |
-| --------------------- | ------------------------------------------------------- |
-| `/bug-fix`            | Analyze error in terminal, suggest fix                  |
-| `/refactor-function`  | Refactor selected function with better structure        |
-| `/api-doc`            | Document all routes as API docs (Markdown)              |
-| `/performance-check`  | Identify performance bottlenecks                        |
-| `/dependency-check`   | Review all imports and dependencies                     |
-| `/changelog`          | Generate CHANGELOG from Git commits                     |
+| Idea                 | Description                                      |
+| -------------------- | ------------------------------------------------ |
+| `/bug-fix`           | Analyze error in terminal, suggest fix           |
+| `/refactor-function` | Refactor selected function with better structure |
+| `/api-doc`           | Document all routes as API docs (Markdown)       |
+| `/performance-check` | Identify performance bottlenecks                 |
+| `/dependency-check`  | Review all imports and dependencies              |
+| `/changelog`         | Generate CHANGELOG from Git commits              |
 
 **Template:**
 

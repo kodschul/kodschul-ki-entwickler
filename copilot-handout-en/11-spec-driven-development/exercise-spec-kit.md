@@ -41,6 +41,7 @@ so I can focus on the most important tasks.
 ## Data Model
 
 todos.json entry extended with:
+
 - priority: string ("high", "medium", "low"), default: "medium"
 
 ## UI
@@ -50,10 +51,10 @@ todos.json entry extended with:
 
 ## Routes
 
-| Method | Path  | Change                          |
-| ------ | ----- | ------------------------------- |
-| POST   | /add  | Accept priority from form       |
-| POST   | /edit | Accept priority in edit form    |
+| Method | Path  | Change                       |
+| ------ | ----- | ---------------------------- |
+| POST   | /add  | Accept priority from form    |
+| POST   | /edit | Accept priority in edit form |
 
 ## Acceptance Criteria
 
@@ -88,6 +89,7 @@ Run after completing the spec:
 ```
 
 Observe:
+
 - Does Copilot go step by step?
 - Does it run tests after each step?
 - Are all acceptance criteria covered?
@@ -101,6 +103,7 @@ Observe:
 ```
 
 Check:
+
 - Is every acceptance criterion covered by a test?
 - Do edge cases have their own tests?
 - Are the test names clear?
@@ -113,12 +116,12 @@ Run: `python -m pytest test_app.py -v`
 
 Fill in the comparison table:
 
-| Aspect              | Without Spec-Kit            | With Spec-Kit              |
-| ------------------- | --------------------------- | -------------------------- |
-| Context quality     |                             |                            |
-| Number of questions |                             |                            |
-| Test coverage       |                             |                            |
-| Reproducibility     |                             |                            |
-| Time invested       |                             |                            |
+| Aspect              | Without Spec-Kit | With Spec-Kit |
+| ------------------- | ---------------- | ------------- |
+| Context quality     |                  |               |
+| Number of questions |                  |               |
+| Test coverage       |                  |               |
+| Reproducibility     |                  |               |
+| Time invested       |                  |               |
 
 **When would you use Spec-Kit in your projects?**

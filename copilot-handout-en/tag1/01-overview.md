@@ -6,27 +6,27 @@
 
 ## Day Schedule
 
-| Time        | Topic                         | Duration  |
-| ----------- | ----------------------------- | --------- |
-| 09:00–09:30 | Setup Check & Course Overview | 30 min    |
-| 09:30–10:30 | Inline Completions            | 60 min    |
-| 10:30–10:45 | Break                         | 15 min    |
-| 10:45–12:00 | Chat & Context                | 75 min    |
-| 12:00–13:00 | Lunch Break                   | 60 min    |
-| 13:00–14:15 | Built-in Commands             | 75 min    |
-| 14:15–14:30 | Break                         | 15 min    |
-| 14:30–16:00 | Configuration (md files)      | 90 min    |
-| 16:00–16:30 | Day 1 Recap & Questions       | 30 min    |
+| Time        | Topic                         | Duration |
+| ----------- | ----------------------------- | -------- |
+| 09:00–09:30 | Setup Check & Course Overview | 30 min   |
+| 09:30–10:30 | Inline Completions            | 60 min   |
+| 10:30–10:45 | Break                         | 15 min   |
+| 10:45–12:00 | Chat & Context                | 75 min   |
+| 12:00–13:00 | Lunch Break                   | 60 min   |
+| 13:00–14:15 | Built-in Commands             | 75 min   |
+| 14:15–14:30 | Break                         | 15 min   |
+| 14:30–16:00 | Configuration (md files)      | 90 min   |
+| 16:00–16:30 | Day 1 Recap & Questions       | 30 min   |
 
 ---
 
 ## 3-Day Overview
 
-| Day   | Focus             | Topics                                                        |
-| ----- | ----------------- | ------------------------------------------------------------- |
-| Day 1 | Foundations       | Inline Completions, Chat, Built-in Commands, Configuration    |
-| Day 2 | Automation        | Custom Commands, Agents, Instructions, Tasks & Hooks          |
-| Day 3 | Scale & Workflow  | Token Management, CLI, Spec-Driven Development, MCP           |
+| Day   | Focus            | Topics                                                     |
+| ----- | ---------------- | ---------------------------------------------------------- |
+| Day 1 | Foundations      | Inline Completions, Chat, Built-in Commands, Configuration |
+| Day 2 | Automation       | Custom Commands, Agents, Instructions, Tasks & Hooks       |
+| Day 3 | Scale & Workflow | Token Management, CLI, Spec-Driven Development, MCP        |
 
 ---
 
@@ -53,6 +53,7 @@ git --version
 ```
 
 **In VS Code:**
+
 - `GitHub Copilot` extension installed → check bottom status bar
 - Extension is active (not greyed out)
 
@@ -95,12 +96,12 @@ Arrow key `→` or `Tab` to accept.
 
 ### Chat Modes
 
-| Mode         | Shortcut        | Purpose                                   |
-| ------------ | --------------- | ----------------------------------------- |
-| Ask          | Default         | Questions, explanations, code review      |
-| Edit         | Ctrl+Shift+I    | Targeted edits of selected files          |
-| Agent        | `@workspace`    | Multi-step tasks, terminal access, plans  |
-| Inline Chat  | Ctrl+I          | Quick edit at cursor position             |
+| Mode        | Shortcut     | Purpose                                  |
+| ----------- | ------------ | ---------------------------------------- |
+| Ask         | Default      | Questions, explanations, code review     |
+| Edit        | Ctrl+Shift+I | Targeted edits of selected files         |
+| Agent       | `@workspace` | Multi-step tasks, terminal access, plans |
+| Inline Chat | Ctrl+I       | Quick edit at cursor position            |
 
 ### copilot-instructions.md
 
@@ -112,12 +113,12 @@ Active in all chats without having to attach it manually.
 
 ## Reference: Most Used Shortcuts
 
-| Action                  | macOS           | Windows/Linux   |
-| ----------------------- | --------------- | --------------- |
-| Accept suggestion       | Tab             | Tab             |
-| Reject suggestion       | Esc             | Esc             |
-| Next suggestion         | Alt + ]         | Alt + ]         |
-| Previous suggestion     | Alt + [         | Alt + [         |
-| Open Chat               | Ctrl + Shift + I| Ctrl + Shift + I|
-| Inline Chat             | Ctrl + I        | Ctrl + I        |
-| Accept NES              | Tab / →         | Tab / →         |
+| Action              | macOS            | Windows/Linux    |
+| ------------------- | ---------------- | ---------------- |
+| Accept suggestion   | Tab              | Tab              |
+| Reject suggestion   | Esc              | Esc              |
+| Next suggestion     | Alt + ]          | Alt + ]          |
+| Previous suggestion | Alt + [          | Alt + [          |
+| Open Chat           | Ctrl + Shift + I | Ctrl + Shift + I |
+| Inline Chat         | Ctrl + I         | Ctrl + I         |
+| Accept NES          | Tab / →          | Tab / →          |

@@ -20,12 +20,12 @@ Instead of asking Copilot "just implement something", you first write a structur
 
 ## Why / When not?
 
-| Why use it                              | When not to                              |
-| --------------------------------------- | ---------------------------------------- |
-| New feature with multiple components    | Small, isolated change                   |
-| Multiple people work on the same feature| Quick fix or bugfix                      |
-| Complex business logic                  | One-liners or trivial functions          |
-| Important decision trail needed         | Prototyping / throwaway code             |
+| Why use it                               | When not to                     |
+| ---------------------------------------- | ------------------------------- |
+| New feature with multiple components     | Small, isolated change          |
+| Multiple people work on the same feature | Quick fix or bugfix             |
+| Complex business logic                   | One-liners or trivial functions |
+| Important decision trail needed          | Prototyping / throwaway code    |
 
 ---
 
@@ -50,10 +50,10 @@ As a [role], I want [action], so that [benefit].
 
 ## Routes
 
-| Method | Path        | Action               |
-| ------ | ----------- | -------------------- |
-| GET    | /todos      | Show list            |
-| POST   | /todos/add  | Add new todo         |
+| Method | Path       | Action       |
+| ------ | ---------- | ------------ |
+| GET    | /todos     | Show list    |
+| POST   | /todos/add | Add new todo |
 
 ## Acceptance Criteria
 
@@ -82,6 +82,7 @@ As a user, I want to set due dates for my todos so I can prioritize my tasks.
 ## Data Model
 
 todos.json entry extended with:
+
 - due_date: string (ISO 8601: YYYY-MM-DD) or null
 
 ## UI
@@ -91,11 +92,11 @@ todos.json entry extended with:
 
 ## Routes
 
-| Method | Path     | Change                                          |
-| ------ | -------- | ----------------------------------------------- |
-| GET    | /        | Render due_date in the list                     |
-| POST   | /add     | Accept due_date from form                       |
-| POST   | /edit    | Accept due_date in edit form                    |
+| Method | Path  | Change                       |
+| ------ | ----- | ---------------------------- |
+| GET    | /     | Render due_date in the list  |
+| POST   | /add  | Accept due_date from form    |
+| POST   | /edit | Accept due_date in edit form |
 
 ## Acceptance Criteria
 
@@ -148,11 +149,13 @@ tools:
 # Feature Implementation from Spec
 
 1. Read #file:SPEC.md and validate the spec:
+
    - Are all acceptance criteria specific enough?
    - Are edge cases defined?
    - Is the data model complete?
 
 2. Implement the feature step by step:
+
    - Data model changes
    - Backend routes
    - Frontend templates
@@ -187,9 +190,9 @@ project/
 
 ## # Reference Syntax in Prompts
 
-| Syntax              | Effect                                    |
-| ------------------- | ----------------------------------------- |
-| `#file:SPEC.md`     | Includes the spec as context              |
-| `#sym:funcName`     | Includes a specific function              |
-| `${input:feature}`  | Asks for input when calling               |
-| `#codebase`         | Searches the entire codebase              |
+| Syntax             | Effect                       |
+| ------------------ | ---------------------------- |
+| `#file:SPEC.md`    | Includes the spec as context |
+| `#sym:funcName`    | Includes a specific function |
+| `${input:feature}` | Asks for input when calling  |
+| `#codebase`        | Searches the entire codebase |

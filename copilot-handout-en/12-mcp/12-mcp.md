@@ -45,6 +45,7 @@ MCP allows Copilot to access real tools – not just static context.
 ```
 
 **Location options:**
+
 - `.vscode/mcp.json` – project-specific
 - VS Code Settings → MCP – user-wide
 
@@ -126,6 +127,7 @@ gh api repos/:owner/:repo/pulls \
 ## Allowed Tools
 
 The agent may use:
+
 - read_file, write_file, list_dir
 - run_in_terminal: only for test and lint commands
 - Playwright MCP: only for localhost URLs
@@ -133,6 +135,7 @@ The agent may use:
 ## Prohibited Actions
 
 The agent must NOT:
+
 - Execute git push without explicit user approval
 - Install new packages (pip, npm) without approval
 - Make HTTP calls to external APIs
@@ -141,6 +144,7 @@ The agent must NOT:
 ## Required Approval
 
 Always ask before:
+
 - Deleting files
 - Changing configuration files (pyproject.toml, package.json)
 - Modifying GitHub Actions workflows
@@ -176,21 +180,21 @@ Always ask before:
 
 ### Day 1 – Foundations
 
-| Topic                   | Key Takeaway                                      |
-| ----------------------- | ------------------------------------------------- |
-| Inline Completions      | Ghost Text, NES, keyboard shortcuts               |
-| Chat & Context          | Context variables, modes, agents                  |
-| Built-in Commands       | /explain, /fix, /tests, /doc                      |
-| Configuration (.md)     | copilot-instructions.md = permanent context       |
+| Topic               | Key Takeaway                                |
+| ------------------- | ------------------------------------------- |
+| Inline Completions  | Ghost Text, NES, keyboard shortcuts         |
+| Chat & Context      | Context variables, modes, agents            |
+| Built-in Commands   | /explain, /fix, /tests, /doc                |
+| Configuration (.md) | copilot-instructions.md = permanent context |
 
 ### Day 2 – Automation
 
-| Topic                   | Key Takeaway                                      |
-| ----------------------- | ------------------------------------------------- |
-| Custom Commands         | .prompt.md – repeatable workflows                 |
-| Custom Agents           | .agent.md – specialized assistants with tools     |
-| Skills & Instructions   | .instructions.md – automatic context per file     |
-| VS Code Tasks & Hooks   | tasks.json – automation without AI tokens         |
+| Topic                 | Key Takeaway                                  |
+| --------------------- | --------------------------------------------- |
+| Custom Commands       | .prompt.md – repeatable workflows             |
+| Custom Agents         | .agent.md – specialized assistants with tools |
+| Skills & Instructions | .instructions.md – automatic context per file |
+| VS Code Tasks & Hooks | tasks.json – automation without AI tokens     |
 
 ### Day 3 – Scale
 

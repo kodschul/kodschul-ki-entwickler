@@ -21,36 +21,36 @@ User invokes @security-reviewer
 
 ## Why / When not?
 
-| Why use them                         | When not to                              |
-| ------------------------------------ | ---------------------------------------- |
-| Specialized, recurring task          | One-time task → use Chat                 |
-| Needs multiple tools (read + run)    | Simple question → Ask/Edit mode          |
-| Team needs standardized workflow     | Task that varies greatly each time       |
-| Specific persona/role for Copilot    | Already covered by built-in commands     |
+| Why use them                      | When not to                          |
+| --------------------------------- | ------------------------------------ |
+| Specialized, recurring task       | One-time task → use Chat             |
+| Needs multiple tools (read + run) | Simple question → Ask/Edit mode      |
+| Team needs standardized workflow  | Task that varies greatly each time   |
+| Specific persona/role for Copilot | Already covered by built-in commands |
 
 ---
 
 ## Prompt vs. Instruction vs. Agent
 
-| Aspect              | Prompt (`.prompt.md`)        | Instruction (`.instructions.md`)  | Agent (`.agent.md`)              |
-| ------------------- | ---------------------------- | --------------------------------- | -------------------------------- |
-| Purpose             | Reusable task                | Persistent behavior rule          | Specialized assistant            |
-| Activation          | `/command-name`              | Automatically for matching files  | `@agent-name`                    |
-| Mode                | ask / edit / agent           | Always active                     | Agent (with tools)               |
-| Tool access         | Optional                     | No                                | Yes (defined in frontmatter)     |
-| Context             | Explicit (in prompt)         | Automatic (via applyTo)           | Agent decides                    |
+| Aspect      | Prompt (`.prompt.md`) | Instruction (`.instructions.md`) | Agent (`.agent.md`)          |
+| ----------- | --------------------- | -------------------------------- | ---------------------------- |
+| Purpose     | Reusable task         | Persistent behavior rule         | Specialized assistant        |
+| Activation  | `/command-name`       | Automatically for matching files | `@agent-name`                |
+| Mode        | ask / edit / agent    | Always active                    | Agent (with tools)           |
+| Tool access | Optional              | No                               | Yes (defined in frontmatter) |
+| Context     | Explicit (in prompt)  | Automatic (via applyTo)          | Agent decides                |
 
 ---
 
 ## Available Tools
 
-| Tool          | Access to                                              |
-| ------------- | ------------------------------------------------------ |
-| `codebase`    | All files in the workspace (read, search)              |
-| `terminal`    | Run commands in the integrated terminal                |
-| `githubRepo`  | GitHub API: issues, PRs, commits, code search          |
-| `search`      | Web search (Bing)                                      |
-| `extensions`  | Installed VS Code extensions                           |
+| Tool         | Access to                                     |
+| ------------ | --------------------------------------------- |
+| `codebase`   | All files in the workspace (read, search)     |
+| `terminal`   | Run commands in the integrated terminal       |
+| `githubRepo` | GitHub API: issues, PRs, commits, code search |
+| `search`     | Web search (Bing)                             |
+| `extensions` | Installed VS Code extensions                  |
 
 ---
 
@@ -95,6 +95,7 @@ You are a security expert specializing in Python Flask web applications.
 ## Your Tasks When Invoked
 
 1. Scan all Python files for security vulnerabilities:
+
    - Unvalidated user inputs
    - Missing CSRF protection
    - Direct use of user data in file paths
@@ -140,6 +141,7 @@ You are a test automation expert for Python/pytest.
 
 1. Identify functions without test coverage in the codebase.
 2. For each uncovered function, generate tests:
+
    - 1 happy path test
    - 1 empty/null input test
    - 1 edge case test (boundary values)

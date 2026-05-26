@@ -25,10 +25,10 @@ gh copilot --version
 
 ## Two Main Commands
 
-| Command                    | Purpose                                  |
-| -------------------------- | ---------------------------------------- |
-| `gh copilot suggest "..."` | Suggest a shell command for a task       |
-| `gh copilot explain "..."` | Explain what a command does              |
+| Command                    | Purpose                            |
+| -------------------------- | ---------------------------------- |
+| `gh copilot suggest "..."` | Suggest a shell command for a task |
+| `gh copilot explain "..."` | Explain what a command does        |
 
 ---
 
@@ -48,11 +48,11 @@ gh copilot suggest -t git "Undo last commit without losing changes"
 gh copilot suggest -t github-actions "Run tests only on Python file changes"
 ```
 
-| Target           | Generates                         |
-| ---------------- | --------------------------------- |
-| `shell`          | bash/zsh commands                 |
-| `git`            | git commands                      |
-| `github-actions` | GitHub Actions workflow YAML      |
+| Target           | Generates                    |
+| ---------------- | ---------------------------- |
+| `shell`          | bash/zsh commands            |
+| `git`            | git commands                 |
+| `github-actions` | GitHub Actions workflow YAML |
 
 ### `--no-interaction` – For Scripts
 
@@ -63,6 +63,7 @@ gh copilot suggest --no-interaction "List all .py files"
 ### Interactive Menu Options
 
 After `gh copilot suggest` runs interactively, you get options:
+
 - `Copy command to clipboard` – copies to clipboard
 - `Explain command` – explains the suggestion
 - `Execute command` – runs it directly
@@ -178,12 +179,12 @@ gh copilot suggest -t git --no-interaction \
 
 ## Token Saving with CLI
 
-| Task                                | VS Code Chat    | CLI                    |
-| ----------------------------------- | --------------- | ---------------------- |
-| "How do I run pytest?"              | ~500 tokens     | 0 Copilot tokens       |
-| "Explain git rebase"                | ~300 tokens     | 0 Copilot tokens       |
-| "Generate GitHub Actions workflow"  | ~800 tokens     | 0 Copilot tokens       |
-| Analyze code in file                | ~2,000 tokens   | 0 Copilot tokens       |
+| Task                               | VS Code Chat  | CLI              |
+| ---------------------------------- | ------------- | ---------------- |
+| "How do I run pytest?"             | ~500 tokens   | 0 Copilot tokens |
+| "Explain git rebase"               | ~300 tokens   | 0 Copilot tokens |
+| "Generate GitHub Actions workflow" | ~800 tokens   | 0 Copilot tokens |
+| Analyze code in file               | ~2,000 tokens | 0 Copilot tokens |
 
 ---
 
@@ -191,27 +192,27 @@ gh copilot suggest -t git --no-interaction \
 
 ### suggest
 
-| Flag              | Short | Description                        |
-| ----------------- | ----- | ---------------------------------- |
-| `--target`        | `-t`  | Command type (shell/git/github-actions) |
-| `--no-interaction`|       | Headless mode (no interactive menu)|
-| `--help`          | `-h`  | Help                               |
+| Flag               | Short | Description                             |
+| ------------------ | ----- | --------------------------------------- |
+| `--target`         | `-t`  | Command type (shell/git/github-actions) |
+| `--no-interaction` |       | Headless mode (no interactive menu)     |
+| `--help`           | `-h`  | Help                                    |
 
 ### explain
 
-| Flag    | Short | Description  |
-| ------- | ----- | ------------ |
-| `--help`| `-h`  | Help         |
+| Flag     | Short | Description |
+| -------- | ----- | ----------- |
+| `--help` | `-h`  | Help        |
 
 ---
 
 ## CLI vs. Editor Chat Comparison
 
-| Aspect              | CLI (`gh copilot`)       | VS Code Chat               |
-| ------------------- | ------------------------ | -------------------------- |
-| Token consumption   | Separate quota           | Copilot Chat tokens        |
-| Context             | Piped input only         | Files, workspace, symbols  |
-| Interaction         | Terminal                 | Chat UI                    |
-| Scriptable          | ✅ (--no-interaction)    | ❌                         |
-| Code editing        | ❌                       | ✅ (Edit/Agent mode)       |
-| Best for            | Terminal commands, git   | Code writing, debugging    |
+| Aspect            | CLI (`gh copilot`)     | VS Code Chat              |
+| ----------------- | ---------------------- | ------------------------- |
+| Token consumption | Separate quota         | Copilot Chat tokens       |
+| Context           | Piped input only       | Files, workspace, symbols |
+| Interaction       | Terminal               | Chat UI                   |
+| Scriptable        | ✅ (--no-interaction)  | ❌                        |
+| Code editing      | ❌                     | ✅ (Edit/Agent mode)      |
+| Best for          | Terminal commands, git | Code writing, debugging   |

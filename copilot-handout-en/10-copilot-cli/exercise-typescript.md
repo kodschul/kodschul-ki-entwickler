@@ -128,9 +128,9 @@ How do I run only the tests for TodoService? #file:src/app/services/todo.service
 
 **Fill in the comparison table:**
 
-| Aspect           | CLI                    | Chat                   |
-| ---------------- | ---------------------- | ---------------------- |
-| Speed            |                        |                        |
-| Context quality  | No file context        | With #file             |
-| Tokens used      | 0 Copilot tokens       | ~500 tokens            |
-| Best for         | Terminal questions      | Code analysis          |
+| Aspect          | CLI                | Chat          |
+| --------------- | ------------------ | ------------- |
+| Speed           |                    |               |
+| Context quality | No file context    | With #file    |
+| Tokens used     | 0 Copilot tokens   | ~500 tokens   |
+| Best for        | Terminal questions | Code analysis |

@@ -23,15 +23,15 @@ A full app.py (200 lines) ≈ 1,500 tokens
 
 ## Token Consumption by Context Type
 
-| Context Type             | Token usage  | When to use                           |
-| ------------------------ | ------------ | ------------------------------------- |
-| `@workspace`             | Very high    | Searching the codebase                |
-| `#file:large_file.py`    | High         | Only if the whole file is needed      |
-| `#sym:func_name`         | Low          | When only one function is needed      |
-| `#selection`             | Very low     | Currently selected text               |
-| `#terminalLastCommand`   | Low          | Terminal output                       |
-| Chat history (long)      | High         | Gets expensive fast                   |
-| `copilot-instructions.md`| 200–500 tok. | Always active (keep short!)           |
+| Context Type              | Token usage  | When to use                      |
+| ------------------------- | ------------ | -------------------------------- |
+| `@workspace`              | Very high    | Searching the codebase           |
+| `#file:large_file.py`     | High         | Only if the whole file is needed |
+| `#sym:func_name`          | Low          | When only one function is needed |
+| `#selection`              | Very low     | Currently selected text          |
+| `#terminalLastCommand`    | Low          | Terminal output                  |
+| Chat history (long)       | High         | Gets expensive fast              |
+| `copilot-instructions.md` | 200–500 tok. | Always active (keep short!)      |
 
 ---
 
@@ -90,17 +90,27 @@ Chat → + (New Chat)           (clean slate)
 
 ```markdown
 ❌ Too long (>100 lines):
+
 # GitHub Copilot Instructions
+
 ## Detailed explanation of every Flask function...
+
 ## Complete architecture documentation...
+
 ## All edge cases...
 
 ✅ Good (<80 lines):
+
 # GitHub Copilot Instructions
+
 ## Goal: Todo web app (Flask + Tailwind + todos.json)
+
 ## Start: FLASK_DEBUG=1 python app.py
+
 ## Test: python -m pytest
+
 ## Do: PRG pattern, type annotations
+
 ## Don't: no DB, no eval()
 ```
 
@@ -109,18 +119,20 @@ Chat → + (New Chat)           (clean slate)
 ## Strategy 4 – Sharpen applyTo
 
 ```markdown
-❌ Too broad – applies everywhere:
----
-applyTo: "**"
----
+## ❌ Too broad – applies everywhere:
+
+## applyTo: "\*\*"
+
 # Flask Rules
+
 Use PRG pattern...
 
-✅ Only where needed:
----
-applyTo: "**/app.py"
----
+## ✅ Only where needed:
+
+## applyTo: "\*\*/app.py"
+
 # Flask Rules
+
 Use PRG pattern...
 ```
 
@@ -142,13 +154,13 @@ the data loading, data saving, adding, and deleting work..."
 
 ## Strategy 6 – Inline Chat vs. Full Chat
 
-| Scenario                       | Best choice       | Why                                      |
-| ------------------------------ | ----------------- | ---------------------------------------- |
-| Add docstring to one function  | Inline Chat `⌘ I` | Only current function in context         |
-| Refactor one method            | Inline Chat `⌘ I` | Direct context, no chat history          |
-| Analyze entire architecture    | Chat + #file      | Need multiple files                      |
-| Debug error from terminal      | Chat + #terminalLastCommand | Context is the error          |
-| Search for something in codebase | Chat + @workspace | Need search capability                |
+| Scenario                         | Best choice                 | Why                              |
+| -------------------------------- | --------------------------- | -------------------------------- |
+| Add docstring to one function    | Inline Chat `⌘ I`           | Only current function in context |
+| Refactor one method              | Inline Chat `⌘ I`           | Direct context, no chat history  |
+| Analyze entire architecture      | Chat + #file                | Need multiple files              |
+| Debug error from terminal        | Chat + #terminalLastCommand | Context is the error             |
+| Search for something in codebase | Chat + @workspace           | Need search capability           |
 
 ---
 
@@ -166,14 +178,14 @@ the data loading, data saving, adding, and deleting work..."
 
 ## Token-Saving Plan Summary
 
-| Strategy                            | Saving potential  |
-| ----------------------------------- | ----------------- |
-| `#sym` instead of `#file`          | High (80%+)       |
-| New chat per topic                  | High              |
-| Short copilot-instructions.md       | Medium (always)   |
-| Inline Chat for small changes       | High              |
-| Specific question instead of open   | Medium            |
-| Precise `applyTo`                   | Low               |
+| Strategy                          | Saving potential |
+| --------------------------------- | ---------------- |
+| `#sym` instead of `#file`         | High (80%+)      |
+| New chat per topic                | High             |
+| Short copilot-instructions.md     | Medium (always)  |
+| Inline Chat for small changes     | High             |
+| Specific question instead of open | Medium           |
+| Precise `applyTo`                 | Low              |
 
 ---
 

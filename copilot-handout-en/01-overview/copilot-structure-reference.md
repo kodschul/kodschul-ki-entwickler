@@ -70,13 +70,13 @@ description: "..." # Optional description
 
 **Available `applyTo` patterns:**
 
-| Pattern        | Meaning               |
-| -------------- | --------------------- |
-| `**`           | All files (global)    |
-| `**/*.py`      | All Python files      |
-| `src/**`       | Everything in src/    |
-| `**/test_*.py` | All test files        |
-| `templates/**` | All templates         |
+| Pattern        | Meaning            |
+| -------------- | ------------------ |
+| `**`           | All files (global) |
+| `**/*.py`      | All Python files   |
+| `src/**`       | Everything in src/ |
+| `**/test_*.py` | All test files     |
+| `templates/**` | All templates      |
 
 ---
 
@@ -96,11 +96,11 @@ tools: # Optional: allowed tools
 
 **Modes:**
 
-| Mode    | Meaning                                          |
-| ------- | ------------------------------------------------ |
-| `ask`   | Ask questions / analyze code (no writing)        |
-| `edit`  | Edit current file directly                       |
-| `agent` | Full agent mode with tool access                 |
+| Mode    | Meaning                                   |
+| ------- | ----------------------------------------- |
+| `ask`   | Ask questions / analyze code (no writing) |
+| `edit`  | Edit current file directly                |
+| `agent` | Full agent mode with tool access          |
 
 ---
 

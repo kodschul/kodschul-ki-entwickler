@@ -122,22 +122,22 @@ Level 3 (File):    .github/instructions/*.instructions.md (applyTo-specific)
 
 ## Language Settings
 
-| Setting               | Options                     | Effect                              |
-| --------------------- | --------------------------- | ----------------------------------- |
-| `localeOverride`      | `"en"`, `"de"`, `"fr"`, … | Language for Copilot responses      |
-| `copilot.enable`      | `true` / `false` per type  | Enable/disable Ghost Text per type  |
+| Setting          | Options                   | Effect                             |
+| ---------------- | ------------------------- | ---------------------------------- |
+| `localeOverride` | `"en"`, `"de"`, `"fr"`, … | Language for Copilot responses     |
+| `copilot.enable` | `true` / `false` per type | Enable/disable Ghost Text per type |
 
 ---
 
 ## Global vs. Project Settings
 
-| Setting                   | Where                         | Applies to           |
-| ------------------------- | ----------------------------- | -------------------- |
-| `localeOverride`          | User settings.json            | All projects         |
-| `copilot.enable`          | User or project settings.json | All or this project  |
-| `codeGeneration.instructions` | Project `.vscode/settings.json` | This project only |
-| `copilot-instructions.md` | `.github/` (committed to Git) | This project (team)  |
-| `*.instructions.md`       | `.github/instructions/`       | Specific file types  |
+| Setting                       | Where                           | Applies to          |
+| ----------------------------- | ------------------------------- | ------------------- |
+| `localeOverride`              | User settings.json              | All projects        |
+| `copilot.enable`              | User or project settings.json   | All or this project |
+| `codeGeneration.instructions` | Project `.vscode/settings.json` | This project only   |
+| `copilot-instructions.md`     | `.github/` (committed to Git)   | This project (team) |
+| `*.instructions.md`           | `.github/instructions/`         | Specific file types |
 
 ---
 
