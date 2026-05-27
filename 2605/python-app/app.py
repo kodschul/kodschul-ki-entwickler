@@ -192,6 +192,88 @@ def api_add():
     return jsonify(result), 201
 
 
+@app.route("/api/todos/<int:todo_id>", methods=["PUT"])
+@require_token
+def api_edit(todo_id):
+        """PUT /api/todos/<todo_id> — Bearer auth required; update todo fields and return updated todo, or 404 if ID not found.
+        ---
+        tags: [Todos]
+        security:
+            - Bearer: []
+        consumes: [application/json]
+        parameters:
+            - in: path
+                name: todo_id
+                type: integer
+                required: true
+            - in: body
+                name: body
+                required: true
+                schema:
+                    type: object
+                    properties:
+                        title:
+                            type: string
+                            example: Updated title
+                        priority:
+                            type: string
+                            enum: [high, medium, low]
+                            example: high
+                        done:
+                            type: boolean
+                            example: true
+                        due_date:
+                            type: string
+                            example: 2026-05-26
+        responses:
+            200:
+                description: Updated todo
+            400:
+                description: invalid input
+            401:
+                description: unauthorized
+            404:
+                description: not found
+        """
+        data = request.get_json(silent=True) or {}
+        updates = {}
+
+        if "title" in data:
+                title = str(data.get("title", "")).strip()[:200]
+                if not title:
+                        return jsonify({"error": "title cannot be empty"}), 400
+                updates["title"] = title
+
+        if "priority" in data:
+                updates["priority"] = parse_priority(data.get("priority", "medium"))
+
+        if "done" in data:
+                if not isinstance(data["done"], bool):
+                        return jsonify({"error": "done must be boolean"}), 400
+                updates["done"] = data["done"]
+
+        if "due_date" in data:
+                due_date = data["due_date"]
+                updates["due_date"] = (str(due_date).strip() or None) if due_date is not None else None
+
+        if not updates:
+                return jsonify({"error": "no valid fields to update"}), 400
+
+        updated = {}
+
+        def _api_edit(todos):
+                for t in todos:
+                        if t["id"] == todo_id:
+                                t.update(updates)
+                                updated.update(t)
+                                return
+
+        mutate_todos(_api_edit)
+        if not updated:
+                return jsonify({"error": "not found"}), 404
+        return jsonify(updated), 200
+
+
 @app.route("/api/todos/<int:todo_id>", methods=["DELETE"])
 @require_token
 def api_delete(todo_id):
