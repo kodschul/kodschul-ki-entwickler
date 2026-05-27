@@ -4,6 +4,16 @@ description: "Add a new feature to the Todo App"
 model: GPT-5.3-Codex (copilot)
 ---
 
+
+1. open the settings
+2. change this 
+3. ted d. ... 
+4. Commit your changes
+5. Run a mypy lint for the files changed! 
+
+
+
+
 # Add Feature: ${input:feature_name}
 
 1. Analyze the existing code (#file:app.py) and identify the right place.

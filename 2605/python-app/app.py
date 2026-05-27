@@ -308,6 +308,42 @@ def api_delete(todo_id):
     return "", 204
 
 
+@app.route("/api/todos/<int:todo_id>/done", methods=["POST"])
+@require_token
+def ApiMarkDone(todo_id):
+        """POST /api/todos/<todo_id>/done — Bearer auth required; mark todo as done, return updated todo, or 404 if ID not found.
+        ---
+        tags: [Todos]
+        security:
+            - Bearer: []
+        parameters:
+            - in: path
+                name: todo_id
+                type: integer
+                required: true
+        responses:
+            200:
+                description: Todo marked as done
+            401:
+                description: unauthorized
+            404:
+                description: not found
+        """
+        updated = {}
+
+        def MarkDone(todos):
+                for todo in todos:
+                        if todo["id"] == todo_id:
+                                todo["done"] = True
+                                updated.update(todo)
+                                return
+
+        mutate_todos(MarkDone)
+        if not updated:
+                return jsonify({"error": "not found"}), 404
+        return jsonify(updated), 200
+
+
 @app.route("/calculator", methods=["GET", "POST"])
 def calculator():
     result = None

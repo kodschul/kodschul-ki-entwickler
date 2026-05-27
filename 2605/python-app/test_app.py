@@ -536,3 +536,47 @@ def test_api_edit_title_capped_at_200(client, tmp_path, monkeypatch):
     assert resp.status_code == 200
     assert len(resp.get_json()["title"]) == 200
     assert len(todos_from_file(data_file)[0]["title"]) == 200
+
+
+# ---------------------------------------------------------------------------
+# API Done-Endpoint-Tests – POST /api/todos/<id>/done
+# ---------------------------------------------------------------------------
+
+
+def test_api_mark_done_requires_auth(client, tmp_path, monkeypatch):
+    """POST /api/todos/<id>/done ohne Authorization-Header muss 401 zurückgeben."""
+    data_file = tmp_path / "todos.json"
+    monkeypatch.setattr(app_module, "DATA_FILE", str(data_file))
+
+    client.post("/add", data={"title": "Task", "priority": "low"})
+    todo_id = todos_from_file(data_file)[0]["id"]
+
+    resp = client.post(f"/api/todos/{todo_id}/done")
+    assert resp.status_code == 401
+
+
+def test_api_mark_done_sets_done_true(client, tmp_path, monkeypatch):
+    """POST /api/todos/<id>/done mit gültigem Token setzt done auf True und gibt 200 zurück."""
+    data_file = tmp_path / "todos.json"
+    monkeypatch.setattr(app_module, "DATA_FILE", str(data_file))
+
+    client.post("/add", data={"title": "Task", "priority": "low"})
+    todo_id = todos_from_file(data_file)[0]["id"]
+
+    resp = client.post(
+        f"/api/todos/{todo_id}/done",
+        headers={"Authorization": "Bearer secret-token-1234"},
+    )
+    assert resp.status_code == 200
+    assert resp.get_json()["done"] is True
+    assert todos_from_file(data_file)[0]["done"] is True
+
+
+def test_api_mark_done_nonexistent_id_returns_404(client):
+    """POST /api/todos/<id>/done mit gültigem Token und unbekannter ID muss 404 zurückgeben."""
+    resp = client.post(
+        "/api/todos/99999/done",
+        headers={"Authorization": "Bearer secret-token-1234"},
+    )
+    assert resp.status_code == 404
+    assert resp.get_json()["error"] == "not found"
