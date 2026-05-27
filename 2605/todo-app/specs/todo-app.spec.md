@@ -60,6 +60,7 @@ todo-app/
 ### Step 2 — Data layer (inside app.py)
 
 Implement two helper functions:
+
 - `LoadTodos()` — reads `data/todos.json`; returns `[]` if file does not exist
 - `SaveTodos(todos)` — writes the list to `data/todos.json` (creates `data/` dir if needed)
 
@@ -67,16 +68,17 @@ Each todo is a dict with keys: `id` (int), `title` (str), `done` (bool), `create
 
 ### Step 3 — Flask routes (inside app.py)
 
-| Method | Path | Action |
-|--------|------|--------|
-| GET | `/` | Load todos, render HTML page |
-| POST | `/add` | Read form field `title`, append new todo, save, redirect to `/` |
-| POST | `/done/<id>` | Toggle `done` on matching todo, save, redirect to `/` |
-| POST | `/delete/<id>` | Remove matching todo, save, redirect to `/` |
+| Method | Path           | Action                                                          |
+| ------ | -------------- | --------------------------------------------------------------- |
+| GET    | `/`            | Load todos, render HTML page                                    |
+| POST   | `/add`         | Read form field `title`, append new todo, save, redirect to `/` |
+| POST   | `/done/<id>`   | Toggle `done` on matching todo, save, redirect to `/`           |
+| POST   | `/delete/<id>` | Remove matching todo, save, redirect to `/`                     |
 
 ### Step 4 — HTML template (inline in app.py)
 
 Render via `flask.render_template_string`. One page only:
+
 - Load Tailwind CSS via CDN `<script src="https://cdn.tailwindcss.com"></script>`
 - `<form>` to add a new todo (POST `/add`)
 - `<ul>` listing all todos showing title, created date, done status
@@ -110,6 +112,7 @@ Tailwind CSS is loaded via CDN — no npm or build step required.
 ### Files Created
 
 **`todo-app/app.py`** — single-file Flask application containing:
+
 - `DataFile` — path constant pointing to `data/todos.json` relative to `app.py`
 - `HtmlTemplate` — inline Jinja2 HTML string with Tailwind CSS (CDN), add-todo form, and todo list
 - `LoadTodos()` — reads `data/todos.json`; returns `[]` if file does not exist
