@@ -6,22 +6,24 @@
 
 ## Topic Overview (all 3 days)
 
-| #   | Topic                            | Day   | Duration |
-| --- | -------------------------------- | ----- | -------- |
-| 01  | Prompt Engineering               | Day 1 | 90 min   |
-| 02  | AI Agents & Multi-Step Prompting | Day 1 | 90 min   |
-| 03  | Inline Completions               | Day 1 | 90 min   |
-| 04  | Chat & Context Variables         | Day 1 | 90 min   |
-| 05  | Built-in Commands                | Day 1 | 90 min   |
-| 06  | Configuration & Instructions     | Day 1 | 60 min   |
-| 07  | Skills & .instructions.md        | Day 2 | 90 min   |
-| 08  | Custom Prompts (Slash Commands)  | Day 2 | 90 min   |
-| 09  | Custom Agents                    | Day 2 | 90 min   |
-| 10  | Automation & Tasks               | Day 2 | 60 min   |
-| 11  | Token Management                 | Day 3 | 60 min   |
-| 12  | Copilot CLI – complete           | Day 3 | 90 min   |
-| 13  | Spec-Driven Development          | Day 3 | 90 min   |
-| 14  | MCP – Model Context Protocol     | Day 3 | 60 min   |
+| #   | Topic                           | Day   | Duration | Folder                        |
+| --- | ------------------------------- | ----- | -------- | ----------------------------- |
+| 01  | Inline Completions              | Day 1 | 90 min   | `01-inline-completions/`      |
+| 02  | Chat & Context Variables        | Day 1 | 90 min   | `02-chat-context/`            |
+| 03  | Built-in Commands               | Day 1 | 90 min   | `03-built-in-commands/`       |
+| 04  | Configuration & Instructions    | Day 1 | 60 min   | `04-configuration/`           |
+| 05  | Skills & .instructions.md       | Day 2 | 90 min   | `05-skills-instructions/`     |
+| 06  | Custom Prompts (Slash Commands) | Day 2 | 90 min   | `06-custom-prompts/`          |
+| 07  | Custom Agents                   | Day 2 | 90 min   | `07-custom-agents/`           |
+| 08  | Automation & Tasks              | Day 2 | 60 min   | `08-automation-tasks/`        |
+| 09  | Token Management                | Day 3 | 60 min   | `09-token-management/`        |
+| 10  | Copilot CLI                     | Day 3 | 90 min   | `10-copilot-cli/`             |
+| 11  | Spec-Driven Development         | Day 3 | 90 min   | `11-spec-driven-development/` |
+| 12  | MCP – Model Context Protocol    | Day 3 | 60 min   | `12-mcp/`                     |
+
+> **Background reading** (no fixed time slot, recommended before Day 1):  
+> `background-prompt-engineering/` – CREF formula, few-shot, chain-of-thought  
+> `background-ai-agents/` – Agent vs. chat, multi-step workflows
 
 ---
 
@@ -92,14 +94,14 @@
 
 ## Copilot vs. Claude Code – Mapping Reference
 
-| Claude Code                   | GitHub Copilot                           |
-| ----------------------------- | ---------------------------------------- |
-| `CLAUDE.md`                   | `.github/copilot-instructions.md`        |
-| `~/.claude/settings.json`     | VS Code User `settings.json`             |
-| `.claude/settings.local.json` | `.vscode/settings.json`                  |
-| `.claude/skills/*/SKILL.md`   | `.github/instructions/*.instructions.md` |
-| `.claude/commands/*.md`       | `.github/prompts/*.prompt.md`            |
-| `.claude/agents/*.md`         | `.github/agents/*.agent.md`              |
-| `hooks` in settings.json      | `.vscode/tasks.json` + GitHub Actions    |
-| `mcpServers` in settings.json | `.vscode/mcp.json`                       |
-| `claude --print "..."`        | `gh copilot suggest "..."`               |
+| Claude Code                   | GitHub Copilot                        |
+| ----------------------------- | ------------------------------------- |
+| `CLAUDE.md`                   | `.github/copilot-instructions.md`     |
+| `~/.claude/settings.json`     | VS Code User `settings.json`          |
+| `.claude/settings.local.json` | `.vscode/settings.json`               |
+| `.claude/skills/*/SKILL.md`   | `.github/skills/*/SKILL.md`           |
+| `.claude/commands/*.md`       | `.github/prompts/*.prompt.md`         |
+| `.claude/agents/*.md`         | `.github/agents/*.agent.md`           |
+| `hooks` in settings.json      | `.vscode/tasks.json` + GitHub Actions |
+| `mcpServers` in settings.json | `.vscode/mcp.json`                    |
+| `claude --print "..."`        | `gh copilot suggest "..."`            |
