@@ -1,6 +1,7 @@
 ---
 name: feature-designer
 description: Always use this skill when designing, planning, or implementing any project changes, files, or documentation.
+disable-model-invocation: true
 ---
 
 <!-- Tip: Use /create-skill in chat to generate content with agent assistance -->
@@ -16,7 +17,7 @@ SPEC PHASE
 
 Wait for user approval before moving to the next phase.
 
-AFTER FORMAL USER APPROVAL 
+AFTER FORMAL USER APPROVAL
 jump to the IMPLEMENTATION PHASE
 
 1. DO NOT edit anything until the user has approved the changes
