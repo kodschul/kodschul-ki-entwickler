@@ -6,6 +6,7 @@ import json
 import os
 from datetime import date
 
+
 app = Flask(__name__)
 DATA_FILE = os.path.join(os.path.dirname(__file__), "todos.json")
 
@@ -39,7 +40,6 @@ def require_token(f):
             return jsonify({"error": "unauthorized"}), 401
         return f(*args, **kwargs)
     return decorated
-
 
 def load_todos():
     """Return todos from disk, or an empty list if the file is missing or corrupt."""
@@ -104,6 +104,22 @@ def add():
             todos), "title": title, "done": False, "priority": priority, "due_date": due_date}))
     return redirect(url_for("index"))
 
+@app.route("/add_bulk", methods=["POST"])
+def add_bulk():
+    """POST /add_bulk — create multiple todos from textarea input, redirect to index."""
+    lines = request.form.get("bulk_input", "").strip().splitlines()
+    priority = parse_priority(request.form.get("priority", "medium"))
+    due_date = request.form.get("due_date", "").strip() or None
+    new_todos = [{"id": None, "title": line.strip(), "done": False, "priority": priority, "due_date": due_date} for line in lines if line.strip()]
+    if new_todos:
+        def _add_bulk(todos):
+            next_id_value = next_id(todos)
+            for todo in new_todos:
+                todo["id"] = next_id_value
+                todos.append(todo)
+                next_id_value += 1
+        mutate_todos(_add_bulk)
+    return redirect(url_for("index"))
 
 @app.route("/edit/<int:todo_id>", methods=["POST"])
 def edit(todo_id):
