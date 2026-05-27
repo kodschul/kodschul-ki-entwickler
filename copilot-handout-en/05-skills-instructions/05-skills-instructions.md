@@ -6,7 +6,9 @@
 
 ## What are Instructions and Skills?
 
-**Instructions** (`.instructions.md`) are persistent behavioral rules that Copilot follows automatically when working with specific files. They are the equivalent of Claude's SKILL.md files.
+**Instructions** (`.instructions.md`) are persistent behavioral rules that Copilot follows automatically when working with specific files.
+
+**Skills** (`SKILL.md`) are on-demand, bundled workflows that the agent discovers and loads when relevant. They live alongside scripts, templates, and reference files in a dedicated folder.
 
 **Unlike Prompts (`.prompt.md`):**
 
@@ -197,6 +199,82 @@ Working on test_app.py
   → security.instructions.md (applyTo: ** ✓)
   → flask.instructions.md (applyTo: **/app.py ✗)
 ```
+
+---
+
+## SKILL.md – On-Demand Agent Skills
+
+**Skills** package reusable, domain-specific workflows that the agent loads only when needed.
+
+### Folder Structure
+
+```
+.github/
+└── skills/
+    └── <skill-name>/
+        ├── SKILL.md        ← Required; name must match folder
+        ├── scripts/        ← Executable helpers (optional)
+        ├── references/     ← Docs the agent can load (optional)
+        └── assets/         ← Templates, boilerplate (optional)
+```
+
+### SKILL.md Frontmatter
+
+```yaml
+---
+name: skill-name            # Required: lowercase alphanumeric + hyphens, matches folder
+description: "When and why to use this skill. Be keyword-rich so the agent can discover it."
+argument-hint: "Optional hint shown when invoked as /skill-name"
+user-invocable: true        # true = appears as /skill-name slash command (default)
+disable-model-invocation: false  # false = agent auto-loads when relevant (default)
+---
+
+# Skill Body
+
+Describe what the skill does, step by step.
+Link to bundled resources: [run tests](./scripts/run-tests.sh)
+```
+
+### Instructions vs. Skills
+
+| Aspect           | `.instructions.md`               | `SKILL.md`                            |
+| ---------------- | -------------------------------- | ------------------------------------- |
+| Activation       | Automatic (when applyTo matches) | On-demand (model or `/slash-command`) |
+| Purpose          | Always-on coding rules           | Packaged, repeatable workflow         |
+| Can carry assets | No                               | Yes (scripts, templates, references)  |
+| Location         | `.github/instructions/`          | `.github/skills/<name>/`              |
+| Scope            | File-type-specific               | Task-specific                         |
+
+### Example – Flask-Deploy Skill
+
+```markdown
+---
+name: flask-deploy
+description: "Deploy the Flask app locally and run smoke tests. Use when asked to start, deploy, or verify the application."
+argument-hint: "environment (local | staging)"
+---
+
+# Flask Deploy
+
+## When to Use
+
+When the user asks to run, start, or deploy the Flask Todo App.
+
+## Procedure
+
+1. Run `python -m pytest test_app.py -q` – stop if any test fails.
+2. Start the server: `FLASK_DEBUG=1 python app.py`
+3. Open http://localhost:5000 and confirm the todo list loads.
+4. Report: test results + server URL.
+```
+
+### How the Agent Discovers Skills
+
+1. **Discovery** – Agent reads only `name` + `description` (~100 tokens)
+2. **Load** – When relevant, it loads the `SKILL.md` body (<5000 tokens)
+3. **Resources** – Additional files are fetched only when the body references them
+
+Keep the `SKILL.md` body under 500 lines. Put detailed procedures in `references/`.
 
 → All three active files are combined into the system prompt.
 
