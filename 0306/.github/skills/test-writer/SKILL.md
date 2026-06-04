@@ -1,5 +1,6 @@
 ---
-applyTo: "**/DEACTIVATED_test_*.py"
+name: test-writer
+description: Use this when writing, refactoring or thinking about tests
 ---
 
 - Nutze pytest mit dem bestehenden `client`-Fixture
