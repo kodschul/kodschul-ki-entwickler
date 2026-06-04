@@ -68,7 +68,7 @@ def parse_priority(value):
     return value if value in VALID_PRIORITIES else "low"
 
 
-def mutate_todos(fn):
+def mutate_todos_list(fn):
     """Load todos, apply fn(todos), save, and return the result of fn."""
     todos = load_todos()
     result = fn(todos)
@@ -100,7 +100,7 @@ def add():
     priority = parse_priority(request.form.get("priority", "medium"))
     due_date = request.form.get("due_date", "").strip() or None
     if title:
-        mutate_todos(lambda todos: todos.append({"id": next_id(
+        mutate_todos_list(lambda todos: todos.append({"id": next_id(
             todos), "title": title, "done": False, "priority": priority, "due_date": due_date}))
     return redirect(url_for("index"))
 
@@ -111,14 +111,10 @@ def edit(todo_id):
     title = request.form.get("title", "").strip()[:200]
     priority = parse_priority(request.form.get("priority", "medium"))
     if title:
-        mutate_todos(lambda todos: next((t.update(
+        mutate_todos_list(lambda todos: next((t.update(
             {"title": title, "priority": priority}) for t in todos if t["id"] == todo_id), None))
     return redirect(url_for("index"))
 
-
-# modify an existing todo
-@app.route("/edit/<int:todo_id>", methods=["POST"])
-def edit(todo_id):
 
 @app.route("/toggle/<int:todo_id>", methods=["POST"])
 def toggle(todo_id):
@@ -128,16 +124,16 @@ def toggle(todo_id):
             if t_x["id"] == todo_id:
                 t_x["done"] = not t_x["done"]
                 break
-    mutate_todos(_toggle_x)
+    mutate_todos_list(_toggle_x)
     return redirect(url_for("index"))
 
 
 @app.route("/delete/<int:todo_id>", methods=["POST"])
 def delete(todo_id):
     """POST /delete/<todo_id> — remove a todo permanently, redirect to index."""
-    def _delete(todos):
+    def DeleteTodos(todos):
         todos[:] = [t for t in todos if t["id"] != todo_id]
-    mutate_todos(_delete)
+    mutate_todos_list(DeleteTodos)
     return redirect(url_for("index"))
 
 
@@ -192,7 +188,7 @@ def api_add():
                 "done": False, "priority": priority}
         todos.append(todo)
         result.update(todo)
-    mutate_todos(_api_add)
+    mutate_todos_list(_api_add)
     return jsonify(result), 201
 
 
@@ -272,7 +268,7 @@ def api_edit(todo_id):
                                 updated.update(t)
                                 return
 
-        mutate_todos(_api_edit)
+        mutate_todos_list(_api_edit)
         if not updated:
                 return jsonify({"error": "not found"}), 404
         return jsonify(updated), 200
@@ -306,7 +302,7 @@ def api_delete(todo_id):
         if len(remaining) < len(todos):
             found.append(True)
             todos[:] = remaining
-    mutate_todos(_api_delete)
+    mutate_todos_list(_api_delete)
     if not found:
         return jsonify({"error": "not found"}), 404
     return "", 204
@@ -314,7 +310,7 @@ def api_delete(todo_id):
 
 @app.route("/api/todos/<int:todo_id>/done", methods=["POST"])
 @require_token
-def ApiMarkDone(todo_id):
+def api_mark_done(todo_id):
         """POST /api/todos/<todo_id>/done — Bearer auth required; mark todo as done, return updated todo, or 404 if ID not found.
         ---
         tags: [Todos]
@@ -335,14 +331,14 @@ def ApiMarkDone(todo_id):
         """
         updated = {}
 
-        def MarkDone(todos):
+        def mark_done(todos):
                 for todo in todos:
                         if todo["id"] == todo_id:
                                 todo["done"] = True
                                 updated.update(todo)
                                 return
 
-        mutate_todos(MarkDone)
+        mutate_todos_list(mark_done)
         if not updated:
                 return jsonify({"error": "not found"}), 404
         return jsonify(updated), 200
