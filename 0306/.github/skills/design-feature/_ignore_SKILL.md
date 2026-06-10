@@ -1,6 +1,7 @@
 ---
 name: design-feature
 description: Use this when adding, creating, designing, thinking, building or editing any feature or main changes  of any kind
+disable-model-invocation: true
 ---
 
 Always before building any Feature, make sure to add a spec and get user EXPLICIT approval before running or writing any CODE!

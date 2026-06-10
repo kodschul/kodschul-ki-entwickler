@@ -4,16 +4,22 @@ from functools import wraps
 import hmac
 import json
 import os
+import threading
 from datetime import date
+from markupsafe import escape
 
 app = Flask(__name__)
 DATA_FILE = os.path.join(os.path.dirname(__file__), "todos.json")
 
-API_TOKEN = os.environ.get("API_TOKEN", "secret-token-1234")
-# To harden for production, replace the line above with:
-#   API_TOKEN = os.environ.get("API_TOKEN")
-#   if not API_TOKEN:
-#       raise RuntimeError("API_TOKEN environment variable must be set")
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+if not app.config["SECRET_KEY"]:
+    raise RuntimeError("SECRET_KEY environment variable must be set")
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+
+API_TOKEN = os.environ.get("API_TOKEN")
+if not API_TOKEN:
+    raise RuntimeError("API_TOKEN environment variable must be set")
 
 swagger_config = {
     "headers": [],
@@ -24,7 +30,7 @@ swagger_config = {
 }
 swagger_template = {
     "info": {"title": "Todo API", "description": "REST API for managing todos", "version": "1.0"},
-    "securityDefinitions": {"Bearer": {"type": "apiKey", "name": "Authorization", "in": "header", "description": 'Enter: **Bearer &lt;token&gt;**. Token: `secret-token-1234`'}},
+    "securityDefinitions": {"Bearer": {"type": "apiKey", "name": "Authorization", "in": "header", "description": 'Enter: **Bearer &lt;token&gt;**'}},
     "security": [{"Bearer": []}],
 }
 swagger = Swagger(app, config=swagger_config, template=swagger_template)
@@ -35,10 +41,23 @@ def require_token(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         auth = request.headers.get("Authorization", "")
-        if auth != f"Bearer {API_TOKEN}":
+        if not hmac.compare_digest(auth, f"Bearer {API_TOKEN}"):
             return jsonify({"error": "unauthorized"}), 401
         return f(*args, **kwargs)
     return decorated
+
+
+@app.after_request
+def set_security_headers(response):
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; "
+        "script-src 'self' https://cdn.tailwindcss.com; "
+        "style-src 'self' 'unsafe-inline'"
+    )
+    return response
 
 
 def load_todos():
@@ -51,12 +70,22 @@ def load_todos():
 
 
 def save_todos(todos):
-    """Persist todos to disk; logs an error instead of raising if the write fails."""
+    """Persist todos to disk; raises on write failure instead of silently discarding data."""
     try:
         with open(DATA_FILE, "w") as f:
             json.dump(todos, f, indent=2)
     except OSError as e:
         app.logger.error("Failed to save todos: %s", e)
+        raise
+
+
+def _parse_date(value):
+    """Return value if it is a valid ISO-8601 date (YYYY-MM-DD), otherwise None."""
+    try:
+        date.fromisoformat(value)
+        return value
+    except (ValueError, TypeError):
+        return None
 
 
 PRIORITY_ORDER = {"high": 0, "medium": 1, "low": 2}
@@ -68,11 +97,15 @@ def parse_priority(value):
     return value if value in VALID_PRIORITIES else "low"
 
 
+_todos_lock = threading.Lock()
+
+
 def mutate_todos_list(fn):
-    """Load todos, apply fn(todos), save, and return the result of fn."""
-    todos = load_todos()
-    result = fn(todos)
-    save_todos(todos)
+    """Load todos, apply fn(todos) under a lock, save, and return the result of fn."""
+    with _todos_lock:
+        todos = load_todos()
+        result = fn(todos)
+        save_todos(todos)
     return result
 
 
@@ -96,9 +129,9 @@ def index():
 @app.route("/add", methods=["POST"])
 def add():
     """POST /add — create a todo from form data, silently ignore empty titles, redirect to index."""
-    title = request.form.get("title", "").strip()
+    title = str(escape(request.form.get("title", "").strip()))[:200]
     priority = parse_priority(request.form.get("priority", "medium"))
-    due_date = request.form.get("due_date", "").strip() or None
+    due_date = _parse_date(request.form.get("due_date", "").strip())
     if title:
         mutate_todos_list(lambda todos: todos.append({"id": next_id(
             todos), "title": title, "done": False, "priority": priority, "due_date": due_date}))
@@ -195,83 +228,83 @@ def api_add():
 @app.route("/api/todos/<int:todo_id>", methods=["PUT"])
 @require_token
 def api_edit(todo_id):
-        """PUT /api/todos/<todo_id> — Bearer auth required; update todo fields and return updated todo, or 404 if ID not found.
-        ---
-        tags: [Todos]
-        security:
-            - Bearer: []
-        consumes: [application/json]
-        parameters:
-            - in: path
-                name: todo_id
-                type: integer
-                required: true
-            - in: body
-                name: body
-                required: true
-                schema:
-                    type: object
-                    properties:
-                        title:
-                            type: string
-                            example: Updated title
-                        priority:
-                            type: string
-                            enum: [high, medium, low]
-                            example: high
-                        done:
-                            type: boolean
-                            example: true
-                        due_date:
-                            type: string
-                            example: 2026-05-26
-        responses:
-            200:
-                description: Updated todo
-            400:
-                description: invalid input
-            401:
-                description: unauthorized
-            404:
-                description: not found
-        """
-        data = request.get_json(silent=True) or {}
-        updates = {}
+    """PUT /api/todos/<todo_id> — Bearer auth required; update todo fields and return updated todo, or 404 if ID not found.
+    ---
+    tags: [Todos]
+    security:
+      - Bearer: []
+    consumes: [application/json]
+    parameters:
+      - in: path
+        name: todo_id
+        type: integer
+        required: true
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+              example: Updated title
+            priority:
+              type: string
+              enum: [high, medium, low]
+              example: high
+            done:
+              type: boolean
+              example: true
+            due_date:
+              type: string
+              example: 2026-05-26
+    responses:
+      200:
+        description: Updated todo
+      400:
+        description: invalid input
+      401:
+        description: unauthorized
+      404:
+        description: not found
+    """
+    data = request.get_json(silent=True) or {}
+    updates = {}
 
-        if "title" in data:
-                title = str(data.get("title", "")).strip()[:200]
-                if not title:
-                        return jsonify({"error": "title cannot be empty"}), 400
-                updates["title"] = title
+    if "title" in data:
+        title = str(data.get("title", "")).strip()[:200]
+        if not title:
+            return jsonify({"error": "title cannot be empty"}), 400
+        updates["title"] = title
 
-        if "priority" in data:
-                updates["priority"] = parse_priority(data.get("priority", "medium"))
+    if "priority" in data:
+        updates["priority"] = parse_priority(data.get("priority", "medium"))
 
-        if "done" in data:
-                if not isinstance(data["done"], bool):
-                        return jsonify({"error": "done must be boolean"}), 400
-                updates["done"] = data["done"]
+    if "done" in data:
+        if not isinstance(data["done"], bool):
+            return jsonify({"error": "done must be boolean"}), 400
+        updates["done"] = data["done"]
 
-        if "due_date" in data:
-                due_date = data["due_date"]
-                updates["due_date"] = (str(due_date).strip() or None) if due_date is not None else None
+    if "due_date" in data:
+        due_date = data["due_date"]
+        updates["due_date"] = _parse_date(str(due_date).strip()) if due_date is not None else None
 
         if not updates:
                 return jsonify({"error": "no valid fields to update"}), 400
 
-        updated = {}
+    updated = {}
 
-        def _api_edit(todos):
-                for t in todos:
-                        if t["id"] == todo_id:
-                                t.update(updates)
-                                updated.update(t)
-                                return
+    def _api_edit(todos):
+        for t in todos:
+            if t["id"] == todo_id:
+                t.update(updates)
+                updated.update(t)
+                return
 
-        mutate_todos_list(_api_edit)
-        if not updated:
-                return jsonify({"error": "not found"}), 404
-        return jsonify(updated), 200
+    mutate_todos_list(_api_edit)
+    if not updated:
+        return jsonify({"error": "not found"}), 404
+    return jsonify(updated), 200
 
 
 @app.route("/api/todos/<int:todo_id>", methods=["DELETE"])
@@ -311,37 +344,37 @@ def api_delete(todo_id):
 @app.route("/api/todos/<int:todo_id>/done", methods=["POST"])
 @require_token
 def api_mark_done(todo_id):
-        """POST /api/todos/<todo_id>/done — Bearer auth required; mark todo as done, return updated todo, or 404 if ID not found.
-        ---
-        tags: [Todos]
-        security:
-            - Bearer: []
-        parameters:
-            - in: path
-                name: todo_id
-                type: integer
-                required: true
-        responses:
-            200:
-                description: Todo marked as done
-            401:
-                description: unauthorized
-            404:
-                description: not found
-        """
-        updated = {}
+    """POST /api/todos/<todo_id>/done — Bearer auth required; mark todo as done, return updated todo, or 404 if ID not found.
+    ---
+    tags: [Todos]
+    security:
+      - Bearer: []
+    parameters:
+      - in: path
+        name: todo_id
+        type: integer
+        required: true
+    responses:
+      200:
+        description: Todo marked as done
+      401:
+        description: unauthorized
+      404:
+        description: not found
+    """
+    updated = {}
 
-        def mark_done(todos):
-                for todo in todos:
-                        if todo["id"] == todo_id:
-                                todo["done"] = True
-                                updated.update(todo)
-                                return
+    def mark_done(todos):
+        for todo in todos:
+            if todo["id"] == todo_id:
+                todo["done"] = True
+                updated.update(todo)
+                return
 
-        mutate_todos_list(mark_done)
-        if not updated:
-                return jsonify({"error": "not found"}), 404
-        return jsonify(updated), 200
+    mutate_todos_list(mark_done)
+    if not updated:
+        return jsonify({"error": "not found"}), 404
+    return jsonify(updated), 200
 
 
 @app.route("/calculator", methods=["GET", "POST"])
@@ -359,4 +392,4 @@ def calculator():
 
 if __name__ == "__main__":
     debug = os.environ.get("FLASK_DEBUG", "0") == "1"
-    app.run(debug=debug)
+    app.run(debug=debug, host="127.0.0.1")

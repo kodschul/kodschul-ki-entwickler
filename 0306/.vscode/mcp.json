@@ -1,0 +1,9 @@
+{
+	"servers": {
+		"mcp_trivago_search": {
+			"type": "http",
+			"url": "https://mcp.trivago.com/mcp"
+		}
+	},
+	"inputs": []
+}
