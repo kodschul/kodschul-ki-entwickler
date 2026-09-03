@@ -1,4 +1,4 @@
-# 02 – Chat & Kontext-Variablen
+# 03 – Chat & Kontext-Variablen
 
 **Block:** 90 min | **Tag 1**
 

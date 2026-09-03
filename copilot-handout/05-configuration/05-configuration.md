@@ -1,4 +1,4 @@
-# 04 – Konfiguration
+# 05 – Konfiguration
 
 **Block:** 60 min | **Tag 1**
 

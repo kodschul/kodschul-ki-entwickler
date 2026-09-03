@@ -1,4 +1,4 @@
-# 01 – Inline Completions
+# 02 – Inline Completions
 
 **Block:** 90 min | **Tag 1**
 
