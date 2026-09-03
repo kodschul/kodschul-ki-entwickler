@@ -1,4 +1,4 @@
-# 10 – Copilot CLI – vollständige Referenz
+# 11 – Copilot CLI – vollständige Referenz
 
 **Block:** 90 min | **Tag 3**
 

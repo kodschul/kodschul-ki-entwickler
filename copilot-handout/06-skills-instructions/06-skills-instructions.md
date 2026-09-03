@@ -1,4 +1,4 @@
-# 05 – Skills & .instructions.md
+# 11 – Skills & .instructions.md
 
 **Block:** 90 min | **Tag 2**
 
@@ -16,7 +16,7 @@ Copilot antwortet
   → antwortet mit vollem Kontext
 ```
 
-> Skills in Claude Code heißen hier **Instructions** – selbes Konzept, anderer Name.
+> Instructions sind **nicht** dasselbe wie Skills. GitHub Copilot kennt inzwischen beide Konzepte parallel: `.instructions.md` für Regeln, **Agent Skills** (`SKILL.md`) für ganze Fähigkeitspakete – siehe eigener Abschnitt weiter unten.
 
 **Analogie:** Instructions sind wie ein Briefing, das jeder neue Mitarbeiter bekommt, bevor er eine Aufgabe beginnt.
 
@@ -198,5 +198,32 @@ copilot-instructions.md         → Projektkontext (immer)
 | --------------------------------- | --------------------------------- |
 | Dauerhaftes Verhalten             | Einmaliger Workflow               |
 | "Mach immer X"                    | "Führe jetzt Schritt A, B, C aus" |
+
+---
+
+## Agent Skills (`SKILL.md`) – eigenständiges Konzept
+
+Instructions sind schlanke **Regeln**. Ein **Agent Skill** ist ein ganzes **Fähigkeitspaket**: eine `SKILL.md` mit Beschreibung, wann sie greift, plus optional beigelegte Referenzdateien, Scripts oder Beispiele – Copilot lädt sie nur bei Bedarf nach (Progressive Disclosure), statt sie dauerhaft in den Kontext zu packen.
+
+**Datei:** `.github/skills/<name>/SKILL.md`
+
+```yaml
+---
+name: pdf-report-generator
+description: "Erzeuge PDF-Reports aus Rohdaten. Nutzen, wenn nach 'Report' oder 'PDF' gefragt wird."
+---
+
+# PDF Report Generator
+
+1. Rohdaten aus `data/*.csv` einlesen
+2. Mit der beigelegten `template.html` rendern
+3. Mit dem beigelegten Script `render.py` nach PDF konvertieren
+```
+
+| Aspekt          | `.instructions.md`               | `SKILL.md` (Agent Skill)                    |
+| --------------- | --------------------------------- | -------------------------------------------- |
+| Inhalt          | Kurze Verhaltensregeln            | Ganzer Workflow inkl. Dateien/Scripts         |
+| Ladeverhalten   | Immer bei `applyTo`-Match geladen | Nur bei Bedarf nachgeladen (Token-schonend)   |
+| Typischer Zweck | "Schreibe Code so"                | "Führe diese komplexe Aufgabe so aus"         |
 | Stil, Konventionen, Verbote       | Reviews, Features, Analyse        |
 | Passiv (automatisch aktiviert)    | Aktiv (muss aufgerufen werden)    |
