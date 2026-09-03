@@ -10,14 +10,14 @@ Erkenntnisse aus einer Session (z. B. "diese Lösung hat beim letzten Mal nicht 
 
 ## Wo Wissen persistiert werden kann
 
-| Ort                              | Für welche Art von Wissen                                                     |
-| ------------------------------------ | ---------------------------------------------------------------------------------- |
-| `CLAUDE.md` (Root)                    | Projektweite, dauerhaft gültige Konventionen (Modul 03/05)                          |
-| `CLAUDE.md` (verschachtelt)           | Konventionen für bestimmte Ordner/Bereiche (Modul 06)                              |
-| `SKILL.md`                            | Wiederverwendbare Fähigkeiten/Workflows inkl. Beispielen (Modul 06)                 |
-| `.claude/commands/`, `.claude/agents/` | Wiederkehrende Aufgabenstellungen, damit sie nicht jedes Mal neu formuliert werden (Modul 07, 08) |
-| ADRs / Projekt-Doku                  | Architektur-Entscheidungen, die über reinen Code-Stil hinausgehen                   |
-| Session-Resume (`--resume`/`--continue`) | Fortsetzung einer konkreten, noch offenen Aufgabe (Modul 11)                       |
+| Ort                                      | Für welche Art von Wissen                                                                         |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `CLAUDE.md` (Root)                       | Projektweite, dauerhaft gültige Konventionen (Modul 03/05)                                        |
+| `CLAUDE.md` (verschachtelt)              | Konventionen für bestimmte Ordner/Bereiche (Modul 06)                                             |
+| `SKILL.md`                               | Wiederverwendbare Fähigkeiten/Workflows inkl. Beispielen (Modul 06)                               |
+| `.claude/commands/`, `.claude/agents/`   | Wiederkehrende Aufgabenstellungen, damit sie nicht jedes Mal neu formuliert werden (Modul 07, 08) |
+| ADRs / Projekt-Doku                      | Architektur-Entscheidungen, die über reinen Code-Stil hinausgehen                                 |
+| Session-Resume (`--resume`/`--continue`) | Fortsetzung einer konkreten, noch offenen Aufgabe (Modul 11)                                      |
 
 ## Faustregel: Wann lohnt sich Persistieren?
 

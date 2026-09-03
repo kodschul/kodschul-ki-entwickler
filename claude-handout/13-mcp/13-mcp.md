@@ -20,12 +20,12 @@ Claude Code startet
 
 ## Warum / Wann nicht?
 
-| Warum nutzen                     | Wann nicht                                         |
-| ------------------------------------ | ----------------------------------------------------- |
-| Browser-Automation (Playwright)       | Server nicht vertrauenswürdig → Sicherheitsrisiko      |
-| Externe Datenquellen anbinden         | Latenz kritisch → stdio-Server bevorzugen              |
-| Eigene Firma-Tools in Claude          | Nur ein Tool nötig → Bash reicht oft                   |
-| Parallelisierte Sub-Aufgaben          | MCP-Server nicht stabil → bremst Claude                |
+| Warum nutzen                    | Wann nicht                                        |
+| ------------------------------- | ------------------------------------------------- |
+| Browser-Automation (Playwright) | Server nicht vertrauenswürdig → Sicherheitsrisiko |
+| Externe Datenquellen anbinden   | Latenz kritisch → stdio-Server bevorzugen         |
+| Eigene Firma-Tools in Claude    | Nur ein Tool nötig → Bash reicht oft              |
+| Parallelisierte Sub-Aufgaben    | MCP-Server nicht stabil → bremst Claude           |
 
 ---
 

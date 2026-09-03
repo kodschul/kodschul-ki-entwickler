@@ -39,13 +39,13 @@ Beim ersten Start: Login über den Browser (Anthropic-Account oder API-Key), dan
 
 ## Wichtige Tastenkürzel & Verhalten
 
-| Aktion                       | Wie                                          |
-| ------------------------------ | ----------------------------------------------- |
-| Mehrzeiliger Prompt             | `\` am Zeilenende oder Shift+Enter (client-abhängig) |
-| Letzten Prompt wiederholen/bearbeiten | Pfeiltaste hoch                          |
-| Aktuelle Aktion abbrechen        | `ESC`                                          |
-| Bild einfügen (Screenshot)       | Einfügen per Zwischenablage (in unterstützten Terminals) |
-| Datei-/Ordner-Zugriff erweitern  | `/add-dir <pfad>`                              |
+| Aktion                                | Wie                                                      |
+| ------------------------------------- | -------------------------------------------------------- |
+| Mehrzeiliger Prompt                   | `\` am Zeilenende oder Shift+Enter (client-abhängig)     |
+| Letzten Prompt wiederholen/bearbeiten | Pfeiltaste hoch                                          |
+| Aktuelle Aktion abbrechen             | `ESC`                                                    |
+| Bild einfügen (Screenshot)            | Einfügen per Zwischenablage (in unterstützten Terminals) |
+| Datei-/Ordner-Zugriff erweitern       | `/add-dir <pfad>`                                        |
 
 ---
 

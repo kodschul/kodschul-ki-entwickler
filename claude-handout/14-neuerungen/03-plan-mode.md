@@ -22,8 +22,8 @@ Normal Mode: Plan bestätigt → Claude implementiert, testet, ändert Dateien
 
 ## Abgrenzung zu Spec-Kit
 
-| Plan Mode                            | Spec-Kit (`/spec plan`, Modul 12)     |
-| ----------------------------------------- | ------------------------------------------ |
-| Informeller, schneller Plan-Schritt          | Formale `SPEC.md` mit Checkboxen             |
-| Gut für spontane, mittelgroße Aufgaben        | Gut für Team-Workflows, nachvollziehbare Historie |
-| Kein persistentes Artefakt im Repo            | Persistente Spec-Datei im Repo                |
+| Plan Mode                              | Spec-Kit (`/spec plan`, Modul 12)                 |
+| -------------------------------------- | ------------------------------------------------- |
+| Informeller, schneller Plan-Schritt    | Formale `SPEC.md` mit Checkboxen                  |
+| Gut für spontane, mittelgroße Aufgaben | Gut für Team-Workflows, nachvollziehbare Historie |
+| Kein persistentes Artefakt im Repo     | Persistente Spec-Datei im Repo                    |

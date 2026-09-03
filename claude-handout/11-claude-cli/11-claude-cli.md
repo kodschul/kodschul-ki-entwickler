@@ -57,14 +57,14 @@ echo "Review gespeichert: review-output.json"
 
 ## Wichtige Flags im Überblick
 
-| Flag                     | Zweck                                                  |
-| --------------------------- | --------------------------------------------------------- |
-| `--print` / `-p`              | Headless: nur Antwort ausgeben, kein interaktives UI       |
-| `--output-format`             | `text` (Standard), `json`, `stream-json`                   |
-| `--model`                     | Modell für diesen Aufruf überschreiben                     |
-| `--add-dir`                   | Zusätzliches Verzeichnis freigeben (wie `/add-dir`)         |
-| `--resume` / `--continue`     | Frühere Session fortsetzen                                 |
-| `--sandbox`                   | Claude darf nichts ausführen außer explizit Erlaubtem       |
+| Flag                      | Zweck                                                 |
+| ------------------------- | ----------------------------------------------------- |
+| `--print` / `-p`          | Headless: nur Antwort ausgeben, kein interaktives UI  |
+| `--output-format`         | `text` (Standard), `json`, `stream-json`              |
+| `--model`                 | Modell für diesen Aufruf überschreiben                |
+| `--add-dir`               | Zusätzliches Verzeichnis freigeben (wie `/add-dir`)   |
+| `--resume` / `--continue` | Frühere Session fortsetzen                            |
+| `--sandbox`               | Claude darf nichts ausführen außer explizit Erlaubtem |
 
 ---
 

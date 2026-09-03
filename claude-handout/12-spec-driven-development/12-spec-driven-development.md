@@ -22,12 +22,12 @@ Spec schreiben (specs/feature.md)
 
 ## Warum / Wann nicht?
 
-| Warum nutzen                       | Wann nicht                                    |
-| -------------------------------------- | ---------------------------------------------- |
-| Klare Erwartungen vor dem Code           | Kleines 2-Zeilen-Fix → direkt umsetzen         |
-| Reproduzierbar im Team                   | Explorativer Prototyp → Spec käme zu früh      |
-| Testkriterien bereits in der Spec        | Wegwerfcode / Experiment                        |
-| Nachvollziehbar: Spec im Repo             | Feature ändert sich noch stark                  |
+| Warum nutzen                      | Wann nicht                                |
+| --------------------------------- | ----------------------------------------- |
+| Klare Erwartungen vor dem Code    | Kleines 2-Zeilen-Fix → direkt umsetzen    |
+| Reproduzierbar im Team            | Explorativer Prototyp → Spec käme zu früh |
+| Testkriterien bereits in der Spec | Wegwerfcode / Experiment                  |
+| Nachvollziehbar: Spec im Repo     | Feature ändert sich noch stark            |
 
 ---
 
@@ -55,9 +55,9 @@ Als [Nutzertyp] möchte ich [Funktion], damit [Nutzen].
 ## API / Routen
 
 | Route  | Methode | Änderung                             |
-| -------- | --------- | --------------------------------------- |
-| `/add`     | POST      | Neues Feld `due_date` entgegennehmen     |
-| `/`        | GET       | `due_date` im Template rendern            |
+| ------ | ------- | ------------------------------------ |
+| `/add` | POST    | Neues Feld `due_date` entgegennehmen |
+| `/`    | GET     | `due_date` im Template rendern       |
 
 ## Akzeptanzkriterien
 

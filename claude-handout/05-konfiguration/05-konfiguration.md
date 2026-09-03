@@ -6,12 +6,12 @@
 
 ## Überblick: Welche Datei macht was?
 
-| Datei                        | Wo               | Zweck                                          |
-| ------------------------------ | ------------------ | ------------------------------------------------- |
-| `CLAUDE.md`                     | Projektroot        | Kontext & Regeln für Claude in diesem Projekt (Modul 03) |
-| `.claude/settings.local.json`   | Projekt, `.claude/` | Projektspezifische Berechtigungen & Hooks (nicht eingecheckt) |
-| `.claude/settings.json`         | Projekt, `.claude/` | Team-weite, eingecheckte Projekt-Konfiguration     |
-| `~/.claude/settings.json`       | Home-Verzeichnis   | Globale Konfiguration für alle Projekte            |
+| Datei                         | Wo                  | Zweck                                                         |
+| ----------------------------- | ------------------- | ------------------------------------------------------------- |
+| `CLAUDE.md`                   | Projektroot         | Kontext & Regeln für Claude in diesem Projekt (Modul 03)      |
+| `.claude/settings.local.json` | Projekt, `.claude/` | Projektspezifische Berechtigungen & Hooks (nicht eingecheckt) |
+| `.claude/settings.json`       | Projekt, `.claude/` | Team-weite, eingecheckte Projekt-Konfiguration                |
+| `~/.claude/settings.json`     | Home-Verzeichnis    | Globale Konfiguration für alle Projekte                       |
 
 **Hierarchie:** Globale Settings (`~/.claude/`) werden von projektweiten (`.claude/settings.json`) überschrieben, diese wiederum von lokalen (`.claude/settings.local.json`).
 
@@ -49,12 +49,12 @@
 }
 ```
 
-| Feld                | Bedeutung                                                      |
-| --------------------- | ------------------------------------------------------------------ |
-| `model`                | Standardmodell für diese Konfigurationsebene                       |
-| `permissions.allow`    | Bash-Befehle/Tools, die ohne Rückfrage ausgeführt werden dürfen     |
-| `permissions.deny`     | Komplett gesperrte Befehle – **wichtigste Sicherheitsleitplanke**   |
-| `mcpServers`           | Angebundene MCP-Server (Modul 13)                                   |
+| Feld                | Bedeutung                                                         |
+| ------------------- | ----------------------------------------------------------------- |
+| `model`             | Standardmodell für diese Konfigurationsebene                      |
+| `permissions.allow` | Bash-Befehle/Tools, die ohne Rückfrage ausgeführt werden dürfen   |
+| `permissions.deny`  | Komplett gesperrte Befehle – **wichtigste Sicherheitsleitplanke** |
+| `mcpServers`        | Angebundene MCP-Server (Modul 13)                                 |
 
 > **Least Privilege:** Lieber gezielt einzelne Befehle erlauben (`Bash(python -m pytest *)`) als pauschal alles (`autoApprove`) – gerade weil Claude Code eigenständig Befehle ausführen kann.
 
@@ -62,11 +62,11 @@
 
 ## Warum / Wann nicht?
 
-| Warum nutzen                             | Wann nicht                                            |
-| ------------------------------------------- | --------------------------------------------------------- |
-| Immer gleiche Berechtigungen im Team         | Sehr kleines Experiment/Wegwerf-Skript                    |
-| Gefährliche Befehle technisch sperren        | -                                                          |
-| Team-weite Defaults über Git teilen          | Persönliche Präferenzen gehören in `settings.local.json`, nicht ins Team-File |
+| Warum nutzen                          | Wann nicht                                                                    |
+| ------------------------------------- | ----------------------------------------------------------------------------- |
+| Immer gleiche Berechtigungen im Team  | Sehr kleines Experiment/Wegwerf-Skript                                        |
+| Gefährliche Befehle technisch sperren | -                                                                             |
+| Team-weite Defaults über Git teilen   | Persönliche Präferenzen gehören in `settings.local.json`, nicht ins Team-File |
 
 ---
 

@@ -12,12 +12,12 @@ Die **EU AI Act** (Verordnung (EU) 2024/1689) ist der EU-weite Rechtsrahmen für
 
 ## Risikobasierter Ansatz
 
-| Risikostufe          | Beispiel                                    | Konsequenz                                     |
-| ------------------------ | ------------------------------------------------ | ----------------------------------------------------- |
-| Unannehmbares Risiko      | Social Scoring, bestimmte biometrische Überwachung | Verboten                                              |
-| Hochrisiko                | KI in kritischer Infrastruktur, Personalauswahl    | Strenge Auflagen (Dokumentation, Risikomanagement)     |
-| Begrenztes Risiko         | Chatbots, generative KI-Tools                     | Transparenzpflichten (z. B. Kennzeichnung von KI-Interaktion) |
-| Minimales Risiko          | Spamfilter, viele Alltagsanwendungen              | Keine besonderen Pflichten                              |
+| Risikostufe          | Beispiel                                           | Konsequenz                                                    |
+| -------------------- | -------------------------------------------------- | ------------------------------------------------------------- |
+| Unannehmbares Risiko | Social Scoring, bestimmte biometrische Überwachung | Verboten                                                      |
+| Hochrisiko           | KI in kritischer Infrastruktur, Personalauswahl    | Strenge Auflagen (Dokumentation, Risikomanagement)            |
+| Begrenztes Risiko    | Chatbots, generative KI-Tools                      | Transparenzpflichten (z. B. Kennzeichnung von KI-Interaktion) |
+| Minimales Risiko     | Spamfilter, viele Alltagsanwendungen               | Keine besonderen Pflichten                                    |
 
 **Claude Code** fällt für die meisten Teams unter "begrenztes Risiko" (KI-gestütztes Entwicklerwerkzeug) – relevant sind vor allem Transparenz- und Sorgfaltspflichten, nicht die strengen Hochrisiko-Auflagen.
 

@@ -26,8 +26,8 @@
 
 ## Zusammenspiel mit späteren Modulen
 
-| Thema hier                        | Vertiefung in Modul                     |
-| ----------------------------------- | ------------------------------------------ |
-| Konventionen durchsetzen             | 05/06 – Konfiguration, `CLAUDE.md`, Skills |
-| Spec vor Code                        | 12 – Spec-Driven Development               |
-| Architektur-Kontext bereitstellen    | 05 – Konfiguration                         |
+| Thema hier                        | Vertiefung in Modul                        |
+| --------------------------------- | ------------------------------------------ |
+| Konventionen durchsetzen          | 05/06 – Konfiguration, `CLAUDE.md`, Skills |
+| Spec vor Code                     | 12 – Spec-Driven Development               |
+| Architektur-Kontext bereitstellen | 05 – Konfiguration                         |

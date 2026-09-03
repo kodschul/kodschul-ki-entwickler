@@ -19,14 +19,14 @@ Start
 
 ## Automatischer vs. manueller Kontext
 
-| Mechanismus            | Wie                                                          |
-| ------------------------ | --------------------------------------------------------------- |
-| Automatisch               | `CLAUDE.md` im Projektroot wird bei jedem Start gelesen           |
-| Aktiv durch Claude         | `Read`, `Glob`, `Grep` – Claude durchsucht die Codebase selbst    |
-| Manuell (Pfad nennen)      | Dateipfad im Prompt nennen: "Lies `app.py` und erkläre die Routen" |
-| Verzeichnis erweitern      | `/add-dir <pfad>` – zusätzliche Ordner außerhalb des Projekts freigeben |
-| Bild/Screenshot            | In der Zwischenablage einfügen (unterstützte Terminals)          |
-| Extern                     | MCP-Server (Modul 13) – Live-Daten von außen                      |
+| Mechanismus           | Wie                                                                     |
+| --------------------- | ----------------------------------------------------------------------- |
+| Automatisch           | `CLAUDE.md` im Projektroot wird bei jedem Start gelesen                 |
+| Aktiv durch Claude    | `Read`, `Glob`, `Grep` – Claude durchsucht die Codebase selbst          |
+| Manuell (Pfad nennen) | Dateipfad im Prompt nennen: "Lies `app.py` und erkläre die Routen"      |
+| Verzeichnis erweitern | `/add-dir <pfad>` – zusätzliche Ordner außerhalb des Projekts freigeben |
+| Bild/Screenshot       | In der Zwischenablage einfügen (unterstützte Terminals)                 |
+| Extern                | MCP-Server (Modul 13) – Live-Daten von außen                            |
 
 ---
 
@@ -67,11 +67,11 @@ Request → app.py (Flask) → todos.json → Jinja2-Template → Browser
 
 ## Warum / Wann nicht?
 
-| Warum nutzen                       | Wann nicht                                       |
-| ------------------------------------ | ---------------------------------------------------- |
-| Gleicher Kontext bei jedem Start      | Einmaliger Prompt → direkt tippen                    |
-| Teamkontext via Git teilbar           | Sensible Daten → niemals in `CLAUDE.md`, immer `.env` |
-| Claude muss nicht bei jeder Session neu erklärt werden | Sehr kleines Skript ohne Struktur → Overhead |
+| Warum nutzen                                           | Wann nicht                                            |
+| ------------------------------------------------------ | ----------------------------------------------------- |
+| Gleicher Kontext bei jedem Start                       | Einmaliger Prompt → direkt tippen                     |
+| Teamkontext via Git teilbar                            | Sensible Daten → niemals in `CLAUDE.md`, immer `.env` |
+| Claude muss nicht bei jeder Session neu erklärt werden | Sehr kleines Skript ohne Struktur → Overhead          |
 
 ---
 

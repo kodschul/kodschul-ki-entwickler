@@ -10,13 +10,13 @@ Wenn jede:r im Team Claude Code anders konfiguriert (eigene `CLAUDE.md`, eigene 
 
 ## Prinzipien für Teams
 
-| Prinzip                                    | Umsetzung                                                                     |
-| ---------------------------------------------- | ---------------------------------------------------------------------------------- |
-| Konventionen liegen im Repo, nicht im Kopf       | `CLAUDE.md`, `.claude/skills/`, `.claude/settings.json` einchecken (Modul 03, 05, 06) |
-| Ein gemeinsames Vokabular für Commands/Agents    | Wiederkehrende Aufgaben als geteilte `.claude/commands/`/`.claude/agents/` ablegen (Modul 07, 08) |
-| Review-Verantwortung bleibt beim Menschen         | Agenten/Automation ergänzen, ersetzen aber nicht den fachlichen Review              |
+| Prinzip                                                 | Umsetzung                                                                                                          |
+| ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Konventionen liegen im Repo, nicht im Kopf              | `CLAUDE.md`, `.claude/skills/`, `.claude/settings.json` einchecken (Modul 03, 05, 06)                              |
+| Ein gemeinsames Vokabular für Commands/Agents           | Wiederkehrende Aufgaben als geteilte `.claude/commands/`/`.claude/agents/` ablegen (Modul 07, 08)                  |
+| Review-Verantwortung bleibt beim Menschen               | Agenten/Automation ergänzen, ersetzen aber nicht den fachlichen Review                                             |
 | Wissen aus Sessions sichern, nicht nur im Kopf behalten | Ergebnisse/Entscheidungen in `CLAUDE.md`, Skills oder Doku überführen (siehe Best Practices – Wissen persistieren) |
-| Onboarding beschleunigen                          | Neue Teammitglieder starten mit `/init` bzw. lesen zuerst die bestehende `CLAUDE.md` |
+| Onboarding beschleunigen                                | Neue Teammitglieder starten mit `/init` bzw. lesen zuerst die bestehende `CLAUDE.md`                               |
 
 ## Typische Stolperfallen
 

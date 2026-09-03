@@ -42,7 +42,7 @@ Tag 4  Advanced           Token-Management, CLI vollständig, Spec-Driven Dev, M
 **3 Fragen – jeder beantwortet kurz:**
 
 | Frage                     |                           |
-| --------------------------- | --------------------------- |
-| Was nehme ich mit?           | Konkretes Tool / Workflow    |
-| Was war zu komplex?          | Offen ansprechen             |
-| Was setze ich morgen ein?    | Realer Use Case              |
+| ------------------------- | ------------------------- |
+| Was nehme ich mit?        | Konkretes Tool / Workflow |
+| Was war zu komplex?       | Offen ansprechen          |
+| Was setze ich morgen ein? | Realer Use Case           |

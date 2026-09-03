@@ -12,12 +12,12 @@ Bevor es an die konkreten Claude-Code-Features geht, brauchen wir ein gemeinsame
 
 ## Die vier Integrationsarten
 
-| Art                           | Beispiel                          | Charakteristik                                          |
-| ----------------------------- | ---------------------------------- | -------------------------------------------------------- |
-| **Autocomplete / Ghost Text** | IDE-Erweiterungen (z. B. Copilot)  | Reaktiv, kein Dialog, greift lokalen Kontext auf         |
-| **Chat-Assistent**            | Claude.ai, Claude Code im "Ask"-Stil | Dialogbasiert, beantwortet, ändert nichts selbst        |
-| **Agentisch (im Terminal)**   | **Claude Code (interaktiver Modus)** | Plant, nutzt Tools, editiert Dateien autonom in Loop    |
-| **Agentisch (headless/cloud)**| Claude Code `--print`/CI, Claude Agent SDK | Läuft losgelöst vom Terminal, arbeitet Aufgaben zu Ergebnis ab |
+| Art                            | Beispiel                                   | Charakteristik                                                 |
+| ------------------------------ | ------------------------------------------ | -------------------------------------------------------------- |
+| **Autocomplete / Ghost Text**  | IDE-Erweiterungen (z. B. Copilot)          | Reaktiv, kein Dialog, greift lokalen Kontext auf               |
+| **Chat-Assistent**             | Claude.ai, Claude Code im "Ask"-Stil       | Dialogbasiert, beantwortet, ändert nichts selbst               |
+| **Agentisch (im Terminal)**    | **Claude Code (interaktiver Modus)**       | Plant, nutzt Tools, editiert Dateien autonom in Loop           |
+| **Agentisch (headless/cloud)** | Claude Code `--print`/CI, Claude Agent SDK | Läuft losgelöst vom Terminal, arbeitet Aufgaben zu Ergebnis ab |
 
 ```
 Autocomplete  →  Chat  →  Agent (Terminal)  →  Agent (headless/CI)
@@ -40,12 +40,12 @@ Autocomplete  →  Chat  →  Agent (Terminal)  →  Agent (headless/CI)
 
 Claude Code ist **primär ein Terminal-Tool**, kein Autocomplete-Plugin. Es gibt keinen Ghost-Text wie bei Inline-Completions – stattdessen arbeitet Claude Code direkt agentisch: Es liest Dateien, plant Schritte, führt Befehle aus und schreibt Code, während du zusiehst und eingreifen kannst.
 
-| Tool                          | Haupt-Integrationsart          |
-| ----------------------------- | ------------------------------- |
-| **Claude Code (CLI)**          | Agent (Terminal) + headless/CI  |
-| Claude Code IDE-Erweiterung    | Agent, eingebettet in VS Code/JetBrains |
-| GitHub Copilot (Inline)        | Autocomplete                    |
-| Claude.ai / ChatGPT (Web)       | Chat (kein Datei-Zugriff)       |
+| Tool                        | Haupt-Integrationsart                   |
+| --------------------------- | --------------------------------------- |
+| **Claude Code (CLI)**       | Agent (Terminal) + headless/CI          |
+| Claude Code IDE-Erweiterung | Agent, eingebettet in VS Code/JetBrains |
+| GitHub Copilot (Inline)     | Autocomplete                            |
+| Claude.ai / ChatGPT (Web)   | Chat (kein Datei-Zugriff)               |
 
 ---
 

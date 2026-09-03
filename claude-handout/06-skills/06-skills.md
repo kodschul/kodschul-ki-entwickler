@@ -6,10 +6,10 @@
 
 ## Zwei Wege, Claude Wissen mitzugeben
 
-| Mechanismus                | Für was                                                      |
-| ----------------------------- | ----------------------------------------------------------------- |
-| **`CLAUDE.md` (verschachtelt)** | Kontext/Regeln, die **immer** gelten – ggf. nur für einen Unterordner |
-| **`SKILL.md`**                 | Eine **Fähigkeit für eine bestimmte Aufgabe**, die situativ aktiviert wird |
+| Mechanismus                     | Für was                                                                    |
+| ------------------------------- | -------------------------------------------------------------------------- |
+| **`CLAUDE.md` (verschachtelt)** | Kontext/Regeln, die **immer** gelten – ggf. nur für einen Unterordner      |
+| **`SKILL.md`**                  | Eine **Fähigkeit für eine bestimmte Aufgabe**, die situativ aktiviert wird |
 
 ---
 
@@ -79,20 +79,20 @@ description: Use when designing a new API for the app
 
 ## Warum / Wann nicht?
 
-| Warum nutzen                                   | Wann nicht                                        |
-| -------------------------------------------------- | ------------------------------------------------------ |
-| Wiederkehrende Aufgabe soll immer gleich ablaufen    | Einmalige Aufgabe → direkt beschreiben                 |
-| Unterordner braucht eigene Konventionen              | Ganzes Projekt hat einheitliche Regeln → reicht Root-`CLAUDE.md` |
-| Team-Wissen versionierbar im Repo ablegen            | Sensible Daten → gehören nie in Skills/CLAUDE.md        |
-| Zu viele/lange Instructions im Root                  | Zu viele Skills (>10) → Claude wird ungenau, Auswahl wird unklar |
+| Warum nutzen                                      | Wann nicht                                                       |
+| ------------------------------------------------- | ---------------------------------------------------------------- |
+| Wiederkehrende Aufgabe soll immer gleich ablaufen | Einmalige Aufgabe → direkt beschreiben                           |
+| Unterordner braucht eigene Konventionen           | Ganzes Projekt hat einheitliche Regeln → reicht Root-`CLAUDE.md` |
+| Team-Wissen versionierbar im Repo ablegen         | Sensible Daten → gehören nie in Skills/CLAUDE.md                 |
+| Zu viele/lange Instructions im Root               | Zu viele Skills (>10) → Claude wird ungenau, Auswahl wird unklar |
 
 ---
 
 ## Vergleich: CLAUDE.md vs. SKILL.md
 
-|                     | `CLAUDE.md`                        | `SKILL.md`                              |
-| --------------------- | ------------------------------------- | ------------------------------------------ |
-| **Aktivierung**        | Immer (root) bzw. bei Arbeit im Ordner | Situativ, wenn `description` passt         |
-| **Inhalt**             | Projekt-/Bereichskontext, Regeln       | Konkreter Workflow für eine Aufgabenart     |
-| **Umfang**             | Kurz, grundsätzlich                    | Kann detaillierter/länger sein              |
-| **Ort**                | Projektroot + Unterordner              | `.claude/skills/<name>/SKILL.md`            |
+|                 | `CLAUDE.md`                            | `SKILL.md`                              |
+| --------------- | -------------------------------------- | --------------------------------------- |
+| **Aktivierung** | Immer (root) bzw. bei Arbeit im Ordner | Situativ, wenn `description` passt      |
+| **Inhalt**      | Projekt-/Bereichskontext, Regeln       | Konkreter Workflow für eine Aufgabenart |
+| **Umfang**      | Kurz, grundsätzlich                    | Kann detaillierter/länger sein          |
+| **Ort**         | Projektroot + Unterordner              | `.claude/skills/<name>/SKILL.md`        |

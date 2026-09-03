@@ -34,23 +34,23 @@
 ## Themenübersicht (alle 4 Tage)
 
 | #   | Thema                                       | Tag   | Dauer   |
-| --- | ---------------------------------------------- | ----- | ------- |
-| 01  | Grundlagen (6 Unterthemen, siehe unten)          | Tag 1 | 255 min |
-| 02  | Erste Schritte mit Claude Code                    | Tag 2 | 90 min  |
-| 03  | Kontext bereitstellen (CLAUDE.md)                 | Tag 2 | 90 min  |
-| 04  | Built-in Commands                                 | Tag 2 | 90 min  |
-| 05  | Konfiguration                                     | Tag 2 | 60 min  |
-| 06  | Skills & CLAUDE.md-Vertiefung                      | Tag 3 | 90 min  |
-| 07  | Custom Commands                                   | Tag 3 | 90 min  |
-| 08  | Custom Agents                                     | Tag 3 | 90 min  |
-| 09  | Hooks & Automation                                | Tag 3 | 60 min  |
-| 10  | Token-Management                                  | Tag 4 | 60 min  |
-| 11  | Claude Code CLI – vollständig                      | Tag 4 | 90 min  |
-| 12  | Spec-Driven Development                           | Tag 4 | 90 min  |
-| 13  | MCP – Model Context Protocol                      | Tag 4 | 60 min  |
-| 14  | Neuerungen                                        | Tag 4 | 60 min  |
-| 15  | Best Practices (7 Unterthemen, siehe unten)        | Tag 4 | 200 min |
-| 16  | Outro                                             | Tag 4 | 30 min  |
+| --- | ------------------------------------------- | ----- | ------- |
+| 01  | Grundlagen (6 Unterthemen, siehe unten)     | Tag 1 | 255 min |
+| 02  | Erste Schritte mit Claude Code              | Tag 2 | 90 min  |
+| 03  | Kontext bereitstellen (CLAUDE.md)           | Tag 2 | 90 min  |
+| 04  | Built-in Commands                           | Tag 2 | 90 min  |
+| 05  | Konfiguration                               | Tag 2 | 60 min  |
+| 06  | Skills & CLAUDE.md-Vertiefung               | Tag 3 | 90 min  |
+| 07  | Custom Commands                             | Tag 3 | 90 min  |
+| 08  | Custom Agents                               | Tag 3 | 90 min  |
+| 09  | Hooks & Automation                          | Tag 3 | 60 min  |
+| 10  | Token-Management                            | Tag 4 | 60 min  |
+| 11  | Claude Code CLI – vollständig               | Tag 4 | 90 min  |
+| 12  | Spec-Driven Development                     | Tag 4 | 90 min  |
+| 13  | MCP – Model Context Protocol                | Tag 4 | 60 min  |
+| 14  | Neuerungen                                  | Tag 4 | 60 min  |
+| 15  | Best Practices (7 Unterthemen, siehe unten) | Tag 4 | 200 min |
+| 16  | Outro                                       | Tag 4 | 30 min  |
 
 ---
 

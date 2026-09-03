@@ -9,7 +9,10 @@
       {
         "matcher": "Write(app.py)",
         "hooks": [
-          { "type": "command", "command": "python -m pytest test_app.py -q --tb=line" }
+          {
+            "type": "command",
+            "command": "python -m pytest test_app.py -q --tb=line"
+          }
         ]
       }
     ]
@@ -26,7 +29,10 @@
       {
         "matcher": "Write(todos.json)",
         "hooks": [
-          { "type": "command", "command": "cp todos.json todos.backup.json 2>/dev/null || true" }
+          {
+            "type": "command",
+            "command": "cp todos.json todos.backup.json 2>/dev/null || true"
+          }
         ]
       }
     ]

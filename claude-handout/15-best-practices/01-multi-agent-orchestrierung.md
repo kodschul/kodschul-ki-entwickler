@@ -21,13 +21,13 @@ Die Hauptsession sieht nur die **Endergebnisse** der Subagenten, nicht deren kom
 
 ## Best Practices
 
-| Empfehlung                                              | Warum                                                             |
-| ----------------------------------------------------------- | --------------------------------------------------------------------- |
-| Aufgaben klar abgrenzen, bevor an einen Agent delegiert wird   | Vage Aufgaben führen zu vagen, schwer verwertbaren Ergebnissen          |
-| Read-only-Agenten für Recherche/Analyse nutzen (`tools: [Read]`) | Verhindert versehentliche Änderungen durch einen "nur lesenden" Schritt |
-| Ergebnisse von Agenten immer gegenlesen                        | Agenten können sich gegenseitig widersprechende Annahmen treffen        |
-| Nicht mehr Agenten parallel starten, als man reviewen kann      | Parallelität hilft nur, wenn die Ergebnisse auch geprüft werden          |
-| In `CLAUDE.md`/Agent-Definition explizit sagen, was NICHT delegiert werden soll | Verhindert unnötige Verzweigung bei trivialen Aufgaben |
+| Empfehlung                                                                      | Warum                                                                   |
+| ------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| Aufgaben klar abgrenzen, bevor an einen Agent delegiert wird                    | Vage Aufgaben führen zu vagen, schwer verwertbaren Ergebnissen          |
+| Read-only-Agenten für Recherche/Analyse nutzen (`tools: [Read]`)                | Verhindert versehentliche Änderungen durch einen "nur lesenden" Schritt |
+| Ergebnisse von Agenten immer gegenlesen                                         | Agenten können sich gegenseitig widersprechende Annahmen treffen        |
+| Nicht mehr Agenten parallel starten, als man reviewen kann                      | Parallelität hilft nur, wenn die Ergebnisse auch geprüft werden         |
+| In `CLAUDE.md`/Agent-Definition explizit sagen, was NICHT delegiert werden soll | Verhindert unnötige Verzweigung bei trivialen Aufgaben                  |
 
 ## Wann lohnt sich Multi-Agent-Orchestrierung?
 

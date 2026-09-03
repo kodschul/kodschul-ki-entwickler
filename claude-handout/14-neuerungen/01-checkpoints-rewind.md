@@ -25,8 +25,8 @@ Claude ändert templates/index.html (Schritt 2)
 
 ## Abgrenzung zu Git
 
-| Checkpoints (Claude Code)         | Git-Commits                          |
-| -------------------------------------- | ---------------------------------------- |
-| Automatisch während der Session          | Manuell/bewusst gesetzt                   |
-| Nur innerhalb der laufenden Session       | Dauerhaft, teambar über Remote            |
-| Für schnelles Undo einzelner Agent-Schritte | Für nachvollziehbare Projekt-Historie     |
+| Checkpoints (Claude Code)                   | Git-Commits                           |
+| ------------------------------------------- | ------------------------------------- |
+| Automatisch während der Session             | Manuell/bewusst gesetzt               |
+| Nur innerhalb der laufenden Session         | Dauerhaft, teambar über Remote        |
+| Für schnelles Undo einzelner Agent-Schritte | Für nachvollziehbare Projekt-Historie |

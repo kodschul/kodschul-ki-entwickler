@@ -42,12 +42,12 @@ Nutzer: /spec test
 
 ## Warum / Wann nicht?
 
-| Warum nutzen                              | Wann nicht                                     |
-| --------------------------------------------- | ------------------------------------------------- |
-| Reproduzierbarer Workflow im Team               | Schneller Bugfix → direkt tippen                  |
-| Claude bleibt im Scope                          | Explorativer Prototyp → Spec zu früh              |
-| Plan vor Code sichtbar + bestätigbar            | Feature ändert sich noch → Spec wird veraltet     |
-| Tests aus Akzeptanzkriterien generierbar        | Einmalige Migration / Skript                      |
+| Warum nutzen                             | Wann nicht                                    |
+| ---------------------------------------- | --------------------------------------------- |
+| Reproduzierbarer Workflow im Team        | Schneller Bugfix → direkt tippen              |
+| Claude bleibt im Scope                   | Explorativer Prototyp → Spec zu früh          |
+| Plan vor Code sichtbar + bestätigbar     | Feature ändert sich noch → Spec wird veraltet |
+| Tests aus Akzeptanzkriterien generierbar | Einmalige Migration / Skript                  |
 
 ---
 
@@ -121,12 +121,12 @@ Claude vergleicht Implementierung mit Spec und meldet Abweichungen.
 
 ## Spec-Kit vs. manuelle Spec
 
-|                    | Spec-Kit (`/spec`)                      | Manuelle Spec                 |
-| -------------------- | ------------------------------------------ | -------------------------------- |
-| **Erstellung**        | Claude analysiert Codebase selbst           | Du schreibst die Spec             |
-| **Kontrolle**         | Claude schlägt vor, du bestätigst           | Volle Kontrolle von Anfang an     |
-| **Fortschritt**       | Checkboxen in SPEC.md                       | Manuell nachverfolgen             |
-| **Empfohlen für**     | Unbekannte Codebase, schneller Einstieg     | Komplexe Features, Teamarbeit     |
+|                   | Spec-Kit (`/spec`)                      | Manuelle Spec                 |
+| ----------------- | --------------------------------------- | ----------------------------- |
+| **Erstellung**    | Claude analysiert Codebase selbst       | Du schreibst die Spec         |
+| **Kontrolle**     | Claude schlägt vor, du bestätigst       | Volle Kontrolle von Anfang an |
+| **Fortschritt**   | Checkboxen in SPEC.md                   | Manuell nachverfolgen         |
+| **Empfohlen für** | Unbekannte Codebase, schneller Einstieg | Komplexe Features, Teamarbeit |
 
 ---
 

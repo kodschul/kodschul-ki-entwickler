@@ -32,13 +32,13 @@ Text → Tokenisierung → Vektoren → Transformer-Schichten → Wahrscheinlich
 
 ## Wie bekomme ich meine Dateien "hinein"?
 
-| Mechanismus           | Wie                                                       |
-| ---------------------- | ---------------------------------------------------------- |
-| Automatischer Kontext   | `CLAUDE.md` wird bei jedem Start automatisch gelesen       |
-| Manuell                 | Datei-/Pfadangabe im Prompt, `@datei` in manchen Clients   |
-| Tool-basiert            | Claude nutzt `Read`/`Glob`/`Grep`, um sich Kontext selbst zu holen |
-| Persistent              | `CLAUDE.md`, `SKILL.md` – wird immer/bei Bedarf geladen    |
-| Extern                  | MCP-Server (Modul 13) – Live-Daten von außen               |
+| Mechanismus           | Wie                                                                |
+| --------------------- | ------------------------------------------------------------------ |
+| Automatischer Kontext | `CLAUDE.md` wird bei jedem Start automatisch gelesen               |
+| Manuell               | Datei-/Pfadangabe im Prompt, `@datei` in manchen Clients           |
+| Tool-basiert          | Claude nutzt `Read`/`Glob`/`Grep`, um sich Kontext selbst zu holen |
+| Persistent            | `CLAUDE.md`, `SKILL.md` – wird immer/bei Bedarf geladen            |
+| Extern                | MCP-Server (Modul 13) – Live-Daten von außen                       |
 
 ---
 
@@ -51,9 +51,9 @@ Text → Tokenisierung → Vektoren → Transformer-Schichten → Wahrscheinlich
 
 ## Überblick: KI-Assistenten für Softwareentwicklung
 
-| Kategorie                         | Beispiele                              |
-| ---------------------------------- | ---------------------------------------- |
-| Terminal-first / agentisch          | **Claude Code**, Copilot CLI, Aider     |
-| IDE-integriert                      | GitHub Copilot, Cursor, JetBrains AI     |
-| Cloud/autonom                       | GitHub Copilot Coding Agent, Claude Agent SDK in CI |
-| Allzweck-Chat (kein Repo-Zugriff)   | ChatGPT, Claude.ai, Gemini               |
+| Kategorie                         | Beispiele                                           |
+| --------------------------------- | --------------------------------------------------- |
+| Terminal-first / agentisch        | **Claude Code**, Copilot CLI, Aider                 |
+| IDE-integriert                    | GitHub Copilot, Cursor, JetBrains AI                |
+| Cloud/autonom                     | GitHub Copilot Coding Agent, Claude Agent SDK in CI |
+| Allzweck-Chat (kein Repo-Zugriff) | ChatGPT, Claude.ai, Gemini                          |

@@ -33,12 +33,12 @@ tools: # optional – Tool-Whitelist
 
 ## Warum / Wann nicht?
 
-| Warum nutzen                                     | Wann nicht                                              |
-| ---------------------------------------------------- | ------------------------------------------------------------ |
-| Spezialisierte Aufgabe mit klarem Scope                | Einfache Aufgabe → Command (Modul 07) reicht                 |
-| Tool-Beschränkung nötig (nur lesen, nur testen)        | Kein Mehrwert ohne Tool-Einschränkung                        |
-| Langer Workflow mit eigenen Regeln                     | Aufgabe braucht vollen Tool-Zugriff → kein Agent nötig       |
-| Parallele Sub-Aufgaben delegieren (Modul 15)           | Zu viele Agents → Übersicht verloren                          |
+| Warum nutzen                                    | Wann nicht                                             |
+| ----------------------------------------------- | ------------------------------------------------------ |
+| Spezialisierte Aufgabe mit klarem Scope         | Einfache Aufgabe → Command (Modul 07) reicht           |
+| Tool-Beschränkung nötig (nur lesen, nur testen) | Kein Mehrwert ohne Tool-Einschränkung                  |
+| Langer Workflow mit eigenen Regeln              | Aufgabe braucht vollen Tool-Zugriff → kein Agent nötig |
+| Parallele Sub-Aufgaben delegieren (Modul 15)    | Zu viele Agents → Übersicht verloren                   |
 
 ---
 
@@ -112,11 +112,11 @@ Schreib Tests für alle Routen, die noch nicht getestet sind.
 
 ## Vergleich: Command vs. Skill vs. Agent
 
-|            | Command             | Skill             | Agent                     |
-| ------------ | ---------------------- | -------------------- | ---------------------------- |
-| **Aufruf**    | `/name`                 | Automatisch           | Per Beschreibung delegiert    |
-| **Tools**     | Alle                    | Alle                  | Eingeschränkt definierbar     |
-| **Scope**     | Workflow-Schritte       | Verhaltensregeln      | Eigenständige Teilaufgabe     |
-| **Datei**     | `.claude/commands/`     | `.claude/skills/`     | `.claude/agents/`             |
+|            | Command             | Skill             | Agent                      |
+| ---------- | ------------------- | ----------------- | -------------------------- |
+| **Aufruf** | `/name`             | Automatisch       | Per Beschreibung delegiert |
+| **Tools**  | Alle                | Alle              | Eingeschränkt definierbar  |
+| **Scope**  | Workflow-Schritte   | Verhaltensregeln  | Eigenständige Teilaufgabe  |
+| **Datei**  | `.claude/commands/` | `.claude/skills/` | `.claude/agents/`          |
 
 > Vertiefung zur Delegation mehrerer Agents gleichzeitig: Modul 15 – Best Practices (Multi-Agent-Orchestrierung).

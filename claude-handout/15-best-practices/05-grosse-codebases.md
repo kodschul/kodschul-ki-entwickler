@@ -10,14 +10,14 @@ Bei Codebases mit mehreren Millionen Zeilen passt niemals "der ganze Code" in de
 
 ## Strategien
 
-| Strategie                        | Umsetzung                                                                       |
-| ------------------------------------ | -------------------------------------------------------------------------------- |
-| Gezielte Aufgaben statt "durchsuche alles" | Konkreten Ordner/Datei/Funktion nennen (Modul 10)                                |
-| Modularisierung ausnutzen             | Verschachtelte `CLAUDE.md` pro Modul/Package statt einer globalen Datei (Modul 06) |
-| Klare Ordnerstruktur pflegen           | Erleichtert Claudes eigene `Glob`/`Grep`-Suche erheblich                            |
-| Aufgaben in kleinere Schritte zerlegen  | Statt "refactor das ganze Modul" lieber Datei-für-Datei oder Paket-für-Paket vorgehen |
-| MCP-Server für Spezialwissen           | Eigene Server für z. B. interne Doku, Architektur-Entscheidungen (Modul 13)         |
-| Subagenten für Recherche               | Ein Subagent durchsucht/analysiert einen Teilbereich, die Hauptsession bekommt nur das Ergebnis (Modul 08/15) |
+| Strategie                                  | Umsetzung                                                                                                     |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| Gezielte Aufgaben statt "durchsuche alles" | Konkreten Ordner/Datei/Funktion nennen (Modul 10)                                                             |
+| Modularisierung ausnutzen                  | Verschachtelte `CLAUDE.md` pro Modul/Package statt einer globalen Datei (Modul 06)                            |
+| Klare Ordnerstruktur pflegen               | Erleichtert Claudes eigene `Glob`/`Grep`-Suche erheblich                                                      |
+| Aufgaben in kleinere Schritte zerlegen     | Statt "refactor das ganze Modul" lieber Datei-für-Datei oder Paket-für-Paket vorgehen                         |
+| MCP-Server für Spezialwissen               | Eigene Server für z. B. interne Doku, Architektur-Entscheidungen (Modul 13)                                   |
+| Subagenten für Recherche                   | Ein Subagent durchsucht/analysiert einen Teilbereich, die Hauptsession bekommt nur das Ergebnis (Modul 08/15) |
 
 ## Praktisches Vorgehen
 

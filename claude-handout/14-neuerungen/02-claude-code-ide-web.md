@@ -25,7 +25,7 @@ Terminal-CLI (Ursprung)  →  IDE-Erweiterung  →  Web/Cloud-Zugang
 
 ## Abgrenzung
 
-| Terminal-CLI                     | IDE-Erweiterung                  | Web/Cloud                          |
-| ------------------------------------ | ------------------------------------ | -------------------------------------- |
-| Volle Kontrolle, alle Flags (Modul 11) | Diffs direkt im Editor sichtbar       | Keine lokale Installation nötig         |
-| Für Automation/Skripte am mächtigsten  | Guter Alltags-Workflow für IDE-Nutzer:innen | Für Delegation an andere/unterwegs      |
+| Terminal-CLI                           | IDE-Erweiterung                             | Web/Cloud                          |
+| -------------------------------------- | ------------------------------------------- | ---------------------------------- |
+| Volle Kontrolle, alle Flags (Modul 11) | Diffs direkt im Editor sichtbar             | Keine lokale Installation nötig    |
+| Für Automation/Skripte am mächtigsten  | Guter Alltags-Workflow für IDE-Nutzer:innen | Für Delegation an andere/unterwegs |

@@ -35,19 +35,19 @@ mein-projekt/
 
 ## Copilot vs. Claude Code – Mapping-Referenz
 
-| GitHub Copilot                              | Claude Code                                       |
-| ---------------------------------------------- | ------------------------------------------------------ |
-| `.github/copilot-instructions.md`               | `CLAUDE.md`                                             |
-| `.github/instructions/*.instructions.md` (`applyTo`) | Verschachtelte `CLAUDE.md` pro Unterordner (Modul 06)    |
-| `.github/skills/*/SKILL.md`                     | `.claude/skills/*/SKILL.md` (hier der Ursprung des Konzepts) |
-| `.github/prompts/*.prompt.md`                   | `.claude/commands/*.md`                                 |
-| `.github/agents/*.agent.md`                     | `.claude/agents/*.md`                                   |
-| `.github/chatmodes/*.chatmode.md`                | Plan Mode (Modul 14, kein separates Datei-Format)        |
-| `.vscode/tasks.json` + GitHub Actions           | `hooks` in `.claude/settings.json` (Modul 09)            |
-| `.vscode/mcp.json`                              | `mcpServers` in `.claude/settings.json` (Modul 13)       |
-| `gh copilot suggest "..."`                      | `claude --print "..."` (Modul 11)                        |
-| VS Code User `settings.json`                    | `~/.claude/settings.json`                                |
-| GitHub Copilot Coding Agent                     | Claude Code Headless/Web-Zugang (Modul 11, 14)           |
+| GitHub Copilot                                       | Claude Code                                                  |
+| ---------------------------------------------------- | ------------------------------------------------------------ |
+| `.github/copilot-instructions.md`                    | `CLAUDE.md`                                                  |
+| `.github/instructions/*.instructions.md` (`applyTo`) | Verschachtelte `CLAUDE.md` pro Unterordner (Modul 06)        |
+| `.github/skills/*/SKILL.md`                          | `.claude/skills/*/SKILL.md` (hier der Ursprung des Konzepts) |
+| `.github/prompts/*.prompt.md`                        | `.claude/commands/*.md`                                      |
+| `.github/agents/*.agent.md`                          | `.claude/agents/*.md`                                        |
+| `.github/chatmodes/*.chatmode.md`                    | Plan Mode (Modul 14, kein separates Datei-Format)            |
+| `.vscode/tasks.json` + GitHub Actions                | `hooks` in `.claude/settings.json` (Modul 09)                |
+| `.vscode/mcp.json`                                   | `mcpServers` in `.claude/settings.json` (Modul 13)           |
+| `gh copilot suggest "..."`                           | `claude --print "..."` (Modul 11)                            |
+| VS Code User `settings.json`                         | `~/.claude/settings.json`                                    |
+| GitHub Copilot Coding Agent                          | Claude Code Headless/Web-Zugang (Modul 11, 14)               |
 
 ---
 

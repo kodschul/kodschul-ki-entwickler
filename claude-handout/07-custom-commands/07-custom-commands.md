@@ -27,12 +27,12 @@
 
 ## Warum / Wann nicht?
 
-| Warum nutzen                     | Wann nicht                                          |
-| ----------------------------------- | ---------------------------------------------------- |
-| Gleicher Workflow, immer gleich      | Einmalige Aufgabe → direkt tippen                    |
-| Teamstandard via Git                 | Sehr langer Workflow (>20 Schritte) → lieber Agent   |
-| Onboarding: `/setup` und los         | Sensible Daten als Argument → nie                     |
-| Versionierbar im Repo                | Zu viele Varianten → mehrere Commands anlegen         |
+| Warum nutzen                    | Wann nicht                                         |
+| ------------------------------- | -------------------------------------------------- |
+| Gleicher Workflow, immer gleich | Einmalige Aufgabe → direkt tippen                  |
+| Teamstandard via Git            | Sehr langer Workflow (>20 Schritte) → lieber Agent |
+| Onboarding: `/setup` und los    | Sensible Daten als Argument → nie                  |
+| Versionierbar im Repo           | Zu viele Varianten → mehrere Commands anlegen      |
 
 ---
 
@@ -72,11 +72,11 @@ Oder global (für alle Projekte): `~/.claude/commands/daily-review.md`
 
 **Platzhalter:**
 
-| Platzhalter     | Bedeutung                                                       |
-| ----------------- | ------------------------------------------------------------------ |
-| `$ARGUMENTS`       | Alles, was der Nutzer nach `/command text hier` eingegeben hat      |
-| `$CURRENT_FILE`    | Der aktuell geöffnete Dateiname                                    |
-| `$CURRENT_DIR`     | Das aktuelle Verzeichnis                                           |
+| Platzhalter     | Bedeutung                                                      |
+| --------------- | -------------------------------------------------------------- |
+| `$ARGUMENTS`    | Alles, was der Nutzer nach `/command text hier` eingegeben hat |
+| `$CURRENT_FILE` | Der aktuell geöffnete Dateiname                                |
+| `$CURRENT_DIR`  | Das aktuelle Verzeichnis                                       |
 
 ---
 
@@ -134,9 +134,9 @@ Feature-Anfrage: $ARGUMENTS
 
 ## Vergleich: Command vs. Skill vs. Agent
 
-|              | Command             | Skill               | Agent                     |
-| -------------- | ---------------------- | ---------------------- | ---------------------------- |
-| **Aufruf**      | `/command-name`         | Automatisch erkannt     | Per Aufgabe delegiert         |
-| **Wann**        | Explizite Aktion        | Kontextbasiert          | Spezialisierte Teilaufgabe    |
-| **Tools**       | Alle verfügbaren        | Alle verfügbaren        | Eingeschränkt definierbar     |
-| **Datei**       | `.claude/commands/`     | `.claude/skills/`       | `.claude/agents/` (Modul 08)  |
+|            | Command             | Skill               | Agent                        |
+| ---------- | ------------------- | ------------------- | ---------------------------- |
+| **Aufruf** | `/command-name`     | Automatisch erkannt | Per Aufgabe delegiert        |
+| **Wann**   | Explizite Aktion    | Kontextbasiert      | Spezialisierte Teilaufgabe   |
+| **Tools**  | Alle verfügbaren    | Alle verfügbaren    | Eingeschränkt definierbar    |
+| **Datei**  | `.claude/commands/` | `.claude/skills/`   | `.claude/agents/` (Modul 08) |

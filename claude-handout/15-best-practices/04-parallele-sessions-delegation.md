@@ -24,12 +24,12 @@ Eine Spec macht die Aufgabe **selbsterklärend** – die empfangende Person (ode
 
 ## Parallele Sessions im Alltag
 
-| Szenario                                        | Empfehlung                                                              |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------ |
-| Mehrere Terminal-Sessions/Worktrees gleichzeitig         | Pro Aufgabe ein eigener Branch/Worktree, um Kontext-Vermischung zu vermeiden      |
+| Szenario                                                  | Empfehlung                                                                            |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Mehrere Terminal-Sessions/Worktrees gleichzeitig          | Pro Aufgabe ein eigener Branch/Worktree, um Kontext-Vermischung zu vermeiden          |
 | Aufgabe headless/im Web delegieren, selbst weiterarbeiten | Klar formulierter Prompt/Spec, damit Claude Code autonom arbeiten kann (Modul 11, 14) |
-| Aufgaben an Teammitglieder delegieren                    | Spec + Akzeptanzkriterien statt "mach mal iwie"                                  |
-| Viele kleine parallele Änderungen                        | Kleine, unabhängige Branches/PRs statt einem großen – einfacher zu reviewen       |
+| Aufgaben an Teammitglieder delegieren                     | Spec + Akzeptanzkriterien statt "mach mal iwie"                                       |
+| Viele kleine parallele Änderungen                         | Kleine, unabhängige Branches/PRs statt einem großen – einfacher zu reviewen           |
 
 ## Grenzen
 
