@@ -1,0 +1,25 @@
+---
+name: feature-designer
+description: Always use this skill when designing, planning, or implementing any project changes, files, or documentation.
+disable-model-invocation: false
+---
+
+<!-- Tip: Use /create-skill in chat to generate content with agent assistance -->
+
+SPEC PHASE
+
+1. Gather all required requirements and functionality.
+2. Create a solution concept.
+3. Ask the user for feedback.
+4. Design the feature in detail DO NOT Write any code, just the concepts and strategies, including UI/UX when applicable.
+5. Plan the implementation steps and timeline.
+6. Save the feature description in a new `spec.md` file named after the feature codename.
+
+Wait for user approval before moving to the next phase.
+
+AFTER FORMAL USER APPROVAL
+jump to the IMPLEMENTATION PHASE
+
+1. DO NOT edit anything until the user has approved the changes
+
+Implement all required features. After completion, document the implemented changes in the existing `spec.md` file for that feature.

@@ -1,0 +1,172 @@
+openapi: 3.0.3
+info:
+  title: Todo API
+  version: 1.0.0
+  description: >
+    REST API for the todo app. Runs alongside the existing HTML-form UI on the
+    same Flask server, mounted at /api. Requires a static bearer token.
+servers:
+  - url: /api
+
+security:
+  - bearerAuth: []
+
+paths:
+  /todos:
+    get:
+      summary: List all todos
+      operationId: listTodos
+      responses:
+        "200":
+          description: Array of todos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Todo"
+    post:
+      summary: Create a todo
+      operationId: createTodo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TodoInput"
+      responses:
+        "201":
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /todos/{id}:
+    parameters:
+      - $ref: "#/components/parameters/TodoId"
+    get:
+      summary: Get a single todo
+      operationId: getTodo
+      responses:
+        "200":
+          description: The todo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    put:
+      summary: Replace a todo's text and due date (and optionally done)
+      operationId: updateTodo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TodoInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      summary: Delete a todo
+      operationId: deleteTodo
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /todos/{id}/toggle:
+    parameters:
+      - $ref: "#/components/parameters/TodoId"
+    patch:
+      summary: Toggle a todo's done state
+      operationId: toggleTodo
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Todo"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Static bearer token, set via the API_TOKEN environment variable.
+
+  parameters:
+    TodoId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+
+  schemas:
+    Todo:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "47ee1b"
+        text:
+          type: string
+        done:
+          type: boolean
+        due_date:
+          type: string
+          format: date
+      required: [id, text, done, due_date]
+
+    TodoInput:
+      type: object
+      properties:
+        text:
+          type: string
+        due_date:
+          type: string
+          format: date
+        done:
+          type: boolean
+      required: [text, due_date]
+
+  responses:
+    BadRequest:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+    NotFound:
+      description: Todo not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string

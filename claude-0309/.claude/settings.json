@@ -1,0 +1,97 @@
+{
+ "permissions": {
+    "allow": [
+      "Bash(git:*)",
+      "Bash(python:*)",
+      "Bash(pip:*)",
+      "Read(**)",
+      "Write(src/**)",
+      "Write(templates/**)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",     
+ "Bash(rm -f *)",
+      "Write(.env*)"
+
+
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+	    "if": "Edit(todos.json)",
+            "command": "cp todos.json todos.backup.json"
+          },
+
+          {
+            "type": "command",
+	    "if": "Edit(test.json)",
+            "command": "exit 2"
+          }
+        ]
+      },
+
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+	    "if": "Bash(*)",
+            "command": "python -c 'import json,sys,datetime; d=json.load(sys.stdin); print(datetime.datetime.now().isoformat(), \"CMD=\" + d[\"tool_input\"].get(\"command\",\"\"))' >> pre-tool.log"
+          },
+          {
+            "type": "command",
+            "command": "python -c 'import json,sys,re; d=json.load(sys.stdin); cmd=d[\"tool_input\"].get(\"command\",\"\"); blocked=re.search(r\"(?<![\\w-])rm(?![\\w-])\", cmd) is not None; result={\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"deny\", \"permissionDecisionReason\": \"rm commands are blocked by settings.json policy\"}} if blocked else {}; print(json.dumps(result))'"
+          }
+        ]
+      }
+
+    ],
+
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+	    "if": "Bash(*)",
+            "command": "python -c 'import json,sys,datetime; d=json.load(sys.stdin); print(datetime.datetime.now().isoformat(), \"CMD=\" + d[\"tool_input\"].get(\"command\",\"\"), \"EXIT=0\")' >> post-tool.log"
+          }
+        ]
+      },
+
+      {
+        "matcher": "DISABLED",
+        "hooks": [
+          {
+            "type": "command",
+	    "if": "Edit(*.py)",
+            "command": "cat .claude/post-write-hook.md"
+          },
+          {
+            "type": "command",
+	    "if": "Write(*.py)",
+            "command": "cat .claude/post-write-hook.md"
+          }
+        ]
+      }
+    ],
+
+    "PostToolUseFailure": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c 'import json,sys,re,datetime; d=json.load(sys.stdin); err=d.get(\"error\",\"\"); m=re.search(r\"\\d+\", err); code = m.group(0) if m else \"unknown\"; print(datetime.datetime.now().isoformat(), \"CMD=\" + d[\"tool_input\"].get(\"command\",\"\"), \"EXIT=\" + code)' >> post-tool.log"
+          }
+        ]
+      }
+    ]
+
+  }
+}
