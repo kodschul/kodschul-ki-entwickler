@@ -6,6 +6,19 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen py-10">
+  {% if due_today %}
+    <dialog open class="rounded-lg shadow-lg p-6 max-w-sm w-full">
+      <h2 class="text-lg font-bold mb-3 text-gray-800">Due today</h2>
+      <ul class="space-y-1 mb-4">
+        {% for todo in due_today %}
+          <li class="text-gray-700">{{ todo.text }}</li>
+        {% endfor %}
+      </ul>
+      <form method="dialog">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white font-medium px-4 py-2 rounded">Close</button>
+      </form>
+    </dialog>
+  {% endif %}
   <div class="max-w-md mx-auto bg-white rounded-lg shadow p-6">
     <h1 class="text-2xl font-bold mb-4 text-gray-800">Todos</h1>
 

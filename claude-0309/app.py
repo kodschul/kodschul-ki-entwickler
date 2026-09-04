@@ -31,8 +31,9 @@ def index():
     today = date.today().isoformat()
     for todo in todos:
         todo["overdue"] = todo["due_date"] < today and not todo["done"]
+    due_today = [t for t in todos if t["due_date"] == today and not t["done"]]
     edit_id = request.args.get("edit")
-    return render_template("index.html", todos=todos, edit_id=edit_id)
+    return render_template("index.html", todos=todos, due_today=due_today, edit_id=edit_id)
 
 
 @app.route("/add", methods=["POST"])

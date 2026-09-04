@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import date
 
 import pytest
 
@@ -118,3 +119,30 @@ def test_overdue_flag_not_shown_for_done_todo(client):
 
     resp = client.get("/")
     assert b"text-red-600" not in resp.data
+
+
+def test_due_today_popup_shown_for_incomplete_todo_due_today(client):
+    today = date.today().isoformat()
+    client.post("/add", data={"text": "Buy milk", "due_date": today})
+    resp = client.get("/")
+    assert b"Due today" in resp.data
+    assert b"Buy milk" in resp.data
+
+
+def test_due_today_popup_excludes_done_todo(client):
+    today = date.today().isoformat()
+    client.post("/add", data={"text": "Buy milk", "due_date": today})
+    todos = read_todos(client)
+    todos[0]["done"] = True
+    with app_module.app.app_context():
+        app_module.save_todos(todos)
+
+    resp = client.get("/")
+    assert b"Due today" not in resp.data
+
+
+def test_due_today_popup_not_shown_when_nothing_due_today(client):
+    client.post("/add", data={"text": "Past due", "due_date": "2000-01-01"})
+    client.post("/add", data={"text": "Future", "due_date": "2099-01-01"})
+    resp = client.get("/")
+    assert b"Due today" not in resp.data
